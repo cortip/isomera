@@ -2,7 +2,7 @@ import { render } from '@testing-library/react';
 
 import { BrowserRouter } from 'react-router-dom';
 
-import App from './app';
+import { App } from './app';
 
 describe('App', () => {
   it('should render successfully', () => {
@@ -22,6 +22,6 @@ describe('App', () => {
       </BrowserRouter>
     );
 
-    expect(getByText(/Welcome ui/gi)).toBeTruthy();
+    expect(getByText(/This is the generated root route/gi)).toBeTruthy();
   });
 });
