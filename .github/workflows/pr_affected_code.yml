@@ -25,4 +25,5 @@ jobs:
 
       - name: Run Affected Tests
         shell: bash
-        run: npx nx affected:test -- --base=origin/main
+#        run: npx nx affected:test -- --base=origin/main
+        run: npx nx affected --target=test --base=remotes/origin/main --head=HEAD
