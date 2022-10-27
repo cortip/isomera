@@ -30,7 +30,14 @@
   </a>
 </p>
 <br/>
+<br/>
 
+<p align="center">
+  <i>SaaS that is hosted on the cloud and built by community. To make developer life easy.</i>
+</p>
+
+<br/>
+<br/>
 ## Goals
 
 - To make representative business websites development easier and faster;
