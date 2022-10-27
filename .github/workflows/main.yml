@@ -17,7 +17,7 @@ jobs:
       - run: yarn install
 
       - run: npx nx workspace-lint
-      - run: npx nx format:check --base origin/main
+      - run: npx nx format --target=check --base=remotes/origin/main --head=HEAD
       - run: yarn prettier
       - run: npx nx affected --target=lint --parallel=3
       - run: npx nx affected --target=test --parallel=3 --ci --code-coverage
