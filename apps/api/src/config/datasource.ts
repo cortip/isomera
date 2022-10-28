@@ -1,13 +1,6 @@
-import dotenv from 'dotenv';
-import { DataSource } from 'typeorm';
-import { dbConfigPg } from './database';
+import DataSource from './database';
 
-// Load env file
-dotenv.config();
-
-const AppDataSource = new DataSource(dbConfigPg());
-
-AppDataSource.initialize()
+DataSource.initialize()
   .then(() => {
     console.log('Data Source has been initialized!');
   })
@@ -15,4 +8,4 @@ AppDataSource.initialize()
     console.error('Error during Data Source initialization', err);
   });
 
-export default AppDataSource;
+export default DataSource;

@@ -2,8 +2,8 @@ import { join } from 'path';
 import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions';
 import { DataSource } from 'typeorm';
 
-export const dbConfigPg = (): PostgresConnectionOptions => ({
-  type: process.env.TYPEORM_DRIVER as PostgresConnectionOptions['type'],
+export const dbConfigPg = () => ({
+  type: process.env.TYPEORM_DRIVER,
   host: process.env.TYPEORM_HOST,
   username: process.env.TYPEORM_USERNAME,
   password: process.env.TYPEORM_PASSWORD,
@@ -26,4 +26,4 @@ export const dbConfigDev = () => ({
   migrations: [join(__dirname, '../migrations/*{.ts,.js}')],
 });
 
-export default new DataSource(dbConfigPg());
+export default new DataSource(dbConfigPg() as PostgresConnectionOptions);
