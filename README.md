@@ -110,6 +110,24 @@ PostgreSQL. It uses TypeORM so it's quite easy to adapt to any other database.
 Project is managed by NX - next generation build system with first class monorepo support and powerful integrations.
 Documentation can be found here https://nx.dev/getting-started/intro
 
+Before any commit, make sure that your code is well linted, pretty and well formatted.
+The following commands can help you do that automatically:
+
+```shell
+npx nx format:write
+yarn prettier:fix
+```
+
+Also, turn on Prettier on save.
+
+You can check if everything is ok by running these commands:
+
+```shell
+npx nx format
+yarn prettier
+yarn lint
+```
+
 ### Built in tools
 
 🚀 GraphQL http://localhost:3000/graphql
