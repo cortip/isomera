@@ -14,7 +14,10 @@
     "prettier:fix": "prettier --write .",
     "start:ui": "nx run ui:serve",
     "start:api": "nx run api:serve",
-    "create-entities-index": "ts-node --pretty --project=tools/tsconfig.tools.json tools/create-entities-index.ts"
+    "create-entities-index": "ts-node --pretty --project=tools/tsconfig.tools.json tools/create-entities-index.ts",
+    "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js -d apps/api/src/config/datasource.ts",
+    "migration:generate": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:generate apps/api/src/migrations/Migration -d apps/api/src/config/datasource.ts",
+    "migration:run": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:run -d apps/api/src/config/datasource.ts"
   },
   "private": true,
   "dependencies": {
@@ -48,6 +51,7 @@
     "graphql": "^16.6.0",
     "helmet": "^6.0.0",
     "mailgun.js": "^8.0.2",
+    "mysql2": "^2.3.3",
     "node-mocks-http": "^1.11.0",
     "passport": "^0.6.0",
     "passport-jwt": "^4.0.0",
