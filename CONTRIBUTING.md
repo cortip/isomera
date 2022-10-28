@@ -22,6 +22,11 @@ You need to sign a Contributor License Agreement (CLA) to accept your pull reque
 
 If you make contributions to our repositories on behalf of your company, we will need a Corporate Contributor License Agreement (CLA) signed. To do that, please get in touch with us at [hi@cortip.com](mailto:hi@cortip.com).
 
+## Documenting
+
+We use Cmpodoc to generate documentation. Everything you code must have proper documentation added too.
+Learn how to do it with Compodoc here https://compodoc.app/guides/tutorial.html
+
 ## Bugs
 
 Isomera is using [GitHub issues](https://github.com/cortip/isomera/issues) to manage bugs. We keep a close eye on them. Before filing a new issue, try to ensure your problem does not already exist.

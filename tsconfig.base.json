@@ -16,7 +16,8 @@
     "baseUrl": ".",
     "esModuleInterop": true,
     "paths": {
-      "@cortip/isomera/dt": ["libs/dt/src/index.ts"]
+      "@cortip/isomera/dt": ["libs/dt/src/index.ts"],
+      "@isomera/ui-components": ["libs/ui-components/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

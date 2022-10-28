@@ -10,24 +10,34 @@
 <h1 align="center">Isomera - headless CMS for business representative websites</h1>
 <br/>
 <p align="center">
-  <a href="https://github.com/cortip/isomera/actions/workflows/main.yml">
-    <img src="https://github.com/cortip/isomera/actions/workflows/main.yml/badge.svg?branch=main" alt="CI" />
+  <a href="https://doc.isomera.org" target="_blank">
+    <img src="https://isomera-compodoc.vercel.app/images/coverage-badge-documentation.svg" alt="Doc" />
   </a>
-  <a href="https://discord.gg/Q78c7yGB">
+  <a href="https://discord.gg/Q78c7yGB" target="_blank">
     <img src="https://img.shields.io/discord/1033259861917569094?label=Discord" alt="Isomera on Discord" />
   </a>
-  <a href="https://github.com/cortip/isomera/actions/workflows/codeql.yml">
+  <a href="https://github.com/cortip/isomera/actions/workflows/main.yml" target="_blank">
+    <img src="https://github.com/cortip/isomera/actions/workflows/main.yml/badge.svg?branch=main" alt="CI" />
+  </a>
+  <a href="https://github.com/cortip/isomera/actions/workflows/codeql.yml" target="_blank">
     <img src="https://github.com/cortip/isomera/actions/workflows/codeql.yml/badge.svg" alt="Isomera Code QL Status" />
   </a>
-  <a href="https://www.codefactor.io/repository/github/cortip/isomera">
+  <a href="https://www.codefactor.io/repository/github/cortip/isomera" target="_blank">
     <img src="https://www.codefactor.io/repository/github/cortip/isomera/badge" alt="CodeFactor" />
   </a>
-  <a href="https://cla-assistant.io/cortip/isomera">
+  <a href="https://cla-assistant.io/cortip/isomera" target="_blank">
     <img src="https://cla-assistant.io/readme/badge/cortip/isomera" alt="CLA assistant" />
   </a>
 </p>
 <br/>
+<br/>
 
+<p align="center">
+  <i>SaaS that is hosted on the cloud and built by community. To make developer life easy.</i>
+</p>
+
+<br/>
+<br/>
 ## Goals
 
 - To make representative business websites development easier and faster;
@@ -146,6 +156,7 @@ For general help using Isomera, please refer to [the official Isomera documentat
 
 - [Discord](https://discord.gg/Q78c7yGB) (For live discussion with the Community and Isomera team)
 - [GitHub](https://github.com/cortip/isomera) (Bug reports, Contributions)
+- [Documentation](https://doc.isomera.org) (Classes, Modules, Endpoints, all kinds of things)
 
 ## Contributors
 

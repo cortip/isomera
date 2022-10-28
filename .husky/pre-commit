@@ -1,0 +1,6 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+npx nx format:write
+yarn prettier:fix
+npx lint-staged
