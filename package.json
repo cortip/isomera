@@ -155,4 +155,3 @@
     "*.{js,json,md,ts,tsx}": "yarn format --uncommited"
   }
 }
-

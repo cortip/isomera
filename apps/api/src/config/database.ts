@@ -11,7 +11,7 @@ export const dbConfigPg = (): PostgresConnectionOptions => ({
   port: Number(process.env.TYPEORM_PORT),
   synchronize: false,
   entities: [join(__dirname, '../**/entities/*.entity.ts')],
-  migrations: [join(__dirname, '../migrations/*{.ts,.js}')]
+  migrations: [join(__dirname, '../migrations/*{.ts,.js}')],
 });
 
 export const dbConfigDev = () => ({
@@ -23,7 +23,7 @@ export const dbConfigDev = () => ({
   port: Number(process.env.TYPEORM_PORT),
   synchronize: process.env.TYPEORM_SYNCRONIZE === 'true',
   entities: [join(__dirname, '../**/entities/*.entity.ts')],
-  migrations: [join(__dirname, '../migrations/*{.ts,.js}')]
+  migrations: [join(__dirname, '../migrations/*{.ts,.js}')],
 });
 
 export default new DataSource(dbConfigPg());

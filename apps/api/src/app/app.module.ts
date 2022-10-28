@@ -18,13 +18,13 @@ import { TerminusModule } from '@nestjs/terminus';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      load: [configuration]
+      load: [configuration],
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) =>
         configService.get('database'),
-      inject: [ConfigService]
+      inject: [ConfigService],
     }),
     ScheduleModule.forRoot(),
     AuthModule,
@@ -33,12 +33,11 @@ import { TerminusModule } from '@nestjs/terminus';
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'apps/api/schema.gql'),
-      sortSchema: true
+      sortSchema: true,
     }),
-    TerminusModule
+    TerminusModule,
   ],
   controllers: [AppController],
-  providers: [AppService, AppResolver]
+  providers: [AppService, AppResolver],
 })
-export class AppModule {
-}
+export class AppModule {}
