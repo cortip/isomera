@@ -14,7 +14,7 @@ import session from 'express-session';
 import request from 'supertest';
 import { createMock } from 'ts-auto-mock';
 
-import type { User } from '../../user/user.entity';
+import type { User } from '../../user/entities/user.entity';
 import { AuthService } from '../auth.service';
 import { SessionSerializer } from '../session.serializer';
 import { LocalStrategy } from '../strategies/local.strategy';

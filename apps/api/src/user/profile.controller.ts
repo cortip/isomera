@@ -14,7 +14,7 @@ import { UserService } from './user.service';
 import { UserUpdate } from './dto/user-update.dto';
 import { JWTAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { SessionAuthGuard } from '../auth/guards/session-auth.guard';
-import { User } from './user.entity';
+import { User } from './entities/user.entity';
 
 @Controller('profile')
 @UseGuards(JWTAuthGuard, SessionAuthGuard)
