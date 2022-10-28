@@ -1,18 +1,18 @@
-import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { ScheduleModule } from '@nestjs/schedule';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import {Module} from '@nestjs/common';
+import {AppController} from './app.controller';
+import {AppService} from './app.service';
+import {ScheduleModule} from '@nestjs/schedule';
+import {TypeOrmModule} from '@nestjs/typeorm';
+import {ConfigModule, ConfigService} from '@nestjs/config';
 import configuration from '../config';
-import { AuthModule } from '../auth/auth.module';
-import { UsersModule } from '../users/users.module';
-import { WebsitesModule } from '../websites/websites.module';
-import { GraphQLModule } from '@nestjs/graphql';
-import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import { join } from 'path';
-import { AppResolver } from './app.resolver';
-import { TerminusModule } from '@nestjs/terminus';
+import {AuthModule} from '../auth/auth.module';
+import {UsersModule} from '../users/users.module';
+import {WebsitesModule} from '../websites/websites.module';
+import {GraphQLModule} from '@nestjs/graphql';
+import {ApolloDriver, ApolloDriverConfig} from '@nestjs/apollo';
+import {join} from 'path';
+import {AppResolver} from './app.resolver';
+import {TerminusModule} from '@nestjs/terminus';
 
 @Module({
   imports: [
@@ -23,7 +23,8 @@ import { TerminusModule } from '@nestjs/terminus';
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) =>
-        configService.get('database'),
+        configService.get('database')
+      ,
       inject: [ConfigService],
     }),
     ScheduleModule.forRoot(),
@@ -40,4 +41,5 @@ import { TerminusModule } from '@nestjs/terminus';
   controllers: [AppController],
   providers: [AppService, AppResolver],
 })
-export class AppModule {}
+export class AppModule {
+}
