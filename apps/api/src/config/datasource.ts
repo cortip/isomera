@@ -1,12 +1,13 @@
 import dotenv from 'dotenv';
 import { DataSource } from 'typeorm';
 import { join } from 'path';
+import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions';
 
 // Load env file
 dotenv.config();
 
 const AppDataSource = new DataSource({
-  type: process.env.TYPEORM_DRIVER as never,
+  type: process.env.TYPEORM_DRIVER as PostgresConnectionOptions['type'],
   host: process.env.TYPEORM_HOST,
   username: process.env.TYPEORM_USERNAME,
   password: process.env.TYPEORM_PASSWORD,

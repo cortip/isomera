@@ -3,7 +3,7 @@ import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConne
 import { DataSource } from 'typeorm';
 
 export const dbConfigPg = (): PostgresConnectionOptions => ({
-  type: process.env.TYPEORM_DRIVER as never,
+  type: process.env.TYPEORM_DRIVER as PostgresConnectionOptions['type'],
   host: process.env.TYPEORM_HOST,
   username: process.env.TYPEORM_USERNAME,
   password: process.env.TYPEORM_PASSWORD,
@@ -15,7 +15,7 @@ export const dbConfigPg = (): PostgresConnectionOptions => ({
 });
 
 export const dbConfigDev = () => ({
-  type: process.env.TYPEORM_DRIVER as never,
+  type: process.env.TYPEORM_DRIVER,
   host: process.env.TYPEORM_HOST,
   username: process.env.TYPEORM_USERNAME,
   password: process.env.TYPEORM_PASSWORD,
