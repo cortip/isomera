@@ -1,7 +1,12 @@
 import { getGreeting } from '../support/app.po';
 
 describe('website', () => {
-  beforeEach(() => cy.visit('/'));
+  beforeEach(() =>
+    cy.visit('/', {
+      headers: { 'Accept-Encoding': 'gzip, deflate' },
+      timeout: 25000,
+    })
+  );
 
   it('should display welcome message', () => {
     // Custom command example, see `../support/commands.ts` file
