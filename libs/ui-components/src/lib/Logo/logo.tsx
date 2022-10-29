@@ -3,14 +3,21 @@ import React, { FC } from 'react';
 interface Props {
   isLight?: boolean;
   isBadge?: boolean;
+  width?: number;
 }
 
-export const Logo: FC<Props> = ({ isLight = false, isBadge = false }) => (
+export const Logo: FC<Props> = ({
+  isLight = false,
+  isBadge = false,
+  width = 200,
+}) => (
   <svg
     id="isomera_logo"
     data-name="Isomera"
     xmlns="http://www.w3.org/2000/svg"
     viewBox={`0 0 ${isBadge ? '113' : '535.9'} 86.57`}
+    width={width}
+    style={{ marginTop: 4 }}
   >
     <g id="isomera_badge" data-name="Isomera badge">
       <g>

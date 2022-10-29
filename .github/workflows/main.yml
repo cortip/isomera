@@ -23,6 +23,7 @@ jobs:
       - run: npx nx affected --target=test --parallel=3 --ci --code-coverage
       - run: npx nx affected --target=build --parallel=3
       - run: npx nx e2e --project dashboard-e2e --headless
+      - run: npx nx e2e --project website-e2e --headless
 
       - name: Generate Codecov Report
         uses: codecov/codecov-action@v3

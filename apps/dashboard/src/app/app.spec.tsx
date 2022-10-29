@@ -22,6 +22,6 @@ describe('App', () => {
       </BrowserRouter>
     );
 
-    expect(getByText(/This is the generated root route/gi)).toBeTruthy();
+    expect(getByText(/Sign in on the internal platform/gi)).toBeTruthy();
   });
 });

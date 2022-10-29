@@ -4,3 +4,5 @@
 /coverage
 /documentation
 /node_modules
+/apps/website/.next
+apps/api/schema.gql

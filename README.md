@@ -38,7 +38,22 @@
 
 <br/>
 <br/>
-## Goals
+
+#### ⚠️ Any larger feature or improvement should be aligned with the team and there must be ticket created for that. Also we should try to stick to the roadmap.
+
+### Technical stack
+
+- React
+- Next
+- Nest
+- TypeScript
+- TypeORM
+- Redux, Redux-toolkit
+- Axios
+- PostgreSQL
+- NX
+
+## 🎯 Goals
 
 - To make representative business websites development easier and faster;
 - Remove the hassle of setting up backend hosting and database;
@@ -46,7 +61,7 @@
 - No need to worry about Admin and admin user roles;
 - Allow developers to take care of rocket science in configs and leave clients' blogging rights;
 
-## Key features to be built
+## ☑️ Key features to be built
 
 - Authentification with email, Google, and Facebook;
 - Roles for developer and client;
@@ -59,7 +74,7 @@
 
 So basically it's a simple CMS that would work best for representative simple business sites.
 
-## Philosophy
+## 💡 Philosophy
 
 In chemistry, isomers are molecules or polyatomic ions with identical molecular formulae – that is,
 same number of atoms of each element – but distinct arrangements of atoms in space. Isomerism is
@@ -70,6 +85,15 @@ Similar in WEB developers life - if you deal with simple representative websites
 more or less identical to all other. You need admin panel, you need to host is somewhere, you need database
 for admin panel, you need to host website itself and so on. Most boring, repetitive part seems to be
 Admin part so it was decided to build this headless CMS to allow way faster bootstrapping!
+
+## Production
+
+Everything we build get's to production! 🔥💪 We, the contributors community, build our own SaaS the way we want to have it!
+
+- WEBSITE 👉 https://www.isomera.org
+- DASHBOARD 👉 https://app.isomera.org
+
+Since it's just a beginning, you might not find these sites very useful 😅 Yet. But we are moving forward!
 
 ## Product roadmap
 
@@ -133,6 +157,14 @@ yarn lint
 🚀 GraphQL http://localhost:3000/graphql
 
 🚀 Swagger http://localhost:3000/swagger
+
+### Design
+
+For nicer visualisation we're using [Material UI Devias Kit - React Admin Dashboard](https://mui.com/store/items/devias-kit/) free version.
+
+If you're contributing, please download this template and extract parts needed and use it here. Let's not deviate too much.
+
+![Material UI Devias kit](https://user-images.githubusercontent.com/723200/198817781-3dbe8c6d-7c42-4aa0-aa97-6896fd80d19a.png)
 
 ### 🖐 Requirements
 

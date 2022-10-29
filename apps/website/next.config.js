@@ -1,3 +1,8 @@
+// const withTM = require('next-transpile-modules')([
+//   '@mui/material',
+//   '@mui/system',
+//   '@mui/icons-material',
+// ]);
 //@ts-check
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -12,6 +17,24 @@ const nextConfig = {
     // See: https://github.com/gregberge/svgr
     svgr: false,
   },
+  // reactStrictMode: true,
+  // experimental: {},
+  compiler: {
+    // Enables the styled-components SWC transform
+    styledComponents: true,
+  },
+  // webpack: (config) => {
+  //   config.resolve.alias = {
+  //     ...config.resolve.alias,
+  //     '@mui/styled-engine': '@mui/styled-engine-sc',
+  //   };
+  //   return config;
+  // },
 };
 
-module.exports = withNx(nextConfig);
+module.exports = () => {
+  const plugins = [withNx];
+  return plugins.reduce((acc, next) => next(acc), {
+    ...nextConfig,
+  });
+};

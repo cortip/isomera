@@ -9,7 +9,7 @@ import '@fontsource/roboto/700.css';
 
 import { App } from './app/app';
 import { CssBaseline, ThemeProvider } from '@mui/material';
-import { theme } from './theme';
+import { theme } from '@isomera/ui-components';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
