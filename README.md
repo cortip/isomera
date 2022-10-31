@@ -205,7 +205,7 @@ Please read our [Contributing Guide](./CONTRIBUTING.md) before submitting a Pull
 
 ## Community support
 
-For general help using Isomera, please refer to [the official Isomera documentation](https://docs.isomera.org). For additional help, you can use one of these channels to ask a question:
+For general help using Isomera, please refer to [the official Isomera documentation](https://doc.isomera.org). For additional help, you can use one of these channels to ask a question:
 
 - [Discord](https://discord.gg/7a4uAzeYd9) (For live discussion with the Community and Isomera team)
 - [GitHub](https://github.com/cortip/isomera) (Bug reports, Contributions)
