@@ -125,7 +125,7 @@
     "@types/passport-local": "^1.0.34",
     "@types/pg": "^8.6.5",
     "@types/prettier": "^2.7.1",
-    "@types/react": "18.0.20",
+    "@types/react": "18.0.24",
     "@types/react-dom": "18.0.8",
     "@types/react-is": "17.0.3",
     "@types/react-router-dom": "5.3.3",
