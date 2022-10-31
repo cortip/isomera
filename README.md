@@ -13,7 +13,7 @@
   <a href="https://doc.isomera.org" target="_blank">
     <img src="https://isomera-compodoc.vercel.app/images/coverage-badge-documentation.svg" alt="Doc" />
   </a>
-  <a href="https://discord.gg/Q78c7yGB" target="_blank">
+  <a href="https://discord.gg/7a4uAzeYd9" target="_blank">
     <img src="https://img.shields.io/discord/1033259861917569094?label=Discord" alt="Isomera on Discord" />
   </a>
   <a href="https://github.com/cortip/isomera/actions/workflows/commit_test.yml" target="_blank">
@@ -207,7 +207,7 @@ Please read our [Contributing Guide](./CONTRIBUTING.md) before submitting a Pull
 
 For general help using Isomera, please refer to [the official Isomera documentation](https://docs.isomera.org). For additional help, you can use one of these channels to ask a question:
 
-- [Discord](https://discord.gg/Q78c7yGB) (For live discussion with the Community and Isomera team)
+- [Discord](https://discord.gg/7a4uAzeYd9) (For live discussion with the Community and Isomera team)
 - [GitHub](https://github.com/cortip/isomera) (Bug reports, Contributions)
 - [Documentation](https://doc.isomera.org) (Classes, Modules, Endpoints, all kinds of things)
 
