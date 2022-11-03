@@ -20,7 +20,9 @@ export const dbConfigPg = (): PostgresConnectionOptions => ({
   migrations: [join(__dirname, '../migrations/*.ts')],
 });
 
-export const dbConfigDev = (): SqliteConnectionOptions | PostgresConnectionOptions => ({
+export const dbConfigDev = ():
+  | SqliteConnectionOptions
+  | PostgresConnectionOptions => ({
   ...dbConfigPg(),
   synchronize: true,
 });
