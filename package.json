@@ -23,7 +23,8 @@
     "compodoc:watch": "npx @compodoc/compodoc -p tsconfig.base.json -w -s",
     "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js -d apps/api/src/config/datasource.ts",
     "migration:generate": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:generate apps/api/src/migrations/Migration -d apps/api/src/config/datasource.ts",
-    "migration:run": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:run -d apps/api/src/config/datasource.ts"
+    "migration:run": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:run -d apps/api/src/config/datasource.ts",
+    "prepare": "husky install"
   },
   "private": true,
   "dependencies": {
