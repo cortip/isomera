@@ -1,6 +1,7 @@
 import { join } from 'path';
 import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions';
 import { DataSource } from 'typeorm';
+import { SqliteConnectionOptions } from 'typeorm/driver/sqlite/SqliteConnectionOptions';
 import dotenv from 'dotenv';
 
 if (process.env.TYPEORM_HOST === undefined) {
@@ -17,6 +18,11 @@ export const dbConfigPg = (): PostgresConnectionOptions => ({
   synchronize: false,
   entities: [join(__dirname, '../**/entities/*.entity.ts')],
   migrations: [join(__dirname, '../migrations/*.ts')],
+});
+
+export const dbConfigDev = (): SqliteConnectionOptions | PostgresConnectionOptions => ({
+  ...dbConfigPg(),
+  synchronize: true,
 });
 
 export default new DataSource(dbConfigPg());
