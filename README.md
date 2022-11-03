@@ -139,8 +139,10 @@ Install Isomera with this **Quickstart** command to create a Isomera project ins
 - (Use **yarn** to install the Isomera project (recommended). [Install yarn with these docs](https://yarnpkg.com/lang/en/docs/install/).)
 
 ```bash
+docker-compose up -d
 yarn install
-yarn start
+cp .env.example .env
+yarn dev
 ```
 
 This command generates a brand new project with the default features (authentication, permissions, content management, content type builder & file upload).
