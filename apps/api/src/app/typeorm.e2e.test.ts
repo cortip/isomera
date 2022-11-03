@@ -40,5 +40,5 @@ test('It should create the user', async () => {
 });
 
 afterAll(async () => {
-  await app.close();
+  await app?.close();
 });
