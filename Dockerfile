@@ -1,4 +1,4 @@
-FROM node:lts-alpine3.10 as builder
+FROM node:lts-alpine3.15 as builder
 ARG NODE_ENV
 ARG BUILD_FLAG
 WORKDIR /app/builder
