@@ -1,7 +1,6 @@
 import { join } from 'path';
 import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions';
 import { DataSource } from 'typeorm';
-import { SqliteConnectionOptions } from 'typeorm/driver/sqlite/SqliteConnectionOptions';
 import dotenv from 'dotenv';
 
 if (process.env.TYPEORM_HOST === undefined) {
@@ -18,20 +17,6 @@ export const dbConfigPg = (): PostgresConnectionOptions => ({
   synchronize: false,
   entities: [join(__dirname, '../**/entities/*.entity.ts')],
   migrations: [join(__dirname, '../migrations/*.ts')],
-});
-
-export const dbConfigDev = (): SqliteConnectionOptions => ({
-  type: 'sqlite',
-  database: 'isomera_dev',
-  entities: [join(__dirname, '../**/*.entity{.ts,.js}')],
-  // We are using migrations, synchronize should be set to false.
-  synchronize: false,
-  dropSchema: false,
-  // Run migrations automatically,
-  // you can disable this if you prefer running migration manually.
-  migrationsRun: false,
-  logging: true,
-  migrations: [join(__dirname, '../migrations/*.js')],
 });
 
 export default new DataSource(dbConfigPg());
