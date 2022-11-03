@@ -21,7 +21,8 @@
     "start:ui": "nx run ui:serve",
     "start:api": "nx run api:serve",
     "create-entities-index": "ts-node --pretty --project=tools/tsconfig.tools.json tools/create-entities-index.ts",
-    "compodoc:watch": "npx @compodoc/compodoc -p tsconfig.base.json -w -s"
+    "compodoc:watch": "npx @compodoc/compodoc -p tsconfig.base.json -w -s",
+    "prepare": "husky install"
   },
   "private": true,
   "dependencies": {

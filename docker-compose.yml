@@ -1,26 +1,12 @@
 version: '3.9'
 
 services:
-  app_server:
-    container_name: app_server
-    image: app_server:1.0.0
-    build:
-      context: .
-      target: production
-      dockerfile: ./Dockerfile
-    command: npm run start:prod
-    env_file: .env
+  redis:
+    image: redis
     ports:
-      - '3000:3000'
-      - '9229:9229'
-    networks:
-      - app-network
+      - 6379:6379
     volumes:
-      - .:/usr/src/app
-      - /usr/src/app/node_modules
-    restart: unless-stopped
-    depends_on:
-      - database
+      - redis:/data
   database:
     container_name: app_postgres_dev
     image: postgres:12
@@ -36,9 +22,16 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    user: postgres
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: mysecretpassword
 
 networks:
   app-network:
 
 volumes:
   postgres-data:
+  redis:
+    driver: local
