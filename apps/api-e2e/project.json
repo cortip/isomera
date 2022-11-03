@@ -1,19 +1,19 @@
 {
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "name": "dashboard-e2e",
-  "sourceRoot": "apps/dashboard-e2e/src",
+  "name": "api-e2e",
+  "sourceRoot": "apps/api-e2e/src",
   "projectType": "application",
   "targets": {
     "e2e": {
       "executor": "@nrwl/cypress:cypress",
       "options": {
-        "cypressConfig": "apps/dashboard-e2e/cypress.config.ts",
-        "devServerTarget": "dashboard:serve:development",
+        "cypressConfig": "apps/api-e2e/cypress.config.ts",
+        "devServerTarget": "api:serve:development",
         "testingType": "e2e"
       },
       "configurations": {
         "production": {
-          "devServerTarget": "dashboard:serve:production"
+          "devServerTarget": "api:serve:production"
         }
       }
     },
@@ -21,10 +21,10 @@
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["apps/dashboard-e2e/**/*.{js,ts}"]
+        "lintFilePatterns": ["apps/api-e2e/**/*.{js,ts}"]
       }
     }
   },
   "tags": [],
-  "implicitDependencies": ["dashboard"]
+  "implicitDependencies": ["api"]
 }
