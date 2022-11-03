@@ -4,6 +4,7 @@
   "license": "MIT Expat",
   "scripts": {
     "start": "nx run-many --target=serve --all --maxParallel=100 ",
+    "typeorm": "typeorm-ts-node-commonjs",
     "build": "nx build",
     "dev": "nx run-many --parallel --target=serve --projects=api,dashboard,website",
     "dev:api": "nx run-many --parallel --target=serve --projects=api",
@@ -20,10 +21,7 @@
     "start:ui": "nx run ui:serve",
     "start:api": "nx run api:serve",
     "create-entities-index": "ts-node --pretty --project=tools/tsconfig.tools.json tools/create-entities-index.ts",
-    "compodoc:watch": "npx @compodoc/compodoc -p tsconfig.base.json -w -s",
-    "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js -d apps/api/src/config/datasource.ts",
-    "migration:generate": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:generate apps/api/src/migrations/Migration -d apps/api/src/config/datasource.ts",
-    "migration:run": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:run -d apps/api/src/config/datasource.ts"
+    "compodoc:watch": "npx @compodoc/compodoc -p tsconfig.base.json -w -s"
   },
   "private": true,
   "dependencies": {
@@ -135,7 +133,7 @@
     "@typescript-eslint/eslint-plugin": "^5.40.1",
     "@typescript-eslint/parser": "^5.40.1",
     "babel-jest": "28.1.1",
-    "babel-plugin-styled-components": "1.10.7",
+    "babel-plugin-styled-components": "^2.0.7",
     "cypress": "^10.7.0",
     "eslint": "^8.26.0",
     "eslint-config-next": "13.0.0",
