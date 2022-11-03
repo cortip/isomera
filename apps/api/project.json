@@ -102,6 +102,14 @@
         "command": "ts-node --transpile-only -r tsconfig-paths/register ./../../node_modules/typeorm/cli.js --config src/config/database.ts schema:drop",
         "cwd": "apps/api"
       }
+    },
+    "test-e2e": {
+      "executor": "nx:run-commands",
+      "outputs": [],
+      "options": {
+        "command": "yarn jest ./src/**/*.e2e.test.ts",
+        "cwd": "apps/api"
+      }
     }
   },
   "tags": []
