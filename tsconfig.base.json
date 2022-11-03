@@ -17,6 +17,7 @@
     "esModuleInterop": true,
     "paths": {
       "@cortip/isomera/dt": ["libs/dt/src/index.ts"],
+      "@isomera/interfaces": ["libs/interfaces/src/index.ts"],
       "@isomera/ui-components": ["libs/ui-components/src/index.ts"],
       "@isomera/utils": ["libs/utils/src/index.ts"],
       "@mui/styled-engine": ["./node_modules/@mui/styled-engine-sc"]

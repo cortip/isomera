@@ -72,7 +72,7 @@ Before submitting an issue you need to make sure:
 - You have already searched for related [issues](https://github.com/cortip/isomera/issues) and found none open (if you found a related _closed_ issue, please link to it from your post).
 - You are not asking a question about how to use Isomera or about whether or not Isomera has a certain feature. For general help using Isomera, you may:
   - Refer to the [official Isomera documentation](https://docs.isomera.org).
-  - Ask a member of the community in the [Isomera Discord Community](https://discord.gg/Q78c7yGB).
+  - Ask a member of the community in the [Isomera Discord Community](https://discord.gg/7a4uAzeYd9).
   - Ask a question on the [Isomera Github Discussions](https://github.com/cortip/isomera/discussions).
 - Your issue title is concise, on-topic, and polite.
 - You provide steps to reproduce the issue.

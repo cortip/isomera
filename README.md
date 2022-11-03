@@ -44,7 +44,25 @@
 
 #### ⚠️ Any larger feature or improvement should be aligned with the team and there must be ticket created for that. Also we should try to stick to the roadmap.
 
-### Technical stack
+<br/>
+<br/>
+
+### ❤️ Project sponsors
+
+<p>
+  <a href="https://sentry.io/organizations/isomera/projects/">
+  <img src="https://user-images.githubusercontent.com/723200/199423769-380ac0c5-6337-4cd1-bfc4-18f031f6782c.png" width="70" alt="sentry-logo" />
+  </a>
+  <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+  <a href="https://isomera.atlassian.net/jira/your-work">
+  <img src="https://user-images.githubusercontent.com/723200/199423764-35b9b515-85a6-410a-a9fe-eb79398dde83.png" width="70" alt="atlassian-logo" />
+  </a>
+</p>
+
+<br/>
+<br/>
+
+### 🛠 Technical stack
 
 - React
 - Next
