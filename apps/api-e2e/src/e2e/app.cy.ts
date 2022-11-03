@@ -1,10 +1,7 @@
-
 describe('api', () => {
-  beforeEach(() =>
-    cy.visit('/')
-  );
+  beforeEach(() => cy.visit('/'));
 
   it('Should not throw an error', () => {
-    expect('to be implemented later')
+    expect('to be implemented later');
   });
 });

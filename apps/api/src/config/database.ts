@@ -17,7 +17,7 @@ export const dbConfigPg = (): PostgresConnectionOptions => ({
   port: Number(process.env.TYPEORM_PORT),
   synchronize: false,
   entities: [join(__dirname, '../**/entities/*.entity.ts')],
-  migrations: [join(__dirname, '../migrations/*.ts')]
+  migrations: [join(__dirname, '../migrations/*.ts')],
 });
 
 export const dbConfigDev = (): SqliteConnectionOptions => ({
@@ -31,7 +31,7 @@ export const dbConfigDev = (): SqliteConnectionOptions => ({
   // you can disable this if you prefer running migration manually.
   migrationsRun: false,
   logging: true,
-  migrations: [join(__dirname, '../migrations/*.js')]
+  migrations: [join(__dirname, '../migrations/*.js')],
 });
 
 export default new DataSource(dbConfigPg());

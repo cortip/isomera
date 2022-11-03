@@ -220,20 +220,19 @@ Complete installation requirements can be found in the documentation... TBD
 ## Configuring database
 
 We are working with TypeOrm and nx monorepo. We've made useful queries to run its CLI commands, the queries are described in apps/api/project.json, so far, we have:
- - nx run typeorm
-   - A general purpose query, you can use any typeorm CLI command
- - nx run schema-sync
-   - The same as typeorm schema:sync
- - nx run gen-migration
-   - The same as typeorm migration:generate
- - nx run apply-migration 
-   - The same as typeorm migration:run
- - nx run revert-migration
-   - The same as typeorm migration:revert
- - nx run drop-database
-   - The same as typeorm schema:drop
 
-
+- nx run typeorm
+  - A general purpose query, you can use any typeorm CLI command
+- nx run schema-sync
+  - The same as typeorm schema:sync
+- nx run gen-migration
+  - The same as typeorm migration:generate
+- nx run apply-migration
+  - The same as typeorm migration:run
+- nx run revert-migration
+  - The same as typeorm migration:revert
+- nx run drop-database
+  - The same as typeorm schema:drop
 
 ## Contributing
 
