@@ -24,9 +24,12 @@ https://github.com/cortip/isomera/blob/main/CONTRIBUTING.md#reporting-an-issue
 
 - Node.js version:
 - NPM version:
+- Yarn version:
 - Isomera version:
 - Database:
 - Operating system:
+- Device:
+- Screen size:
 
 ### Describe the bug
 
