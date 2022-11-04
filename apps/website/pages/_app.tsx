@@ -1,36 +1,25 @@
-import { CssBaseline, ThemeProvider } from '@mui/material';
-import createEmotionCache from '../utils/createEmotionCache';
-import { CacheProvider } from '@emotion/react';
-import { theme } from '@isomera/ui-components';
+import type { AppProps } from 'next/app';
+import { ThemeProvider, DefaultTheme } from 'styled-components';
+import GlobalStyle from '../components/globalstyles';
 import Head from 'next/head';
-import * as React from 'react';
 
-import '@fontsource/roboto/300.css';
-import '@fontsource/roboto/400.css';
-import '@fontsource/roboto/500.css';
-import '@fontsource/roboto/700.css';
+const theme: DefaultTheme = {
+  colors: {
+    primary: '#111',
+    secondary: '#1F58A5',
+  },
+};
 
-const clientSideEmotionCache = createEmotionCache();
-
-function MyApp({
-  Component,
-  emotionCache = clientSideEmotionCache,
-  pageProps,
-}) {
+export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
         <title>Isomera</title>
-        <meta name="theme-color" content={theme.palette.primary.main} />
       </Head>
-      <CacheProvider value={emotionCache}>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          <Component {...pageProps} />
-        </ThemeProvider>
-      </CacheProvider>
+      <ThemeProvider theme={theme}>
+        <GlobalStyle />
+        <Component {...pageProps} />
+      </ThemeProvider>
     </>
   );
 }
-
-export default MyApp;

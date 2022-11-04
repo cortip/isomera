@@ -1,50 +1,39 @@
-import * as React from 'react';
-import Head from 'next/head';
-import { Box, Container, Typography, useTheme } from '@mui/material';
+import styled from 'styled-components';
 import { TopNavigationComponent } from '../components/TopNavigation/TopNavigation.component';
-import axios from 'axios';
-import { FC } from 'react';
 import { GithubContributorInterface } from '@isomera/interfaces';
-import { ContributorsComponent } from '../components/Contributors/Contributors.component';
+import { FC } from 'react';
+import Head from 'next/head';
+import * as React from 'react';
 import { GetServerSideProps } from 'next';
+import axios from 'axios';
+import { ContributorsComponent } from '../components/Contributors/Contributors.component';
+import { HomepageHeroComponent } from '../components/Hero/HomepageHero.component';
 
 interface Props {
   contributors: Array<GithubContributorInterface>;
 }
 
 export const Index: FC<Props> = ({ contributors }) => {
-  const theme = useTheme();
   return (
     <>
       <Head>
         <title>Isomera - Headless CMS built by community!</title>
       </Head>
-      <Container>
+      <StyledPage>
         <TopNavigationComponent />
-        <Box sx={{ mt: 20, textAlign: 'center' }}>
-          <Typography variant="h1">Isomera</Typography>
-          <Typography variant="h2" mt={3}>
-            Free Cloud Hosted Headless CMS{' '}
-            <span style={{ color: 'red' }}>built by community</span>
-          </Typography>
-          <Typography variant="h3" mt={3}>
-            Under Construction 🏗
-          </Typography>
-        </Box>
-      </Container>
-      <Box mt={15} sx={{ background: theme.palette.grey.A700 }}>
-        <Container sx={{ pt: 5, pb: 7 }}>
-          <Typography variant="h2" color="white" mb={4}>
-            🛠 Code contributors
-          </Typography>
-          <ContributorsComponent contributors={contributors} />
-        </Container>
-      </Box>
+        <HomepageHeroComponent />
+        <ContributorsComponent contributors={contributors} />
+      </StyledPage>
     </>
   );
 };
 
 export default Index;
+
+const StyledPage = styled.div`
+  .page {
+  }
+`;
 
 export const getServerSideProps: GetServerSideProps<{
   contributors: Array<GithubContributorInterface>;
