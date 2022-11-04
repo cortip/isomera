@@ -1,9 +1,9 @@
 name: Commit Test
 on:
-  workflow_run:
-    workflows: ['Commit Code Style']
-    types:
-      - completed
+  push:
+    branches:
+      - main
+  pull_request:
 
 jobs:
   main:
