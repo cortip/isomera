@@ -2725,6 +2725,17 @@
     webpack "^4 || ^5"
     webpack-node-externals "^3.0.0"
 
+"@nrwl/devkit@15.0.10":
+  version "15.0.10"
+  resolved "https://registry.yarnpkg.com/@nrwl/devkit/-/devkit-15.0.10.tgz#eff2a30af2076a58df15444b75e34fd6fe2faaa7"
+  integrity sha512-JPLB6kyC4L7e4D4LSWhZNrY0bCmlwyagn9ubuPPT/MWQ9LX7RWr/OL87IEHAp/kH93hYPNmwzkIXNpc30y4/GA==
+  dependencies:
+    "@phenomnomnominal/tsquery" "4.1.1"
+    ejs "^3.1.7"
+    ignore "^5.0.4"
+    semver "7.3.4"
+    tslib "^2.3.0"
+
 "@nrwl/devkit@15.0.4":
   version "15.0.4"
   resolved "https://registry.yarnpkg.com/@nrwl/devkit/-/devkit-15.0.4.tgz#5139b236bef73e8f680478a4b5d76daad5c39e22"
@@ -2747,6 +2758,24 @@
     chalk "4.1.0"
     confusing-browser-globals "^1.0.9"
     semver "7.3.4"
+
+"@nrwl/jest@15.0.10":
+  version "15.0.10"
+  resolved "https://registry.yarnpkg.com/@nrwl/jest/-/jest-15.0.10.tgz#5444a0fb4dc24b9371a6b3e3f1f904544beb37a5"
+  integrity sha512-xogeg+6OPjODODCmsPOlW5z1Qrg+m+4hA68QU44V6u3kLmoTYT2MtmUJ5MC5dEtTzV3EgpT/AD+fdBqWFgKxmA==
+  dependencies:
+    "@jest/reporters" "28.1.1"
+    "@jest/test-result" "28.1.1"
+    "@nrwl/devkit" "15.0.10"
+    "@phenomnomnominal/tsquery" "4.1.1"
+    chalk "4.1.0"
+    dotenv "~10.0.0"
+    identity-obj-proxy "3.0.0"
+    jest-config "28.1.1"
+    jest-resolve "28.1.1"
+    jest-util "28.1.1"
+    resolve.exports "1.1.0"
+    tslib "^2.3.0"
 
 "@nrwl/jest@15.0.4":
   version "15.0.4"
