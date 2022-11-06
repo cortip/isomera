@@ -104,11 +104,11 @@
       }
     },
     "test-e2e": {
-      "executor": "nx:run-commands",
-      "outputs": [],
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "command": "yarn jest ./src/**/*.e2e.test.ts",
-        "cwd": "apps/api"
+        "jestConfig": "apps/api/jest.e2e-config.ts",
+        "passWithNoTests": true
       }
     }
   },
