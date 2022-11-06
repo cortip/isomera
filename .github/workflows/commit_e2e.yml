@@ -1,9 +1,9 @@
 name: Commit E2E
 on:
-  workflow_run:
-    workflows: ['Commit Test']
-    types:
-      - completed
+  push:
+    branches:
+      - main
+  pull_request:
 
 jobs:
   main:
