@@ -17,4 +17,4 @@ jobs:
       - run: yarn install
 
       - run: npx nx e2e --project dashboard-e2e --headless
-#      - run: npx nx e2e --project website-e2e --headless
+      - run: npx nx e2e --project website-e2e --headless

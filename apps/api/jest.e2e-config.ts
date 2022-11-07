@@ -3,7 +3,7 @@ import type { JestConfigWithTsJest } from 'ts-jest';
 const jestConfig: JestConfigWithTsJest = {
   displayName: 'api',
   preset: '../../jest.preset.js',
-  testNamePattern: '^.+\\.e2e\.test\.[tj]s$',
+  testNamePattern: '^.+\\.e2e.test.[tj]s$',
   transform: {
     '^.+\\.[tj]sx?$': [
       'ts-jest',
