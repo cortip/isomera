@@ -1,9 +1,9 @@
 name: Commit Backend E2E
 on:
-  workflow_run:
-    workflows: ['Commit Test']
-    types:
-      - completed
+  push:
+    branches:
+      - main
+  pull_request:
 
 jobs:
   main:
@@ -55,6 +55,7 @@ jobs:
         with:
           fetch-depth: 0
 
+      - uses: nrwl/nx-set-shas@v3
       - run: yarn install
 
       - run: npx nx run test-e2e
