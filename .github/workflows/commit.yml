@@ -1,8 +1,8 @@
 name: Check code quality and test everything
 on:
-  push:
-    branches:
-      - main
+  #  push:
+  #    branches:
+  #      - main
   pull_request:
 
 jobs:
