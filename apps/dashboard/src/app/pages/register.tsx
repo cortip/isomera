@@ -8,10 +8,11 @@ import {
   FormHelperText,
   Link,
   TextField,
-  Typography,
+  Typography
 } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import axios from '../../utils/axios';
+import { toast } from 'react-toastify';
 
 export const Register = () => {
   const formik = useFormik({
@@ -20,7 +21,7 @@ export const Register = () => {
       firstName: '',
       lastName: '',
       password: '',
-      policy: false,
+      policy: false
     },
     validationSchema: Yup.object({
       email: Yup.string()
@@ -30,47 +31,49 @@ export const Register = () => {
       firstName: Yup.string().max(255).required('First name is required'),
       lastName: Yup.string().max(255).required('Last name is required'),
       password: Yup.string().max(255).required('Password is required'),
-      policy: Yup.boolean().oneOf([true], 'This field must be checked'),
+      policy: Yup.boolean().oneOf([true], 'This field must be checked')
     }),
     onSubmit: (values) => {
       axios
         .post('/api/auth/register', values)
         .then((data) => {
           console.log(data);
+          toast('Your registered successfully');
         })
         .catch((err) => {
           console.error(err);
+          toast('Error on registering', { type: 'error' });
         })
         .finally(() => {
           formik.setSubmitting(false);
         });
-    },
+    }
   });
 
   return (
     <Box
-      component="main"
+      component='main'
       sx={{
         alignItems: 'center',
         display: 'flex',
         flexGrow: 1,
-        minHeight: '100%',
+        minHeight: '100%'
       }}
     >
-      <Container maxWidth="sm">
+      <Container maxWidth='sm'>
         <Button
           component={Link}
-          href="/"
-          startIcon={<ArrowBackIcon fontSize="small" />}
+          href='/'
+          startIcon={<ArrowBackIcon fontSize='small' />}
         >
           Dashboard
         </Button>
         <form onSubmit={formik.handleSubmit}>
           <Box sx={{ my: 3 }}>
-            <Typography color="textPrimary" variant="h1">
+            <Typography color='textPrimary' variant='h1'>
               Create a new account
             </Typography>
-            <Typography color="textSecondary" gutterBottom variant="body2">
+            <Typography color='textSecondary' gutterBottom variant='body2'>
               Use your email to create a new account
             </Typography>
           </Box>
@@ -78,71 +81,71 @@ export const Register = () => {
             error={Boolean(formik.touched.firstName && formik.errors.firstName)}
             fullWidth
             helperText={formik.touched.firstName && formik.errors.firstName}
-            label="First Name"
-            margin="normal"
-            name="firstName"
+            label='First Name'
+            margin='normal'
+            name='firstName'
             onBlur={formik.handleBlur}
             onChange={formik.handleChange}
             value={formik.values.firstName}
-            variant="outlined"
+            variant='outlined'
           />
           <TextField
             error={Boolean(formik.touched.lastName && formik.errors.lastName)}
             fullWidth
             helperText={formik.touched.lastName && formik.errors.lastName}
-            label="Last Name"
-            margin="normal"
-            name="lastName"
+            label='Last Name'
+            margin='normal'
+            name='lastName'
             onBlur={formik.handleBlur}
             onChange={formik.handleChange}
             value={formik.values.lastName}
-            variant="outlined"
+            variant='outlined'
           />
           <TextField
             error={Boolean(formik.touched.email && formik.errors.email)}
             fullWidth
             helperText={formik.touched.email && formik.errors.email}
-            label="Email Address"
-            margin="normal"
-            name="email"
+            label='Email Address'
+            margin='normal'
+            name='email'
             onBlur={formik.handleBlur}
             onChange={formik.handleChange}
-            type="email"
+            type='email'
             value={formik.values.email}
-            variant="outlined"
+            variant='outlined'
           />
           <TextField
             error={Boolean(formik.touched.password && formik.errors.password)}
             fullWidth
             helperText={formik.touched.password && formik.errors.password}
-            label="Password"
-            margin="normal"
-            name="password"
+            label='Password'
+            margin='normal'
+            name='password'
             onBlur={formik.handleBlur}
             onChange={formik.handleChange}
-            type="password"
+            type='password'
             value={formik.values.password}
-            variant="outlined"
+            variant='outlined'
           />
           <Box
             sx={{
               alignItems: 'center',
               display: 'flex',
-              ml: -1,
+              ml: -1
             }}
           >
             <Checkbox
               checked={formik.values.policy}
-              name="policy"
+              name='policy'
               onChange={formik.handleChange}
             />
-            <Typography color="textSecondary" variant="body2">
+            <Typography color='textSecondary' variant='body2'>
               I have read the{' '}
               <Link
-                href="#"
-                color="primary"
-                underline="always"
-                variant="subtitle2"
+                href='#'
+                color='primary'
+                underline='always'
+                variant='subtitle2'
               >
                 Terms and Conditions
               </Link>
@@ -153,19 +156,19 @@ export const Register = () => {
           )}
           <Box sx={{ py: 2 }}>
             <Button
-              color="primary"
+              color='primary'
               disabled={formik.isSubmitting}
               fullWidth
-              size="large"
-              type="submit"
-              variant="contained"
+              size='large'
+              type='submit'
+              variant='contained'
             >
               Sign Up Now
             </Button>
           </Box>
-          <Typography color="textSecondary" variant="body2">
+          <Typography color='textSecondary' variant='body2'>
             Have an account?{' '}
-            <Link href="/login" variant="subtitle2" underline="hover">
+            <Link href='/login' variant='subtitle2' underline='hover'>
               Sign In
             </Link>
           </Typography>
