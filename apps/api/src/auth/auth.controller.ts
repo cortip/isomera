@@ -3,6 +3,7 @@ import {
   Controller,
   Get,
   HttpCode,
+  HttpException,
   HttpStatus,
   Post,
   UseGuards,
@@ -26,7 +27,11 @@ export class AuthController {
   @HttpCode(HttpStatus.CREATED)
   @UseInterceptors(TokenInterceptor)
   register(@Body() signUp: SignUp): Promise<User> {
-    return this.authService.register(signUp);
+    if (signUp.policy) {
+      delete signUp.policy;
+      return this.authService.register(signUp);
+    }
+    throw new HttpException('You must accept the policy', HttpStatus.FORBIDDEN);
   }
 
   @Post('login')

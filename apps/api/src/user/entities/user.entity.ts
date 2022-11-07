@@ -16,7 +16,10 @@ export class User {
   id: number;
 
   @Column()
-  name: string;
+  firstName: string;
+
+  @Column()
+  lastName: string;
 
   @Column({ unique: true })
   email: string;
@@ -24,6 +27,9 @@ export class User {
   @Column()
   @Exclude()
   password: string;
+
+  @Column({ type: 'boolean', default: false })
+  active: boolean;
 
   @CreateDateColumn()
   createdAt: Date;
