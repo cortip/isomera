@@ -1,8 +1,8 @@
 name: Check code quality and test everything
 on:
-  #  push:
-  #    branches:
-  #      - main
+  push:
+    branches:
+      - main
   pull_request:
 
 jobs:
@@ -13,8 +13,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - uses: nrwl/nx-set-shas@v3
-      - run: yarn install
+      #      - uses: nrwl/nx-set-shas@v3
+      #      - run: yarn install
 
       - run: npx nx workspace-lint
       - run: npx nx format --target=check --base=remotes/origin/main --head=HEAD
