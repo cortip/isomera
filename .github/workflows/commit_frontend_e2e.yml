@@ -1,0 +1,20 @@
+name: Commit Frontend E2E
+on:
+  workflow_run:
+    workflows: ['Commit Test']
+    types:
+      - completed
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - uses: nrwl/nx-set-shas@v3
+      - run: yarn install
+
+      - run: npx nx e2e --project dashboard-e2e --headless
+      - run: npx nx e2e --project website-e2e --headless

@@ -59,7 +59,7 @@
       "executor": "nx:run-commands",
       "outputs": [],
       "options": {
-        "command": "ts-node --transpile-only -r tsconfig-paths/register ./../../node_modules/typeorm/cli.js --config src/config/database.ts",
+        "command": "ts-node --transpile-only -r tsconfig-paths/register ./../../node_modules/typeorm/cli.js --dataSource src/config/database.ts",
         "cwd": "apps/api"
       }
     },
@@ -67,15 +67,15 @@
       "executor": "nx:run-commands",
       "outputs": [],
       "options": {
-        "command": "ts-node --transpile-only -r tsconfig-paths/register ./../../node_modules/typeorm/cli.js --config src/config/database.ts schema:sync",
+        "command": "yarn build && ts-node --transpile-only -r tsconfig-paths/register ./../../node_modules/typeorm/cli.js --dataSource src/config/database.ts schema:sync",
         "cwd": "apps/api"
       }
     },
-    "add-migration": {
+    "gen-migration": {
       "executor": "nx:run-commands",
       "outputs": [],
       "options": {
-        "command": "yarn build && ts-node --transpile-only -r tsconfig-paths/register ./../../node_modules/typeorm/cli.js --config src/config/database.ts migration:generate -- -n --dataSource src/config/database.ts",
+        "command": "yarn typeorm --dataSource apps/api/src/config/database.ts migration:generate apps/api/src/migrations/entity",
         "cwd": "apps/api"
       }
     },
@@ -83,7 +83,7 @@
       "executor": "nx:run-commands",
       "outputs": [],
       "options": {
-        "command": "yarn build && ts-node --transpile-only -r tsconfig-paths/register ./../../node_modules/typeorm/cli.js --config src/config/database.ts migration:run",
+        "command": "yarn typeorm --dataSource apps/api/src/config/database.ts migration:run",
         "cwd": "apps/api"
       }
     },
@@ -101,6 +101,14 @@
       "options": {
         "command": "ts-node --transpile-only -r tsconfig-paths/register ./../../node_modules/typeorm/cli.js --config src/config/database.ts schema:drop",
         "cwd": "apps/api"
+      }
+    },
+    "test-e2e": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/api/jest.e2e-config.ts",
+        "passWithNoTests": true
       }
     }
   },

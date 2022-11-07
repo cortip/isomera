@@ -4,6 +4,7 @@
   "license": "MIT Expat",
   "scripts": {
     "start": "nx run-many --target=serve --all --maxParallel=100 ",
+    "typeorm": "typeorm-ts-node-commonjs",
     "build": "nx build",
     "dev": "nx run-many --parallel --target=serve --projects=api,dashboard,website",
     "dev:api": "nx run-many --parallel --target=serve --projects=api",
@@ -21,9 +22,6 @@
     "start:api": "nx run api:serve",
     "create-entities-index": "ts-node --pretty --project=tools/tsconfig.tools.json tools/create-entities-index.ts",
     "compodoc:watch": "npx @compodoc/compodoc -p tsconfig.base.json -w -s",
-    "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js -d apps/api/src/config/datasource.ts",
-    "migration:generate": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:generate apps/api/src/migrations/Migration -d apps/api/src/config/datasource.ts",
-    "migration:run": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:run -d apps/api/src/config/datasource.ts",
     "prepare": "husky install"
   },
   "private": true,
@@ -86,7 +84,6 @@
     "regenerator-runtime": "0.13.7",
     "rimraf": "^3.0.2",
     "rxjs": "^7.5.7",
-    "sqlite3": "^5.1.2",
     "styled-components": "5.3.5",
     "swagger-ui-express": "^4.5.0",
     "tslib": "^2.3.0",

@@ -22,6 +22,6 @@ describe('App', () => {
       </BrowserRouter>
     );
 
-    expect(getByText(/Sign in on the internal platform/gi)).toBeTruthy();
+    expect(getByText(/Sign in on the internal platform/i)).toBeTruthy();
   });
 });
