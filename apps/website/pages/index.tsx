@@ -17,7 +17,7 @@ export const Index: FC<Props> = ({ contributors }) => {
   return (
     <>
       <Head>
-        <title>Isomera - Headless CMS built by community!</title>
+        <title>Isomera - Headless CMS built by community ❤️</title>
       </Head>
       <StyledPage>
         <TopNavigationComponent />
