@@ -6,8 +6,8 @@ on:
   pull_request:
 
 jobs:
-  prettiness:
-    name: Check code prettiness and linting
+  prepare:
+    name: Prepare
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -26,6 +26,10 @@ jobs:
 
       - run: yarn install
 
+  prettiness:
+    name: Check code prettiness and linting
+    runs-on: ubuntu-latest
+    steps:
       - run: npx nx workspace-lint
       - run: npx nx format --target=check --base=remotes/origin/main --head=HEAD
       - run: yarn prettier
