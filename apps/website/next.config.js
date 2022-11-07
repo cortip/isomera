@@ -20,8 +20,9 @@ const nextConfig = {
   nx: {
     // Set this to true if you would like to use SVGR
     // See: https://github.com/gregberge/svgr
-    svgr: false,
+    svgr: true,
   },
+  reactStrictMode: false,
   compiler: {
     styledComponents: true,
   },

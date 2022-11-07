@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import { shadow, spacing, themeConfig } from '../../config/theme';
 import { Container } from '../layout/container';
 import Link from 'next/link';
-import GitHubButton from 'react-github-btn';
 
 const TOP_NAVIGATION_PAGES = [{ href: '/', label: 'Home' }];
 
@@ -30,23 +29,6 @@ export const TopNavigationComponent: React.FC<Props> = ({
             ))}
           </NavWrapper>
           <ActionsWrapper>
-            <GitHubButton
-              href="https://github.com/sponsors/cortip"
-              data-icon="octicon-heart"
-              data-size="large"
-              aria-label="Sponsor @cortip on GitHub"
-            >
-              Sponsor
-            </GitHubButton>
-            <GitHubButton
-              href="https://github.com/cortip/isomera"
-              data-icon="octicon-star"
-              data-size="large"
-              data-show-count="true"
-              aria-label="Star cortip/isomera on GitHub"
-            >
-              Star
-            </GitHubButton>
             <SignIn href="https://app.isomera.org">Sign In</SignIn>
             <SignUp href="https://app.isomera.org">Sign Up</SignUp>
           </ActionsWrapper>
@@ -93,7 +75,6 @@ const SignIn = styled.a`
   line-height: 1;
   margin-top: -5px;
   border-radius: 5px;
-  margin-left: ${spacing(1)}px;
 `;
 
 const SignUp = styled(SignIn)`
