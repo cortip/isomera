@@ -51,6 +51,7 @@
     "@nestjs/terminus": "^9.1.2",
     "@nestjs/typeorm": "^9.0.1",
     "@nrwl/next": "15.0.4",
+    "@svgr/webpack": "^6.5.1",
     "apollo-server": "^3.10.3",
     "apollo-server-core": "^3.10.3",
     "aws-sdk": "^2.1240.0",

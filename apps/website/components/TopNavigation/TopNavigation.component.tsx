@@ -1,119 +1,83 @@
-import {
-  AppBar,
-  Box,
-  Button,
-  Container,
-  IconButton,
-  Menu,
-  MenuItem,
-  Toolbar,
-  Typography,
-} from '@mui/material';
-import { Menu as MenuIcon, GitHub as GitHubIcon } from '@mui/icons-material';
 import React from 'react';
 import { Logo } from '@isomera/ui-components';
+import styled from 'styled-components';
+import { shadow, spacing, themeConfig } from '../../config/theme';
+import { Container } from '../layout/container';
 import Link from 'next/link';
 
 const TOP_NAVIGATION_PAGES = [{ href: '/', label: 'Home' }];
 
-export const TopNavigationComponent: React.FC = () => {
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
-    null
-  );
+interface Props {
+  isTransparent?: boolean;
+}
 
-  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElNav(event.currentTarget);
-  };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
-
+export const TopNavigationComponent: React.FC<Props> = ({
+  isTransparent = false,
+}) => {
   return (
-    <AppBar color="default" position="fixed">
-      <Container maxWidth="lg">
-        <Toolbar disableGutters>
-          <Box sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}>
-            <Link href={'/'}>
-              <Logo />
-            </Link>
-          </Box>
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: 'block', md: 'none' },
-              }}
-            >
-              {TOP_NAVIGATION_PAGES.map((page) => (
-                <MenuItem key={page.href} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page.label}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
-          <Box sx={{ display: { xs: 'flex', md: 'none' }, flexGrow: 1, mr: 1 }}>
-            <Logo isBadge={false} width={140} />
-          </Box>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {TOP_NAVIGATION_PAGES.map((page) => (
-              <Button
-                key={page.href}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'black', display: 'block' }}
-              >
-                {page.label}
-              </Button>
+    <Wrapper isTransparent={isTransparent}>
+      <Container>
+        <InnerWrapper>
+          <LogoWrapper>
+            <Logo />
+          </LogoWrapper>
+          <NavWrapper>
+            {TOP_NAVIGATION_PAGES.map((link) => (
+              <Link href={link.href} key={link.href}>
+                {link.label}
+              </Link>
             ))}
-          </Box>
-          <Box
-            sx={{ flexGrow: 0 }}
-            display="flex"
-            flexDirection="row"
-            alignItems="center"
-          >
-            <Button
-              component="a"
-              href="https://app.isomera.org"
-              color="primary"
-              variant="contained"
-              sx={{ mr: 2 }}
-              size="small"
-            >
-              Sign In
-            </Button>
-            <IconButton
-              component="a"
-              href="https://github.com/cortip/isomera"
-              target="_blank"
-            >
-              <GitHubIcon sx={{ fill: 'black' }} />
-            </IconButton>
-          </Box>
-        </Toolbar>
+          </NavWrapper>
+          <ActionsWrapper>
+            <SignIn href="https://app.isomera.org">Sign In</SignIn>
+            <SignUp href="https://app.isomera.org">Sign Up</SignUp>
+          </ActionsWrapper>
+        </InnerWrapper>
       </Container>
-    </AppBar>
+    </Wrapper>
   );
 };
+
+const Wrapper = styled.div<{ isTransparent?: boolean }>`
+  ${(props) => (props.isTransparent ? '' : shadow())}
+`;
+
+const InnerWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  padding: ${spacing(2)}px 0;
+`;
+
+const LogoWrapper = styled.div`
+  flex-grow: 0;
+`;
+
+const NavWrapper = styled.div`
+  padding: 0 ${spacing(4)}px;
+  flex-grow: 1;
+`;
+
+const ActionsWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: ${spacing(1)}px;
+  flex-grow: 0;
+`;
+
+const SignIn = styled.a`
+  background-color: ${themeConfig.color.bg.primary};
+  color: white;
+  padding: ${spacing(1)}px ${spacing(2)}px;
+  font-size: 14px;
+  line-height: 1;
+  margin-top: -5px;
+  border-radius: 5px;
+`;
+
+const SignUp = styled(SignIn)`
+  background-color: ${themeConfig.color.bg.secondary};
+  margin-left: 0;
+`;
