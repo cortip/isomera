@@ -80,6 +80,7 @@
     "react-dom": "18.2.0",
     "react-is": "18.2.0",
     "react-router-dom": "6.4.1",
+    "react-toastify": "^9.1.1",
     "reflect-metadata": "^0.1.13",
     "regenerator-runtime": "0.13.7",
     "rimraf": "^3.0.2",
