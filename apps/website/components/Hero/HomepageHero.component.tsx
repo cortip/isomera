@@ -16,7 +16,7 @@ export const HomepageHeroComponent = () => {
             </Headline>
             <CTAWrapper>
               <CTATryIt href="https://app.isomera.org">
-                {"Try, it's free!"}
+                {"Try, it's free"}
               </CTATryIt>
               <CTAContribute
                 href="https://github.com/cortip/isomera"
