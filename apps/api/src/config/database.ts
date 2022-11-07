@@ -3,6 +3,8 @@ import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConne
 import { DataSource } from 'typeorm';
 import { SqliteConnectionOptions } from 'typeorm/driver/sqlite/SqliteConnectionOptions';
 import dotenv from 'dotenv';
+import { User } from '../user/entities/user.entity';
+import { Profile } from '../user/entities/profile.entity';
 
 if (process.env.TYPEORM_HOST === undefined) {
   dotenv.config();
@@ -16,7 +18,7 @@ export const dbConfigPg = (): PostgresConnectionOptions => ({
   database: process.env.TYPEORM_DATABASE,
   port: Number(process.env.TYPEORM_PORT),
   synchronize: false,
-  entities: [join(__dirname, '../**/entities/*.entity.ts')],
+  entities: [join(__dirname, '../**/*.entity.ts'), User, Profile],
   migrations: [join(__dirname, '../migrations/*.ts')],
 });
 
