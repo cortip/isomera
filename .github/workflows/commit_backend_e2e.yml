@@ -8,7 +8,9 @@ on:
 jobs:
   main:
     runs-on: ubuntu-latest
-    container: node:lts-alpine3.15
+    container:
+      image: node:lts-alpine3.15
+      options: --user 1001
 
     strategy:
       matrix:
