@@ -76,12 +76,12 @@ jobs:
 
       - name: Run DB Migrations
         run: npx nx run apply-migration
-        env:
-          DATABASE_URL: postgres://${{ matrix.database-user }}:${{ matrix.database-password }}@${{ matrix.database-host }}:${{ matrix.database-port }}/${{ matrix.database-name }}
-          REDIS_URL: redis://${{ matrix.redis-host }}:${{ matrix.redis-port }}
+      #        env:
+      #          DATABASE_URL: postgres://${{ matrix.database-user }}:${{ matrix.database-password }}@${{ matrix.database-host }}:${{ matrix.database-port }}/${{ matrix.database-name }}
+      #          REDIS_URL: redis://${{ matrix.redis-host }}:${{ matrix.redis-port }}
 
       - name: Run E2E tests
         run: npx nx run test-e2e
-        env:
-          DATABASE_URL: postgres://${{ matrix.database-user }}:${{ matrix.database-password }}@${{ matrix.database-host }}:${{ matrix.database-port }}/${{ matrix.database-name }}
-          REDIS_URL: redis://${{ matrix.redis-host }}:${{ matrix.redis-port }}
+#        env:
+#          DATABASE_URL: postgres://${{ matrix.database-user }}:${{ matrix.database-password }}@${{ matrix.database-host }}:${{ matrix.database-port }}/${{ matrix.database-name }}
+#          REDIS_URL: redis://${{ matrix.redis-host }}:${{ matrix.redis-port }}
