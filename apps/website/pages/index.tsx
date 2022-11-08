@@ -37,11 +37,7 @@ const StyledPage = styled.div`
 
 export const getServerSideProps: GetServerSideProps<{
   contributors: Array<GithubContributorInterface>;
-}> = async ({ res }) => {
-  res.setHeader(
-    'Cache-Control',
-    'public, s-maxage=10, stale-while-revalidate=59'
-  );
+}> = async () => {
   let data = [];
   try {
     // https://docs.github.com/en/rest/metrics/statistics#get-all-contributor-commit-activity
@@ -50,6 +46,7 @@ export const getServerSideProps: GetServerSideProps<{
     );
     if (response && [200, 201].includes(response.status) && response.data) {
       data = response.data;
+      console.log('xxx', data);
     }
   } catch (e) {
     console.error(e);
