@@ -55,17 +55,25 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Derive appropriate SHAs for base and head for `nx affected` commands
-        id: setSHAs
-        uses: nrwl/nx-set-shas@v3
+      #      - name: Derive appropriate SHAs for base and head for `nx affected` commands
+      #        id: setSHAs
+      #        uses: nrwl/nx-set-shas@v3
+      #
+      #      - run: |
+      #          echo "BASE: ${{ steps.setSHAs.outputs.base }}"
+      #          echo "HEAD: ${{ steps.setSHAs.outputs.head }}"
 
-      - run: |
-          echo "BASE: ${{ steps.setSHAs.outputs.base }}"
-          echo "HEAD: ${{ steps.setSHAs.outputs.head }}"
+      - name: Install Yarn dependencies
+        run: yarn install
 
-      - run: yarn install
+      - name: Run DB Migrations
+        run: npx nx run apply-migration
+        env:
+          DATABASE_URL: postgres://${{ matrix.database-user }}:${{ matrix.database-password }}@${{ matrix.database-host }}:${{ matrix.database-port }}/${{ matrix.database-name }}
+          REDIS_URL: redis://${{ matrix.redis-host }}:${{ matrix.redis-port }}
 
-      - run: npx nx run test-e2e
+      - name: Run E2E tests
+        run: npx nx run test-e2e
         env:
           DATABASE_URL: postgres://${{ matrix.database-user }}:${{ matrix.database-password }}@${{ matrix.database-host }}:${{ matrix.database-port }}/${{ matrix.database-name }}
           REDIS_URL: redis://${{ matrix.redis-host }}:${{ matrix.redis-port }}
