@@ -68,6 +68,12 @@ jobs:
       - name: Install Yarn dependencies
         run: yarn install
 
+      - name: .env
+        run: cp .env.example .env
+
+      - name: Build
+        run: yarn build
+
       - name: Run DB Migrations
         run: npx nx run apply-migration
         env:
