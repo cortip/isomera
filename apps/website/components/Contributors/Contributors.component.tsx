@@ -3,6 +3,7 @@ import { GithubContributorInterface } from '@isomera/interfaces';
 import styled from 'styled-components';
 import { Container } from '../layout/container';
 import { shadow, spacing, themeConfig } from '../../config/theme';
+import { numberFormatter } from '@isomera/utils';
 
 interface Props {
   contributors: Array<GithubContributorInterface>;
@@ -31,10 +32,17 @@ export const ContributorsComponent: React.FC<Props> = ({ contributors }) => {
                 </Commits>
                 <CodeLines>
                   Lines added:{' '}
-                  {contributor.weeks.reduce(
-                    (value, obj) => value + (obj.a - obj.d),
-                    0
-                  )}
+                  <CodeLinesCount>
+                    +
+                    {numberFormatter(
+                      Number(
+                        contributor.weeks.reduce(
+                          (value, obj) => value + obj.a,
+                          0
+                        ) || 0
+                      )
+                    )}
+                  </CodeLinesCount>
                 </CodeLines>
               </ContributorWrapper>
             ))}
@@ -64,7 +72,6 @@ const ContributorWrapper = styled.a<{ image?: string }>`
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  padding: ${spacing(1)}px;
 
   background-position: center;
   background-size: cover;
@@ -93,18 +100,25 @@ const ContributorWrapper = styled.a<{ image?: string }>`
 `;
 
 const Username = styled.span`
-  text-shadow: 1px 1px 4px #ffffff;
   font-weight: bold;
   font-size: 18px;
-  margin-bottom: ${spacing(1)}px;
+  padding: ${spacing(1)}px;
+  background-color: rgba(255, 255, 255, 0.7);
 `;
 
 const Commits = styled.span`
   display: block;
-  text-shadow: 1px 1px 1px #ffffff;
+  padding: 0 ${spacing(1)}px 0;
+  background-color: rgba(255, 255, 255, 0.7);
 `;
 
 const CodeLines = styled.span`
   display: block;
-  text-shadow: 1px 1px 1px #ffffff;
+  padding: 0 ${spacing(1)}px ${spacing(1)}px;
+  background-color: rgba(255, 255, 255, 0.7);
+`;
+
+const CodeLinesCount = styled.span`
+  color: #008c00;
+  font-weight: bold;
 `;

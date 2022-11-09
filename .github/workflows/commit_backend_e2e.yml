@@ -8,7 +8,9 @@ on:
 jobs:
   main:
     runs-on: ubuntu-latest
-    container: node:lts-alpine3.15
+    #    container:
+    #      image: node:lts-alpine3.15
+    #      options: --user 1001
 
     strategy:
       matrix:
@@ -37,8 +39,7 @@ jobs:
         ports:
           - ${{ matrix.database-port }}:${{ matrix.database-port }}
         # Set health checks to wait until postgres has started
-        options: |
-          --health-cmd pg_isready
+        options: --health-cmd pg_isready
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
@@ -56,10 +57,31 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: nrwl/nx-set-shas@v3
-      - run: yarn install
+      #      - name: Derive appropriate SHAs for base and head for `nx affected` commands
+      #        id: setSHAs
+      #        uses: nrwl/nx-set-shas@v3
+      #
+      #      - run: |
+      #          echo "BASE: ${{ steps.setSHAs.outputs.base }}"
+      #          echo "HEAD: ${{ steps.setSHAs.outputs.head }}"
 
-      - run: npx nx run test-e2e
-        env:
-          DATABASE_URL: postgres://${{ matrix.database-user }}:${{ matrix.database-password }}@${{ matrix.database-host }}:${{ matrix.database-port }}/${{ matrix.database-name }}
-          REDIS_URL: redis://${{ matrix.redis-host }}:${{ matrix.redis-port }}
+      - name: Install Yarn dependencies
+        run: yarn install
+
+      - name: .env
+        run: cp .env.example .env
+
+      - name: Build
+        run: yarn build
+
+      - name: Run DB Migrations
+        run: npx nx run apply-migration
+      #        env:
+      #          DATABASE_URL: postgres://${{ matrix.database-user }}:${{ matrix.database-password }}@${{ matrix.database-host }}:${{ matrix.database-port }}/${{ matrix.database-name }}
+      #          REDIS_URL: redis://${{ matrix.redis-host }}:${{ matrix.redis-port }}
+
+      - name: Run E2E tests
+        run: npx nx run test-e2e
+#        env:
+#          DATABASE_URL: postgres://${{ matrix.database-user }}:${{ matrix.database-password }}@${{ matrix.database-host }}:${{ matrix.database-port }}/${{ matrix.database-name }}
+#          REDIS_URL: redis://${{ matrix.redis-host }}:${{ matrix.redis-port }}
