@@ -8,9 +8,11 @@ import { AuthService } from './auth.service';
 import { SessionSerializer } from './session.serializer';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { LocalStrategy } from './strategies/local.strategy';
+import { MailerModule } from '../mailer/mailer.module';
 
 @Module({
   imports: [
+    MailerModule,
     UserModule,
     PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.register({
