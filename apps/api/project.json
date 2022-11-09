@@ -55,6 +55,14 @@
         "passWithNoTests": true
       }
     },
+    "nest-gen": {
+      "executor": "nx:run-commands",
+      "outputs": [],
+      "options": {
+        "command": "nest g",
+        "cwd": "apps/api"
+      }
+    },
     "typeorm": {
       "executor": "nx:run-commands",
       "outputs": [],
