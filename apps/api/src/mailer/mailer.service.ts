@@ -9,10 +9,10 @@ export class MailerService {
   async sendUserConfirmation(user: User, subject: string, template: string) {
     const code = Math.floor(Math.random() * 99999);
 
-    await this.mailerService.sendMail({
+    return await this.mailerService.sendMail({
       to: user.email,
       subject: subject,
-      template: '/' + template,
+      template: template,
       context: {
         name: user.firstName,
         code: code,
