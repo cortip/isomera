@@ -1,26 +1,33 @@
-import { MailerModule } from '@nestjs-modules/mailer';
+import { MailerModule as MailModule } from '@nestjs-modules/mailer';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 import { Module } from '@nestjs/common';
 import { MailerService } from './mailer.service';
 import { join } from 'path';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import configuration from '../config';
 
 @Module({
   imports: [
-    MailerModule.forRootAsync({
-      useFactory: async (config) => ({
+    ConfigModule.forRoot({
+      load: [configuration],
+    }),
+    MailModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService) => ({
         transport: {
-          host: config.get('MAIL_HOST'),
+          host: configService.get('MAIL_HOST'),
           secure: false,
           auth: {
-            user: config.get('MAIL_USER'),
-            pass: config.get('MAIL_PASSWORD'),
+            user: configService.get('MAIL_USER'),
+            pass: configService.get('MAIL_PASSWORD'),
           },
         },
         defaults: {
           from: '"No Reply" <noreply@example.com>',
         },
         template: {
-          dir: join(__dirname, 'templates'),
+          dir: __dirname + '/mailer' + '/templates',
           adapter: new HandlebarsAdapter(),
           options: {
             strict: true,
@@ -32,4 +39,4 @@ import { join } from 'path';
   providers: [MailerService],
   exports: [MailerService],
 })
-export class MailModule {}
+export class MailerModule {}
