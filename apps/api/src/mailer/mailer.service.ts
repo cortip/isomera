@@ -6,16 +6,14 @@ import { User } from '../user/entities/user.entity';
 export class MailerService {
   constructor(private mailerService: Mailer) {}
 
-  async sendUserConfirmation(user: User) {
+  async sendUserConfirmation(user: User, subject: string, template: string) {
     const code = Math.floor(Math.random() * 99999);
 
     await this.mailerService.sendMail({
       to: user.email,
-      // from: '"Support Team" <support@example.com>', // override default from
-      subject: 'Welcome to Nice App! Confirm your Email',
-      template: './confirmation', // `.hbs` extension is appended automatically
+      subject: subject,
+      template: '/' + template,
       context: {
-        // ✏️ filling curly brackets with content
         name: user.firstName,
         code: code,
       },
