@@ -13,7 +13,7 @@ describe('UserService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [UserService]
+      providers: [UserService],
     })
       .useMocker((token) => {
         if (Object.is(token, getRepositoryToken(User))) {
@@ -34,7 +34,7 @@ describe('UserService', () => {
     const data = {
       name: 'John Doe',
       email: 'john@doe.me',
-      password: 'Pa$$w0rd'
+      password: 'Pa$$w0rd',
     };
 
     mockedUserRepository.save.mockResolvedValueOnce(createMock<User>(data));
@@ -69,7 +69,7 @@ describe('UserService', () => {
     const id = 1;
     const updates: UserUpdate = {
       firstName: 'Jhonny',
-      lastName: 'Doe'
+      lastName: 'Doe',
     };
 
     mockedUserRepository.save.mockResolvedValueOnce(createMock<User>(updates));
@@ -83,7 +83,7 @@ describe('UserService', () => {
     const id = 0;
     const updates: UserUpdate = {
       firstName: 'Jhonny',
-      lastName: 'Doe'
+      lastName: 'Doe',
     };
     mockedUserRepository.findOneBy.mockResolvedValueOnce(undefined);
 
