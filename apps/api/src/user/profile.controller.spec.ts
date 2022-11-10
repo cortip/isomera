@@ -35,11 +35,12 @@ describe('Profile Controller', () => {
 
   it('should update a profile', async () => {
     const updatesUser = {
-      name: 'Johnny Doe',
+      firstName: 'John',
+      lastName: 'Doe',
     };
 
     mockedUserService.update.mockResolvedValueOnce(
-      createMock<User>({ name: updatesUser.name })
+      createMock<User>({ firstName: updatesUser.firstName })
     );
 
     await expect(controller.update(1, updatesUser)).resolves.toBeDefined();

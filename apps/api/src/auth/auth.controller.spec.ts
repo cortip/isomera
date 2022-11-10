@@ -9,7 +9,8 @@ describe('Auth Controller', () => {
   let controller: AuthController;
   let mockedAuthService: jest.Mocked<AuthService>;
   const user = createMock<Omit<User, 'password'>>({
-    name: 'John Doe',
+    firstName: 'John',
+    lastName: 'Doe',
     email: 'john@doe.me',
   }) as User;
 
@@ -36,15 +37,18 @@ describe('Auth Controller', () => {
 
   it('should register a new user', async () => {
     const register = {
-      name: 'John Doe',
+      firstName: 'John',
+      lastName: 'Doe',
       email: 'john@doe.me',
       password: 'Pa$$w0rd',
+      policy: true,
     };
 
     mockedAuthService.register.mockResolvedValue(
       createMock<Omit<User, 'password'>>({
         email: register.email,
-        name: register.name,
+        firstName: 'John',
+        lastName: 'Doe',
       }) as User
     );
 

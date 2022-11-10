@@ -76,7 +76,7 @@ describe('UserService', () => {
     const user = await service.update(id, updates);
 
     expect(user).toBeDefined();
-    expect(user).toHaveProperty('name', updates.firstName);
+    expect(user).toHaveProperty('firstName', updates.firstName);
   });
 
   it('should throw on update when the user not exist', async () => {
