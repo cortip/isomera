@@ -4,7 +4,7 @@ import {
   HttpStatus,
   type INestApplication,
   Request,
-  UnauthorizedException
+  UnauthorizedException,
 } from '@nestjs/common';
 import { APP_GUARD } from '@nestjs/core';
 import { PassportModule } from '@nestjs/passport';
@@ -41,9 +41,9 @@ describe('LocalAuthGuard', () => {
         SessionSerializer,
         {
           provide: APP_GUARD,
-          useClass: LocalAuthGuard
-        }
-      ]
+          useClass: LocalAuthGuard,
+        },
+      ],
     })
       .useMocker((token) => {
         if (Object.is(token, AuthService)) {
@@ -58,7 +58,7 @@ describe('LocalAuthGuard', () => {
       session({
         secret: String(process.env.SESSION_SECRET),
         resave: false,
-        saveUninitialized: false
+        saveUninitialized: false,
       })
     );
 
@@ -71,7 +71,7 @@ describe('LocalAuthGuard', () => {
         email: 'john@doe.me',
         id: 1,
         firstName: 'John',
-        lastName: 'Doe'
+        lastName: 'Doe',
       })
     );
 

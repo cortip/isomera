@@ -17,7 +17,7 @@ describe('AuthService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [AuthService]
+      providers: [AuthService],
     })
       .useMocker((token) => {
         if (Object.is(token, UserService)) {
@@ -53,7 +53,7 @@ describe('AuthService', () => {
       firstName: 'John',
       lastName: 'Doe',
       email: 'john@doe.me',
-      password: 'Pa$$w0rd'
+      password: 'Pa$$w0rd',
     };
 
     mockedUserService.create.mockResolvedValueOnce(createMock<User>(signUp));
@@ -71,7 +71,7 @@ describe('AuthService', () => {
     mockedUserService.findOne.mockResolvedValueOnce(
       createMock<User>({
         email,
-        checkPassword: jest.fn().mockResolvedValue(true)
+        checkPassword: jest.fn().mockResolvedValue(true),
       })
     );
     const user = await service.login(email, password);
@@ -102,7 +102,7 @@ describe('AuthService', () => {
     mockedUserService.findOne.mockResolvedValueOnce(
       createMock<User>({
         email,
-        checkPassword: jest.fn().mockResolvedValue(false)
+        checkPassword: jest.fn().mockResolvedValue(false),
       })
     );
 
@@ -117,7 +117,7 @@ describe('AuthService', () => {
     const payload: JwtPayload = {
       sub: 'john@doe.me',
       iat: 0,
-      exp: 0
+      exp: 0,
     };
 
     mockedUserService.findOne.mockResolvedValueOnce(
@@ -129,11 +129,11 @@ describe('AuthService', () => {
     expect(user).not.toHaveProperty('password');
   });
 
-  it('should throw on verify when JWT\'s subject not exist', async () => {
+  it("should throw on verify when JWT's subject not exist", async () => {
     const payload: JwtPayload = {
       sub: 'notregistered@example.com',
       iat: 0,
-      exp: 0
+      exp: 0,
     };
 
     mockedUserService.findOne.mockRejectedValueOnce('NotFound');

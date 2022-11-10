@@ -9,7 +9,7 @@ describe('MailerService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [MailerService]
+      providers: [MailerService],
     })
       .useMocker((token) => {
         if (Object.is(token, Mailer)) {
@@ -18,9 +18,7 @@ describe('MailerService', () => {
       })
       .compile();
 
-    mockedMailerService = module.get<Mailer, jest.Mocked<Mailer>>(
-      Mailer
-    );
+    mockedMailerService = module.get<Mailer, jest.Mocked<Mailer>>(Mailer);
 
     service = module.get<MailerService>(MailerService);
   });
