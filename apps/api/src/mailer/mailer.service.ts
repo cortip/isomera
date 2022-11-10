@@ -6,16 +6,18 @@ import { User } from '../user/entities/user.entity';
 export class MailerService {
   constructor(private mailerService: Mailer) {}
 
-  async sendUserConfirmation(user: User, subject: string, template: string) {
-    const code = Math.floor(Math.random() * 99999);
-
+  async sendUserConfirmation(
+    user: User,
+    subject: string,
+    template: string,
+    data: any
+  ) {
     return await this.mailerService.sendMail({
       to: user.email,
       subject: subject,
       template: template,
       context: {
-        name: user.firstName,
-        code: code,
+        ...data,
       },
     });
   }
