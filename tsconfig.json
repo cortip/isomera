@@ -1,3 +1,27 @@
 {
-  "extends": "./tsconfig.base.json"
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "commonJs",
+    "lib": ["es2017", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "esModuleInterop": true,
+    "paths": {
+      "@cortip/isomera/dt": ["libs/dt/src/index.ts"],
+      "@isomera/interfaces": ["libs/interfaces/src/index.ts"],
+      "@isomera/ui-components": ["libs/ui-components/src/index.ts"],
+      "@isomera/utils": ["libs/utils/src/index.ts"],
+      "@mui/styled-engine": ["./node_modules/@mui/styled-engine-sc"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
 }
