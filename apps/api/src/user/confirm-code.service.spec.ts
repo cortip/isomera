@@ -4,7 +4,6 @@ import { createMock } from 'ts-auto-mock';
 import type { Repository } from 'typeorm';
 
 import { User } from './entities/user.entity';
-import { UserService } from './user.service';
 import { ConfirmCodeService } from './confirm-code.service';
 import { ConfirmCode } from './entities/confirm-code.entity';
 
