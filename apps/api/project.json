@@ -83,7 +83,7 @@
       "executor": "nx:run-commands",
       "outputs": [],
       "options": {
-        "command": "yarn build && ts-node --transpile-only -r tsconfig-paths/register ./../../node_modules/typeorm/cli.js --dataSource src/config/database.ts migration:generate src/migrations/entity",
+        "command": "yarn typeorm --dataSource apps/api/src/config/database.ts migration:generate apps/api/src/migrations/entity",
         "cwd": "apps/api"
       }
     },
