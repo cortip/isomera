@@ -28,15 +28,17 @@ export class AuthService {
 
     const code = await this.confirmCode.genNewCode(user);
     if (code.code) {
-      await this.mailerService.sendUserConfirmation(
-        user,
-        'Email verification',
-        'email-confirmation',
-        {
-          name: user.firstName,
-          code: code,
-        }
-      );
+      if (!(process.env.NODE_ENV === 'test')) {
+        await this.mailerService.sendUserConfirmation(
+          user,
+          'Email verification',
+          'email-confirmation',
+          {
+            name: user.firstName,
+            code: code,
+          }
+        );
+      }
       return user;
     }
 

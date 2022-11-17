@@ -9,6 +9,7 @@ import { SessionSerializer } from './session.serializer';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { LocalStrategy } from './strategies/local.strategy';
 import { MailerModule } from '../mailer/mailer.module';
+import { ConfirmCodeModule } from '../user/confirm-code.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { MailerModule } from '../mailer/mailer.module';
         algorithms: ['HS384'],
       },
     }),
+    ConfirmCodeModule,
   ],
   controllers: [AuthController],
   providers: [AuthService, LocalStrategy, JwtStrategy, SessionSerializer],
