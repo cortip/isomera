@@ -10,7 +10,7 @@ export class MailerService {
     user: User,
     subject: string,
     template: string,
-    data: any
+    data
   ) {
     return await this.mailerService.sendMail({
       to: user.email,

@@ -1,10 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppModule } from './app.module';
-import { Connection, DataSource, Repository } from 'typeorm';
+import { Connection, DataSource } from 'typeorm';
 import { User } from '../user/entities/user.entity';
-import { ConfirmCode } from '../user/entities/confirm-code.entity';
-import { getRepositoryToken } from '@nestjs/typeorm';
-import { createMock } from 'ts-auto-mock';
 
 let app;
 let connection;

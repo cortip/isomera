@@ -9,8 +9,8 @@ import { ConfirmCode } from './entities/confirm-code.entity';
 
 describe('ConfirmCodeService', () => {
   let service: ConfirmCodeService;
-  let mockedConfirmCodeRepository: jest.Mocked<Repository<ConfirmCode>>;
-  let mockedUserRepository: jest.Mocked<Repository<User>>;
+  // let mockedConfirmCodeRepository: jest.Mocked<Repository<ConfirmCode>>;
+  // let mockedUserRepository: jest.Mocked<Repository<User>>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -27,8 +27,8 @@ describe('ConfirmCodeService', () => {
       .compile();
 
     service = module.get<ConfirmCodeService>(ConfirmCodeService);
-    mockedUserRepository = module.get(getRepositoryToken(User));
-    mockedConfirmCodeRepository = module.get(getRepositoryToken(ConfirmCode));
+    // mockedUserRepository = module.get(getRepositoryToken(User));
+    // mockedConfirmCodeRepository = module.get(getRepositoryToken(ConfirmCode));
   });
 
   it('should be an instanceof ConfirmCodeService', () => {

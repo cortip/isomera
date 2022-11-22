@@ -14,8 +14,8 @@ describe('AuthService', () => {
   let service: AuthService;
   let mockedUserService: jest.Mocked<UserService>;
   let mockedJwtService: jest.Mocked<JwtService>;
-  let mockedMailerService: jest.Mocked<MailerService>;
-  let mockedConfirmCodeService: jest.Mocked<ConfirmCodeService>;
+  // let mockedMailerService: jest.Mocked<MailerService>;
+  // let mockedConfirmCodeService: jest.Mocked<ConfirmCodeService>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -44,13 +44,13 @@ describe('AuthService', () => {
     mockedJwtService = module.get<JwtService, jest.Mocked<JwtService>>(
       JwtService
     );
-    mockedMailerService = module.get<MailerService, jest.Mocked<MailerService>>(
-      MailerService
-    );
-    mockedConfirmCodeService = module.get<
-      ConfirmCodeService,
-      jest.Mocked<ConfirmCodeService>
-    >(ConfirmCodeService);
+    // mockedMailerService = module.get<MailerService, jest.Mocked<MailerService>>(
+    //   MailerService
+    // );
+    // mockedConfirmCodeService = module.get<
+    //   ConfirmCodeService,
+    //   jest.Mocked<ConfirmCodeService>
+    // >(ConfirmCodeService);
   });
 
   it('should be an instanceof AuthService', () => {
