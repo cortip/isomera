@@ -13,8 +13,7 @@ export class ConfirmCodeService {
     private readonly confirmCodeRepository: Repository<ConfirmCode>,
     @InjectRepository(User)
     private readonly userRepository: Repository<User>
-  ) {
-  }
+  ) {}
 
   public async genNewCode(user: User): Promise<ConfirmCode> {
     await this.invalidateOlderCodes(user); // If there are other codes, we want to invalidate them
@@ -23,7 +22,7 @@ export class ConfirmCodeService {
     return this.confirmCodeRepository.create({
       code,
       user: user,
-      expiresIn: new Date(new Date().getTime() + 1000 * 60 * 30) // Half hour
+      expiresIn: new Date(new Date().getTime() + 1000 * 60 * 30), // Half hour
     });
   }
 
@@ -35,7 +34,7 @@ export class ConfirmCodeService {
       .where({
         code: code,
         user: user,
-        expiresIn: MoreThan(format(new Date(), 'yyyy-mm-dd HH:MM:ss'))
+        expiresIn: MoreThan(format(new Date(), 'yyyy-mm-dd HH:MM:ss')),
       })
       .limit(1)
       .execute();
