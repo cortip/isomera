@@ -1,20 +1,39 @@
-import { Box, Container, TextField, Typography } from '@mui/material';
+import { Box, Button, Container, TextField, Typography } from '@mui/material';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import axios from '../../utils/axios';
+import { toast } from 'react-toastify';
 
 export const ConfirmCode = () => {
-  const navigation = useNavigate();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const formik = useFormik({
     initialValues: {
       code: '',
+      email: (location?.state?.email as string) ?? '',
     },
     validationSchema: Yup.object({
-      code: Yup.string().max(6).required('Code is required'),
+      code: Yup.string().max(7).required('Code is required'),
     }),
-    onSubmit: () => {
-      navigation('/');
+    onSubmit: (values) => {
+      try {
+        axios
+          .post('/api/auth/code', values)
+          .then(() => {
+            navigate('/');
+            toast('Email confirmed  successfully');
+          })
+          .catch(() => {
+            toast('One error happened, try again', { type: 'error' });
+          })
+          .finally(() => {
+            formik.setSubmitting(false);
+          });
+      } catch (err) {
+        toast('Try again', { type: 'error' });
+      }
     },
   });
 
@@ -38,6 +57,21 @@ export const ConfirmCode = () => {
               An confirmation code was sent to your email
             </Typography>
           </Box>
+
+          <TextField
+            error={Boolean(formik.touched.email && formik.errors.email)}
+            fullWidth
+            helperText={formik.touched.email && formik.errors.email}
+            label="Email"
+            margin="normal"
+            name="email"
+            disabled={typeof location?.state?.email === 'string'}
+            onBlur={formik.handleBlur}
+            onChange={formik.handleChange}
+            value={formik.values.email}
+            variant="outlined"
+          />
+
           <TextField
             error={Boolean(formik.touched.code && formik.errors.code)}
             fullWidth
@@ -50,6 +84,19 @@ export const ConfirmCode = () => {
             value={formik.values.code}
             variant="outlined"
           />
+
+          <Box sx={{ py: 2 }}>
+            <Button
+              color="primary"
+              disabled={formik.isSubmitting}
+              fullWidth
+              size="large"
+              type="submit"
+              variant="contained"
+            >
+              Verify email
+            </Button>
+          </Box>
         </form>
       </Container>
     </Box>
