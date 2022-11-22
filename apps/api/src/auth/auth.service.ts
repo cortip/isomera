@@ -36,7 +36,7 @@ export class AuthService {
           'email-confirmation',
           {
             name: user.firstName,
-            code: code,
+            code: code.code,
           }
         );
         return user;
