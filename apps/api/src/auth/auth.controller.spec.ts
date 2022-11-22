@@ -4,6 +4,7 @@ import { createMock } from 'ts-auto-mock';
 import { User } from '../user/entities/user.entity';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
+import { ConfirmCodeService } from '../user/confirm-code.service';
 
 describe('Auth Controller', () => {
   let controller: AuthController;
@@ -21,6 +22,9 @@ describe('Auth Controller', () => {
       .useMocker((token) => {
         if (Object.is(token, AuthService)) {
           return createMock<AuthService>();
+        }
+        if (Object.is(token, ConfirmCodeService)) {
+          return createMock<ConfirmCodeService>();
         }
       })
       .compile();
