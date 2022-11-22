@@ -13,8 +13,10 @@ import {
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import axios from '../../utils/axios';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 export const Register = () => {
+  const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -36,12 +38,11 @@ export const Register = () => {
     onSubmit: (values) => {
       axios
         .post('/api/auth/register', values)
-        .then((data) => {
-          console.log(data);
+        .then(() => {
           toast('Your registered successfully');
+          navigate('/confirm-code', { state: { email: values.email } });
         })
-        .catch((err) => {
-          console.error(err);
+        .catch(() => {
           toast('Error on registering', { type: 'error' });
         })
         .finally(() => {
