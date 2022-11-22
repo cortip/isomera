@@ -8,51 +8,50 @@ export const ConfirmCode = () => {
 
   const formik = useFormik({
     initialValues: {
-      code: ''
+      code: '',
     },
     validationSchema: Yup.object({
-      code: Yup.string().max(6).required('Code is required')
+      code: Yup.string().max(6).required('Code is required'),
     }),
     onSubmit: () => {
       navigation('/');
-    }
+    },
   });
 
-
   return (
-      <Box
-        component='main'
-        sx={{
-          alignItems: 'center',
-          display: 'flex',
-          flexGrow: 1,
-          minHeight: '100%'
-        }}
-      >
-        <Container maxWidth='sm'>
-          <form onSubmit={formik.handleSubmit}>
-            <Box sx={{ my: 3 }}>
-              <Typography color="textPrimary" variant="h1">
-                Confirm code
-              </Typography>
-              <Typography color="textSecondary" gutterBottom variant="body2">
-                An confirmation code was sent to your email
-              </Typography>
-            </Box>
-            <TextField
-              error={Boolean(formik.touched.code && formik.errors.code)}
-              fullWidth
-              helperText={formik.touched.code && formik.errors.code}
-              label="Confirmation code"
-              margin="normal"
-              name="code"
-              onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
-              value={formik.values.code}
-              variant="outlined"
-            />
-          </form>
-        </Container>
-      </Box>
+    <Box
+      component="main"
+      sx={{
+        alignItems: 'center',
+        display: 'flex',
+        flexGrow: 1,
+        minHeight: '100%',
+      }}
+    >
+      <Container maxWidth="sm">
+        <form onSubmit={formik.handleSubmit}>
+          <Box sx={{ my: 3 }}>
+            <Typography color="textPrimary" variant="h1">
+              Confirm code
+            </Typography>
+            <Typography color="textSecondary" gutterBottom variant="body2">
+              An confirmation code was sent to your email
+            </Typography>
+          </Box>
+          <TextField
+            error={Boolean(formik.touched.code && formik.errors.code)}
+            fullWidth
+            helperText={formik.touched.code && formik.errors.code}
+            label="Confirmation code"
+            margin="normal"
+            name="code"
+            onBlur={formik.handleBlur}
+            onChange={formik.handleChange}
+            value={formik.values.code}
+            variant="outlined"
+          />
+        </form>
+      </Container>
+    </Box>
   );
 };
