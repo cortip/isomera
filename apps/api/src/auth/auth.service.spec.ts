@@ -8,12 +8,14 @@ import { AuthService } from './auth.service';
 import type { SignUp } from './dto/sign-up.dto';
 import type { JwtPayload } from './interfaces/jwt-payload.interface';
 import { MailerService } from '../mailer/mailer.service';
+import { ConfirmCodeService } from '../user/confirm-code.service';
 
 describe('AuthService', () => {
   let service: AuthService;
   let mockedUserService: jest.Mocked<UserService>;
   let mockedJwtService: jest.Mocked<JwtService>;
   let mockedMailerService: jest.Mocked<MailerService>;
+  let mockedConfirmCodeService: jest.Mocked<ConfirmCodeService>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -29,6 +31,9 @@ describe('AuthService', () => {
         if (Object.is(token, MailerService)) {
           return createMock<MailerService>();
         }
+        if (Object.is(token, ConfirmCodeService)) {
+          return createMock<ConfirmCodeService>();
+        }
       })
       .compile();
 
@@ -41,6 +46,9 @@ describe('AuthService', () => {
     );
     mockedMailerService = module.get<MailerService, jest.Mocked<MailerService>>(
       MailerService
+    );
+    mockedConfirmCodeService = module.get<ConfirmCodeService, jest.Mocked<ConfirmCodeService>>(
+      ConfirmCodeService
     );
   });
 

@@ -2,7 +2,7 @@ import {
   HttpException,
   HttpStatus,
   Injectable,
-  UnauthorizedException,
+  UnauthorizedException
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 
@@ -20,32 +20,35 @@ export class AuthService {
     private readonly jwtService: JwtService,
     private readonly mailerService: MailerService,
     private readonly confirmCode: ConfirmCodeService
-  ) {}
+  ) {
+  }
 
   async register(signUp: SignUp): Promise<User> {
     const user = await this.userService.create(signUp);
     delete user.password;
 
-    const code = await this.confirmCode.genNewCode(user);
-    if (code.code) {
-      if (!(process.env.NODE_ENV === 'test')) {
+    //TODO: mock confirmCode
+    if (process.env.NODE_ENV !== 'test') {
+      const code = await this.confirmCode.genNewCode(user);
+      if (code.code) {
         await this.mailerService.sendUserConfirmation(
           user,
           'Email verification',
           'email-confirmation',
           {
             name: user.firstName,
-            code: code,
+            code: code
           }
         );
+        return user;
       }
+      throw new HttpException(
+        'Couldn\'t generate the code',
+        HttpStatus.INTERNAL_SERVER_ERROR
+      );
+    } else {
       return user;
     }
-
-    throw new HttpException(
-      "Couldn't generate the code",
-      HttpStatus.INTERNAL_SERVER_ERROR
-    );
   }
 
   async login(email: string, password: string): Promise<User> {
@@ -86,7 +89,7 @@ export class AuthService {
 
   signToken(user: User): string {
     const payload = {
-      sub: user.email,
+      sub: user.email
     };
 
     return this.jwtService.sign(payload);
