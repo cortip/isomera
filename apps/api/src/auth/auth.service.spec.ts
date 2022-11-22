@@ -47,9 +47,10 @@ describe('AuthService', () => {
     mockedMailerService = module.get<MailerService, jest.Mocked<MailerService>>(
       MailerService
     );
-    mockedConfirmCodeService = module.get<ConfirmCodeService, jest.Mocked<ConfirmCodeService>>(
-      ConfirmCodeService
-    );
+    mockedConfirmCodeService = module.get<
+      ConfirmCodeService,
+      jest.Mocked<ConfirmCodeService>
+    >(ConfirmCodeService);
   });
 
   it('should be an instanceof AuthService', () => {

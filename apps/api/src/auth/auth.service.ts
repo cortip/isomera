@@ -2,7 +2,7 @@ import {
   HttpException,
   HttpStatus,
   Injectable,
-  UnauthorizedException
+  UnauthorizedException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 
@@ -20,8 +20,7 @@ export class AuthService {
     private readonly jwtService: JwtService,
     private readonly mailerService: MailerService,
     private readonly confirmCode: ConfirmCodeService
-  ) {
-  }
+  ) {}
 
   async register(signUp: SignUp): Promise<User> {
     const user = await this.userService.create(signUp);
@@ -37,13 +36,13 @@ export class AuthService {
           'email-confirmation',
           {
             name: user.firstName,
-            code: code
+            code: code,
           }
         );
         return user;
       }
       throw new HttpException(
-        'Couldn\'t generate the code',
+        "Couldn't generate the code",
         HttpStatus.INTERNAL_SERVER_ERROR
       );
     } else {
@@ -89,7 +88,7 @@ export class AuthService {
 
   signToken(user: User): string {
     const payload = {
-      sub: user.email
+      sub: user.email,
     };
 
     return this.jwtService.sign(payload);
