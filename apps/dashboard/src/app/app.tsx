@@ -5,6 +5,7 @@ import { Login } from './pages/login';
 import { Register } from './pages/register';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { ConfirmCode } from './pages/confirm-code';
 
 export const App = () => {
   return (
@@ -12,6 +13,7 @@ export const App = () => {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/confirm-code" element={<ConfirmCode />} />
       </Routes>
       <ToastContainer />
     </StyledApp>
