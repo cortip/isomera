@@ -65,6 +65,7 @@
     "connect-pg-simple": "^7.0.0",
     "cookie-parser": "^1.4.6",
     "core-js": "^3.6.5",
+    "date-fns": "^2.29.3",
     "dotenv": "^16.0.3",
     "express-session": "^1.17.3",
     "fast-glob": "^3.2.12",
