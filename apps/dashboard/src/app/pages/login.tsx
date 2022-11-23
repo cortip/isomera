@@ -15,6 +15,8 @@ import {
   Google as GoogleIcon,
 } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
+import axios from '../../utils/axios';
+import { toast } from 'react-toastify';
 
 export const Login = () => {
   const navigation = useNavigate();
@@ -31,13 +33,29 @@ export const Login = () => {
         .required('Email is required'),
       password: Yup.string().max(255).required('Password is required'),
     }),
-    onSubmit: () => {
-      navigation('/');
+    onSubmit: (values) => {
+      try {
+        axios
+          .post('/api/auth/login', values)
+          .then(() => {
+            toast('Logged in successfully!');
+            navigation('/');
+          })
+          .catch(() => {
+            toast('User not found, email or password invalid', {
+              type: 'error',
+            });
+          })
+          .finally(() => {
+            formik.setSubmitting(false);
+          });
+      } catch (err) {
+        toast('Occurred an error', { type: 'error' });
+      }
     },
   });
 
   return (
-    <>
       <Box
         component="main"
         sx={{
@@ -154,6 +172,5 @@ export const Login = () => {
           </form>
         </Container>
       </Box>
-    </>
   );
 };
