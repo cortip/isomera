@@ -32,7 +32,8 @@ describe('UserService', () => {
 
   it('should create a new user', async () => {
     const data = {
-      name: 'John Doe',
+      firstName: 'John',
+      lastName: 'Doe',
       email: 'john@doe.me',
       password: 'Pa$$w0rd',
     };
