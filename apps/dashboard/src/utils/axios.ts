@@ -73,53 +73,56 @@ export const refreshToken = async () => {
   return token;
 };
 
-Axios.interceptors.response.use(
-  (res) => {
-    return res;
-  },
-  async (err) => {
-    const originalConfig = err.config;
-
-    if (err.message === 'Network Error') {
-      // if network - retry
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-      originalConfig._retry = true;
-      return Axios(originalConfig);
-    }
-    if (
-      err.response &&
-      !['public/login', 'public/refresh-token'].includes(originalConfig.url)
-    ) {
-      // Access Token was expired
-      if (err.response.status === 401 && !originalConfig._retry) {
-        originalConfig._retry = true;
-        const reject = () => {
-          unsetToken();
-          unsetRefreshToken();
-          setTimeout(window.location.reload);
-          originalConfig._retry = false;
-          return Promise.reject(err.message);
-        };
-        if (err?.data?.message === 'RefreshtokenExpired') {
-          return reject();
-        }
-        try {
-          const token = await refreshToken();
-          if (!token) {
-            return reject();
-          }
-          originalConfig.headers['Authorization'] = `Bearer ${token}`;
-          return Axios(originalConfig);
-        } catch (_error) {
-          return reject();
-        }
-      }
-      if (err.response.status === 403 && err.response.data) {
-        return Promise.reject(err.response.data);
-      }
-    }
-    return Promise.reject(err);
-  }
-);
+/**
+ * TODO: improve this functionality commented, currently it's throwing the error: "Illegal invocation"
+ */
+// Axios.interceptors.response.use(
+//   (res) => {
+//     return res;
+//   },
+//   async (err) => {
+//     const originalConfig = err.config;
+//
+//     if (err.message === 'Network Error') {
+//       // if network - retry
+//       await new Promise((resolve) => setTimeout(resolve, 2000));
+//       originalConfig._retry = true;
+//       return Axios(originalConfig);
+//     }
+//     if (
+//       err.response &&
+//       !['public/login', 'public/refresh-token'].includes(originalConfig.url)
+//     ) {
+//       // Access Token was expired
+//       if (err.response.status === 401 && !originalConfig._retry) {
+//         originalConfig._retry = true;
+//         const reject = () => {
+//           unsetToken();
+//           unsetRefreshToken();
+//           setTimeout(window.location.reload);
+//           originalConfig._retry = false;
+//           return Promise.reject(err.message);
+//         };
+//         if (err?.data?.message === 'RefreshtokenExpired') {
+//           return reject();
+//         }
+//         try {
+//           const token = await refreshToken();
+//           if (!token) {
+//             return reject();
+//           }
+//           originalConfig.headers['Authorization'] = `Bearer ${token}`;
+//           return Axios(originalConfig);
+//         } catch (_error) {
+//           return reject();
+//         }
+//       }
+//       if (err.response.status === 403 && err.response.data) {
+//         return Promise.reject(err.response.data);
+//       }
+//     }
+//     return Promise.reject(err);
+//   }
+// );
 
 export default Axios;
