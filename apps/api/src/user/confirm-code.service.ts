@@ -19,11 +19,15 @@ export class ConfirmCodeService {
     await this.invalidateOlderCodes(user); // If there are other codes, we want to invalidate them
 
     const code = randomString(7);
-    return this.confirmCodeRepository.create({
-      code,
-      user: user,
-      expiresIn: new Date(new Date().getTime() + 1000 * 60 * 30), // Half hour
-    });
+    const createCode = new ConfirmCode();
+
+    createCode.code = code;
+    createCode.user = user;
+    createCode.expiresIn = new Date(new Date().getTime() + 1000 * 60 * 30); // Half hour
+
+    await this.confirmCodeRepository.save(createCode);
+
+    return createCode;
   }
 
   public async verifyCode(code: string, email: string) {
@@ -33,13 +37,13 @@ export class ConfirmCodeService {
       .createQueryBuilder()
       .where({
         code: code,
-        user: user,
-        expiresIn: MoreThan(format(new Date(), 'yyyy-mm-dd HH:MM:ss')),
+        expiresIn: MoreThan(format(new Date(), 'yyyy-MM-dd HH:MM:ss')),
       })
+      .andWhere('"userId" = :userId', { userId: user.id })
       .limit(1)
       .execute();
 
-    if (codeExists[0].code) {
+    if (typeof codeExists[0] !== 'undefined') {
       user.active = true;
       await this.userRepository.save(user);
 
