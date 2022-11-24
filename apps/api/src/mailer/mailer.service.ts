@@ -1,24 +1,31 @@
 import { MailerService as Mailer } from '@nestjs-modules/mailer';
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { User } from '../user/entities/user.entity';
 
 @Injectable()
 export class MailerService {
-  constructor(private mailerService: Mailer) {}
+  constructor(private mailerService: Mailer) {
+  }
 
-  async sendUserConfirmation(
+  async sendEmail(
     user: User,
     subject: string,
     template: string,
     data
   ) {
-    return await this.mailerService.sendMail({
-      to: user.email,
-      subject: subject,
-      template: template,
-      context: {
-        ...data,
-      },
-    });
+    try {
+      return await this.mailerService.sendMail({
+        to: user.email,
+        subject: subject,
+        template: template,
+        context: {
+          ...data
+        }
+      });
+
+    } catch (err) {
+      throw new HttpException('Email could not be sent', HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
   }
 }
