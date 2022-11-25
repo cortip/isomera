@@ -7,11 +7,15 @@ import { UserService } from '../user/user.service';
 import { AuthService } from './auth.service';
 import type { SignUp } from './dto/sign-up.dto';
 import type { JwtPayload } from './interfaces/jwt-payload.interface';
+import { MailerService } from '../mailer/mailer.service';
+import { ConfirmCodeService } from '../user/confirm-code.service';
 
 describe('AuthService', () => {
   let service: AuthService;
   let mockedUserService: jest.Mocked<UserService>;
   let mockedJwtService: jest.Mocked<JwtService>;
+  // let mockedMailerService: jest.Mocked<MailerService>;
+  // let mockedConfirmCodeService: jest.Mocked<ConfirmCodeService>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -24,6 +28,12 @@ describe('AuthService', () => {
         if (Object.is(token, JwtService)) {
           return createMock<JwtService>();
         }
+        if (Object.is(token, MailerService)) {
+          return createMock<MailerService>();
+        }
+        if (Object.is(token, ConfirmCodeService)) {
+          return createMock<ConfirmCodeService>();
+        }
       })
       .compile();
 
@@ -34,6 +44,13 @@ describe('AuthService', () => {
     mockedJwtService = module.get<JwtService, jest.Mocked<JwtService>>(
       JwtService
     );
+    // mockedMailerService = module.get<MailerService, jest.Mocked<MailerService>>(
+    //   MailerService
+    // );
+    // mockedConfirmCodeService = module.get<
+    //   ConfirmCodeService,
+    //   jest.Mocked<ConfirmCodeService>
+    // >(ConfirmCodeService);
   });
 
   it('should be an instanceof AuthService', () => {
@@ -42,7 +59,8 @@ describe('AuthService', () => {
 
   it('should register a new user', async () => {
     const signUp: SignUp = {
-      name: 'John Doe',
+      firstName: 'John',
+      lastName: 'Doe',
       email: 'john@doe.me',
       password: 'Pa$$w0rd',
     };
@@ -51,7 +69,7 @@ describe('AuthService', () => {
     const user = await service.register(signUp);
 
     expect(user).toHaveProperty('email', signUp.email);
-    expect(user).toHaveProperty('name', signUp.name);
+    expect(user).toHaveProperty('firstName', signUp.firstName);
     expect(user).not.toHaveProperty('password');
   });
 

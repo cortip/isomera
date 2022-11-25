@@ -10,7 +10,11 @@ import { IsUserAlreadyExist } from '../../user/is-user-already-exist.validator';
 export class SignUp {
   @IsDefined()
   @IsNotEmpty()
-  readonly name: string;
+  readonly firstName: string;
+
+  @IsDefined()
+  @IsNotEmpty()
+  readonly lastName: string;
 
   @IsDefined()
   @IsEmail()
@@ -21,4 +25,8 @@ export class SignUp {
   @IsNotEmpty()
   @MinLength(8)
   readonly password: string;
+
+  @IsDefined()
+  @IsNotEmpty()
+  policy?: boolean;
 }

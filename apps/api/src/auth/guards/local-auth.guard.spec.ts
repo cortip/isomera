@@ -70,7 +70,8 @@ describe('LocalAuthGuard', () => {
       createMock<User>({
         email: 'john@doe.me',
         id: 1,
-        name: 'John Doe ',
+        firstName: 'John',
+        lastName: 'Doe',
       })
     );
 

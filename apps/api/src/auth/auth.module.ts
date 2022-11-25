@@ -8,9 +8,12 @@ import { AuthService } from './auth.service';
 import { SessionSerializer } from './session.serializer';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { LocalStrategy } from './strategies/local.strategy';
+import { MailerModule } from '../mailer/mailer.module';
+import { ConfirmCodeModule } from '../user/confirm-code.module';
 
 @Module({
   imports: [
+    MailerModule,
     UserModule,
     PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.register({
@@ -23,6 +26,7 @@ import { LocalStrategy } from './strategies/local.strategy';
         algorithms: ['HS384'],
       },
     }),
+    ConfirmCodeModule,
   ],
   controllers: [AuthController],
   providers: [AuthService, LocalStrategy, JwtStrategy, SessionSerializer],

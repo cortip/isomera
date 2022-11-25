@@ -13,7 +13,7 @@
         "outputPath": "dist/apps/api",
         "main": "apps/api/src/main.ts",
         "tsConfig": "apps/api/tsconfig.app.json",
-        "assets": ["apps/api/src/assets"]
+        "assets": ["apps/api/src/assets", "apps/api/src/mailer/templates"]
       },
       "configurations": {
         "production": {
@@ -55,6 +55,14 @@
         "passWithNoTests": true
       }
     },
+    "nest-gen": {
+      "executor": "nx:run-commands",
+      "outputs": [],
+      "options": {
+        "command": "nest g",
+        "cwd": "apps/api"
+      }
+    },
     "typeorm": {
       "executor": "nx:run-commands",
       "outputs": [],
@@ -80,6 +88,14 @@
       }
     },
     "apply-migration": {
+      "executor": "nx:run-commands",
+      "outputs": [],
+      "options": {
+        "command": "yarn typeorm --dataSource apps/api/src/config/database.ts migration:run",
+        "cwd": "apps/api"
+      }
+    },
+    "add-entity": {
       "executor": "nx:run-commands",
       "outputs": [],
       "options": {

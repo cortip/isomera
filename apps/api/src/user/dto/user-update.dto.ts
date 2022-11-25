@@ -4,5 +4,10 @@ export class UserUpdate {
   @IsDefined()
   @IsString()
   @IsNotEmpty()
-  readonly name;
+  readonly firstName;
+
+  @IsDefined()
+  @IsString()
+  @IsNotEmpty()
+  readonly lastName;
 }

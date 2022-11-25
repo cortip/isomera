@@ -32,7 +32,8 @@ describe('UserService', () => {
 
   it('should create a new user', async () => {
     const data = {
-      name: 'John Doe',
+      firstName: 'John',
+      lastName: 'Doe',
       email: 'john@doe.me',
       password: 'Pa$$w0rd',
     };
@@ -68,20 +69,22 @@ describe('UserService', () => {
   it('should update an user', async () => {
     const id = 1;
     const updates: UserUpdate = {
-      name: 'Jhonny Doe',
+      firstName: 'Jhonny',
+      lastName: 'Doe',
     };
 
     mockedUserRepository.save.mockResolvedValueOnce(createMock<User>(updates));
     const user = await service.update(id, updates);
 
     expect(user).toBeDefined();
-    expect(user).toHaveProperty('name', updates.name);
+    expect(user).toHaveProperty('firstName', updates.firstName);
   });
 
   it('should throw on update when the user not exist', async () => {
     const id = 0;
     const updates: UserUpdate = {
-      name: 'Jhonny Doe',
+      firstName: 'Jhonny',
+      lastName: 'Doe',
     };
     mockedUserRepository.findOneBy.mockResolvedValueOnce(undefined);
 
