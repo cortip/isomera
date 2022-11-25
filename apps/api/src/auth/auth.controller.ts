@@ -50,7 +50,14 @@ export class AuthController {
   @Post('code')
   @HttpCode(HttpStatus.OK)
   async confirmCode(@Body() body: ConfirmCodeDto): Promise<User> {
-    return this.confirmCodeService.verifyCode(body.code, body.email);
+    const user = await this.confirmCodeService.verifyCode(
+      body.code,
+      body.email
+    );
+
+    await this.authService.sendGreetings(user);
+
+    return user;
   }
 
   @Get('/me')

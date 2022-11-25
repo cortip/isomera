@@ -93,4 +93,8 @@ export class AuthService {
 
     return this.jwtService.sign(payload);
   }
+
+  async sendGreetings(user: User) {
+    return this.mailerService.sendEmail(user, 'Welcome!', 'welcome', { user });
+  }
 }
