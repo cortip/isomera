@@ -4,28 +4,23 @@ import { User } from '../user/entities/user.entity';
 
 @Injectable()
 export class MailerService {
-  constructor(private mailerService: Mailer) {
-  }
+  constructor(private mailerService: Mailer) {}
 
-  async sendEmail(
-    user: User,
-    subject: string,
-    template: string,
-    data
-  ) {
+  async sendEmail(user: User, subject: string, template: string, data) {
     try {
       return await this.mailerService.sendMail({
         to: user.email,
         subject: subject,
         template: template,
         context: {
-          ...data
-        }
+          ...data,
+        },
       });
-
     } catch (err) {
-      throw new HttpException('Email could not be sent', HttpStatus.INTERNAL_SERVER_ERROR);
+      throw new HttpException(
+        'Email could not be sent',
+        HttpStatus.INTERNAL_SERVER_ERROR
+      );
     }
-
   }
 }
