@@ -5,6 +5,10 @@
   "scripts": {
     "compodoc:watch": "npx @compodoc/compodoc -p tsconfig.base.json -w -s"
   },
+  "engines" : {
+    "npm" : ">=9.0.0",
+    "node" : ">=18.0.0 <21.0.0"
+  },
   "private": true,
   "dependencies": {
     "@compodoc/compodoc": "^1.1.22",
