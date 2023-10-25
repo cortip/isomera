@@ -43,3 +43,8 @@ Thumbs.db
 .env
 .env.*
 !.env.example
+
+# Next.js
+.next
+
+documentation
