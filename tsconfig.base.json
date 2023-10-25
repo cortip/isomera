@@ -14,7 +14,10 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@isomera/dtos": ["dtos/src/index.ts"],
+      "@isomera/interfaces": ["interfaces/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
