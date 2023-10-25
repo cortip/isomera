@@ -7,3 +7,5 @@ docs
 .git
 .idea
 node_modules
+nx
+.vscode

@@ -1,3 +1,9 @@
+
+
+
+serve-api
+
+
 ## Developing locally
 
 ### Getting started
@@ -31,3 +37,21 @@ make node index.js
 ```
 
 If you need some other console tool, please modify `Makefile` and add installation of it to the node utils image at `docker/utils/node.dockerfile`. Consistency is important.
+
+### Running Tests
+
+This is pretty simple, just
+
+```
+make nx run-many -- -t test
+```
+
+### Running services
+
+#### Run API locally
+
+This will launch API service on port 8080.
+
+```
+make nx serve-api
+```
