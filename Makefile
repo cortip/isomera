@@ -1,4 +1,5 @@
-args = `arg="$(filter-out $@,$(MAKECMDGOALS))" && echo $${arg:-${1}}`
+ARGS = `arg="$(filter-out $@,$(MAKECMDGOALS))" && echo $${arg:-${1}}`
+DOCKER_RUN_CMD = docker run -it --rm -u $(shell id -u):$(shell id -g) -v ./:/app --workdir="/app" --network="host"
 
 # --- Initialization ---
 
@@ -8,24 +9,24 @@ devinit:
 # --- Commands ---
 
 npm:
-		docker run -it --rm -u $(shell id -u):$(shell id -g) -v ./:/app --workdir="/app" --entrypoint="npm" node-dev-env:latest $(call args,defaultstring)
+		$(call DOCKER_RUN_CMD) --entrypoint="npm" node-dev-env:latest $(call ARGS, defaultstring)
 
 yarn:
-		docker run -it --rm -u $(shell id -u):$(shell id -g) -v ./:/app --workdir="/app" --entrypoint="yarn" node-dev-env:latest $(call args,defaultstring)
+		$(call DOCKER_RUN_CMD) --entrypoint="yarn" node-dev-env:latest $(call ARGS, defaultstring)
 
 npx:
-		docker run -it --rm -u $(shell id -u):$(shell id -g) -v ./:/app --workdir="/app" --entrypoint="npx" node-dev-env:latest $(call args,defaultstring)
+		$(call DOCKER_RUN_CMD) --entrypoint="npx" node-dev-env:latest $(call ARGS, defaultstring)
 
 
 nx:
-		docker run -it --rm -u $(shell id -u):$(shell id -g) -v ./:/app --workdir="/app" --entrypoint="nx" node-dev-env:latest $(call args,defaultstring)
+		$(call DOCKER_RUN_CMD) --entrypoint="nx" node-dev-env:latest $(call ARGS, defaultstring)
 
 node:
-		docker run -it --rm -u $(shell id -u):$(shell id -g) -v ./:/app --workdir="/app" --entrypoint="node" node-dev-env:latest $(call args,defaultstring)
+		$(call DOCKER_RUN_CMD) --entrypoint="node" node-dev-env:latest $(call ARGS, defaultstring)
 
 # --- Server stuff ---
 serve-api:
-		docker run -it --rm -u $(shell id -u):$(shell id -g) --network="host" -v ./:/app --workdir="/app" --entrypoint="nx" node-dev-env:latest serve api
+		$(call DOCKER_RUN_CMD) --entrypoint="nx" node-dev-env:latest serve api
 
 serve-platform:
-		docker run -it --rm -u $(shell id -u):$(shell id -g) --network="host" -v ./:/app --workdir="/app" --entrypoint="nx" node-dev-env:latest serve platform --verbose
+		$(call DOCKER_RUN_CMD) --entrypoint="nx" node-dev-env:latest serve platform --verbose
