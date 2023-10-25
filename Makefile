@@ -26,7 +26,10 @@ node:
 
 # --- Server stuff ---
 serve-api:
-		$(call DOCKER_RUN_CMD) --entrypoint="nx" node-dev-env:latest serve api
+		$(call DOCKER_RUN_CMD) --entrypoint="nx" node-dev-env:latest serve api --port 8080
 
 serve-platform:
-		$(call DOCKER_RUN_CMD) --entrypoint="nx" node-dev-env:latest serve platform --verbose
+		$(call DOCKER_RUN_CMD) --entrypoint="nx" node-dev-env:latest serve platform --port 4200
+
+serve-landing:
+		$(call DOCKER_RUN_CMD) --entrypoint="nx" node-dev-env:latest serve landing --port 3030
