@@ -17,7 +17,6 @@ yarn:
 npx:
 		$(call DOCKER_RUN_CMD) --entrypoint="npx" node-dev-env:latest $(call ARGS, defaultstring)
 
-
 nx:
 		$(call DOCKER_RUN_CMD) --entrypoint="nx" node-dev-env:latest $(call ARGS, defaultstring)
 
