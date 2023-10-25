@@ -1,0 +1,33 @@
+{
+  "name": "isomera",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cortip/isomera.git"
+  },
+  "keywords": [
+    "saas",
+    "boilerplate",
+    "starter",
+    "js",
+    "typescript",
+    "javascript",
+    "nx",
+    "node",
+    "nest.js",
+    "next.js",
+    "react",
+    "redux"
+  ],
+  "author": "Vygandas Pliasas",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cortip/isomera/issues"
+  },
+  "homepage": "https://github.com/cortip/isomera#readme"
+}

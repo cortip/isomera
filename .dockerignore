@@ -1,0 +1,8 @@
+Makefile
+docker
+README.md
+docs
+.env
+.env.*
+.git
+.idea
