@@ -95,6 +95,10 @@ This is pretty simple, just
 make nx run-many -- -t test
 ```
 
+```
+make nx run-many -- -t e2e
+```
+
 ### Running services
 
 #### Run API locally
