@@ -49,6 +49,9 @@ Are you passionate about shaping the future of SaaS development? Looking for a p
 - [ ] Websockets for notifications and updates
 - [ ] GDPR compliance
 - [ ] Easy solution for roles and access management
+- [ ] SQS queue and jobs - support heavy load
+- [ ] Redis & Memcached for caching + tooling in code
+- [ ] Production split for api and workers to allow better control on auto-scaling 
 - [ ] ...
 
 ## Features plan
