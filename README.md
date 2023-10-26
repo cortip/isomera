@@ -32,6 +32,8 @@
 - [ ] Email solution (prod/dev)
 - [ ] Websockets for notifications and updates
 - [ ] GDPR compliance
+- [ ] DB migrations
+- [ ] Easy solution for roles and access management
 - [ ] ...
 
 ## Features plan
