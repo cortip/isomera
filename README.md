@@ -13,26 +13,33 @@
 * Create training material to make your start easier.
 * Keep UI as simple as possible, so you could choose whether to go with same SCSS, Styled Components, Material UI or Tailwind for your creation
 
-## Technical TODO
+## SDLC ToDo
+
+- [ ] Documentation: Getting Started
+- [ ] Documentation: Going to Production
+- [ ] Training video on how to get started
+- [ ] Training video on best practices
+
+## Technical ToDo
 
 - [x] NX monorepo workspace
-- [ ] Landing page with Next.js
+- [x] Landing page with Next.js
 - [ ] CI & Tests
 - [ ] Prettier & Linting
-- [ ] Generated documentation for API with Compodoc
+- [x] Generated documentation for API with Compodoc
 - [ ] Swagger for API endpoints
 - [ ] DTO as shared lib
+- [ ] Redux-toolkit for app data storage
 - [ ] Interfaces as shared lib
 - [ ] Utils as shared lib (for example time formatting)
-- [ ] TypeORM
+- [ ] TypeORM & DB migrations
 - [ ] Plan a strict rules for timestamps (this is frequent problem for projects where users has to interact across multiple timezones)
-- [ ] Connect S3
+- [ ] Connect S3 or other object bucket
 - [ ] Production Dockerfiles
-- [ ] SSL in dev
-- [ ] Email solution (prod/dev)
+- [ ] SSL in development
+- [ ] Transactional emails and templates (prod/dev)
 - [ ] Websockets for notifications and updates
 - [ ] GDPR compliance
-- [ ] DB migrations
 - [ ] Easy solution for roles and access management
 - [ ] ...
 
