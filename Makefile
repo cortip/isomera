@@ -1,3 +1,14 @@
+#!/usr/bin/make
+
+# --- Load in .env ---
+
+ifneq ("$(wildcard .env)","")
+	include .env
+	export $(shell sed 's/=.*//' .env)
+endif
+
+# --- Some prep ---
+
 ARGS = `arg="$(filter-out $@,$(MAKECMDGOALS))" && echo $${arg:-${1}}`
 DOCKER_RUN_CMD = docker run -it --rm -u $(shell id -u):$(shell id -g) -v ./:/app --workdir="/app" --network="host"
 
