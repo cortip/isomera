@@ -17,9 +17,9 @@ Are you passionate about shaping the future of SaaS development? Looking for a p
 
 ## Goals
 
-* To keep this starter project up to date and at best practices.
-* Create training material to make your start easier.
-* Keep UI as simple as possible, so you could choose whether to go with same SCSS, Styled Components, Material UI or Tailwind for your creation
+* Keep this starter project updated and aligned with best practices.
+* Produce training materials to simplify your startup process.
+* Maintain a streamlined UI, offering flexibility to choose between SCSS, Styled Components, Material UI, or Tailwind for your designs.
 
 ## SDLC ToDo
 
