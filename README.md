@@ -1,9 +1,56 @@
 
+# <span style="color: #2378A8; font-weight: 900;">ISOMERA</span> <span style="display: block; color: #1092DB; font-weight: 500; font-size: 1.8rem;">Enterprise grade Javascript/Typescript Starter Boilerplate Monorepo</span>
 
+## Preview
 
-serve-api
+* Landing page https://www.isomera.org/
+* Platform https://app.isomera.org/
+* Documentation https://doc.isomera.org/overview.html
 
+## Goals
 
+* To keep this starter project up to date and at best practices.
+* Create training material to make your start easier.
+* Keep UI as simple as possible, so you could choose whether to go with same SCSS, Styled Components, Material UI or Tailwind for your creation
+
+## Technical TODO
+
+- [x] NX monorepo workspace
+- [ ] Landing page with Next.js
+- [ ] CI & Tests
+- [ ] Prettier & Linting
+- [ ] Generated documentation for API with Compodoc
+- [ ] Swagger for API endpoints
+- [ ] DTO as shared lib
+- [ ] Interfaces as shared lib
+- [ ] Utils as shared lib (for example time formatting)
+- [ ] TypeORM
+- [ ] Plan a strict rules for timestamps (this is frequent problem for projects where users has to interact across multiple timezones)
+- [ ] Connect S3
+- [ ] Production Dockerfiles
+- [ ] SSL in dev
+- [ ] Email solution (prod/dev)
+- [ ] Websockets for notifications and updates
+- [ ] GDPR compliance
+- [ ] ...
+
+## Features plan
+
+- [ ] User can Sign Up & Sign In using email
+- [ ] User can Sign Up & Sign In using Google, Facebook, Apple or Microsoft
+- [ ] User can Sign Up & Sign In using phone number (Twillio)
+- [ ] User can reset password
+- [ ] User can invite other team members to organization (org created for every user, if it's not needed, should be easy to disable or just ignore)
+- [ ] User can enter company details to organization (for future billing)
+- [ ] User can manage roles for team (OrgOwner, OrgAdmin, OrgManager, OrgFinance, OrgAnalytic, OrgSupport, OrgUser, OrgReadonly, OrgClientVIP, OrgClient)
+- [ ] User can transfer organization ownership
+- [ ] User can enable 2FA
+- [ ] User can enforce 2FA for organization users
+- [ ] User can edit basic profile details (name, photo)
+- [ ] User can delete organization
+- [ ] User can delete account
+- [ ] ...
+ 
 ## Developing locally
 
 ### Getting started
@@ -50,8 +97,20 @@ make nx run-many -- -t test
 
 #### Run API locally
 
-This will launch API service on port 8080.
+This will launch API service on port 8080:
 
 ```
 make nx serve-api
+```
+
+This will launch platform on port 4200:
+
+```
+make nx serve-platform
+```
+
+This will launch landing on port 3030:
+
+```
+make nx serve-landing
 ```
