@@ -5,6 +5,10 @@ Unlock the future of seamless SaaS development with ISOMERA, the all-encompassin
 
 Every developer understands the journey: starting with basic functionalities and, over time, integrating advanced features like 2FA, role management, or intricate middleware logic. At the outset, it might seem manageable, but as your project scales and evolves, these additions can accumulate into months of development time. Not to mention the effort spent ensuring earlier work seamlessly integrates with new features. With ISOMERA, this narrative changes. While not every feature on our ToDo list is immediate, our roadmap is designed with foresight. As your project matures, ISOMERA grows with you, offering advanced functionalities just when you need them. It's not just about the initial boost; it's about the cumulative time and effort saved over the life of your project. Dive straight into innovation, knowing the foundational and advanced are already taken care of.
 
+#### 🌟 Join the ISOMERA Revolution as an Open-Source Contributor! 🌟
+
+Are you passionate about shaping the future of SaaS development? Looking for a platform where your expertise can make a real difference? Welcome to ISOMERA! As an open-source project, we believe in the collective genius of the developer community. Your insights, skills, and dedication can help elevate ISOMERA to new heights. Whether you're a seasoned expert or a newcomer eager to learn, there's a space here for you. Dive into our code, collaborate with like-minded innovators, and let's co-create the ultimate Javascript/Typescript boilerplate for the next generation. Join the ISOMERA family and let's craft the future, one line of code at a time. 🚀
+
 ## Preview
 
 * Landing page https://www.isomera.org/
