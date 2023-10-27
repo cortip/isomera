@@ -1,3 +1,14 @@
+#!/usr/bin/make
+
+# --- Load in .env ---
+
+ifneq ("$(wildcard .env)","")
+	include .env
+	export $(shell sed 's/=.*//' .env)
+endif
+
+# --- Some prep ---
+
 ARGS = `arg="$(filter-out $@,$(MAKECMDGOALS))" && echo $${arg:-${1}}`
 DOCKER_RUN_CMD = docker run -it --rm -u $(shell id -u):$(shell id -g) -v ./:/app --workdir="/app" --network="host"
 
@@ -17,7 +28,6 @@ yarn:
 npx:
 		$(call DOCKER_RUN_CMD) --entrypoint="npx" node-dev-env:latest $(call ARGS, defaultstring)
 
-
 nx:
 		$(call DOCKER_RUN_CMD) --entrypoint="nx" node-dev-env:latest $(call ARGS, defaultstring)
 
@@ -26,7 +36,10 @@ node:
 
 # --- Server stuff ---
 serve-api:
-		$(call DOCKER_RUN_CMD) --entrypoint="nx" node-dev-env:latest serve api
+		$(call DOCKER_RUN_CMD) --entrypoint="nx" node-dev-env:latest serve api --port 8080
 
 serve-platform:
-		$(call DOCKER_RUN_CMD) --entrypoint="nx" node-dev-env:latest serve platform --verbose
+		$(call DOCKER_RUN_CMD) --entrypoint="nx" node-dev-env:latest serve platform --port 4200
+
+serve-landing:
+		$(call DOCKER_RUN_CMD) --entrypoint="nx" node-dev-env:latest serve landing --port 3030
