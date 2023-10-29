@@ -26,11 +26,14 @@ jobs:
       - uses: pnpm/action-setup@v2
         with:
           version: 8
-          run_install: |
-            - use-beta-cli=true
-            - recursive: true
-              args: [--frozen-lockfile=false, --strict-peer-dependencies, --no-prefer-frozen-lockfile]
-            - args: [--global, gulp, prettier, typescript, eslint]
+          run_install: false
+#          run_install: |
+#            - use-beta-cli=true
+#            - recursive: true
+#              args: [--frozen-lockfile=false, --strict-peer-dependencies, --no-prefer-frozen-lockfile]
+#            - args: [--global, gulp, prettier, typescript, eslint]
+
+      - run: pnpm install --no-prefer-frozen-lockfile
 
       - name: Run Affected Tests
         shell: bash
