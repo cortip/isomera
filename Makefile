@@ -22,6 +22,9 @@ devinit:
 npm:
 		$(call DOCKER_RUN_CMD) --entrypoint="npm" node-dev-env:latest $(call ARGS, defaultstring)
 
+pnpm:
+		$(call DOCKER_RUN_CMD) --entrypoint="pnpm" node-dev-env:latest $(call ARGS, defaultstring)
+
 yarn:
 		$(call DOCKER_RUN_CMD) --entrypoint="yarn" node-dev-env:latest $(call ARGS, defaultstring)
 

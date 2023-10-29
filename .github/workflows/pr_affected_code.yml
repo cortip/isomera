@@ -21,7 +21,16 @@ jobs:
 
       - run: git fetch origin main
 
-      - run: yarn install
+#      - run: yarn install
+
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+          run_install: |
+            - use-beta-cli=true
+            - recursive: true
+              args: [--frozen-lockfile, --strict-peer-dependencies]
+            - args: [--global, gulp, prettier, typescript, eslint]
 
       - name: Run Affected Tests
         shell: bash
