@@ -69,7 +69,7 @@
     "jest-environment-node": "^29.4.1",
     "nx": "17.0.1",
     "prettier": "^3.0.3",
-    "react-refresh": "^0.10.0",
+    "react-refresh": "^0.14.0",
     "sass": "1.62.1",
     "ts-jest": "^29.1.0",
     "ts-node": "10.9.1",
