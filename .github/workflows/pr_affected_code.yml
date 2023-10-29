@@ -29,7 +29,7 @@ jobs:
           run_install: |
             - use-beta-cli=true
             - recursive: true
-              args: [--frozen-lockfile, --strict-peer-dependencies]
+              args: [--frozen-lockfile=false, --strict-peer-dependencies, --no-prefer-frozen-lockfile]
             - args: [--global, gulp, prettier, typescript, eslint]
 
       - name: Run Affected Tests
