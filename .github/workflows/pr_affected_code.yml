@@ -21,17 +21,10 @@ jobs:
 
       - run: git fetch origin main
 
-#      - run: yarn install
-
       - uses: pnpm/action-setup@v2
         with:
           version: 8
           run_install: false
-#          run_install: |
-#            - use-beta-cli=true
-#            - recursive: true
-#              args: [--frozen-lockfile=false, --strict-peer-dependencies, --no-prefer-frozen-lockfile]
-#            - args: [--global, gulp, prettier, typescript, eslint]
 
       - run: pnpm install --no-prefer-frozen-lockfile
 
