@@ -2,10 +2,10 @@ name: Is code pretty
 on:
   pull_request:
     branches:
-      - "*"
+      - '*'
   push:
     branches:
-      - "*"
+      - '*'
 
 jobs:
   build:
@@ -28,7 +28,7 @@ jobs:
           version: 8
           run_install: false
 
-      - name: "Install dependencies"
+      - name: 'Install dependencies'
         run: pnpm install --no-prefer-frozen-lockfile
 
       - name: "Check it it's pretty"
