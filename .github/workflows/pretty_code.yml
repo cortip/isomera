@@ -1,7 +1,11 @@
-name: Nx Affected CI
+name: Is code pretty
 on:
   pull_request:
-    branches: [main]
+    branches:
+      - '*'
+  push:
+    branches:
+      - '*'
 
 jobs:
   build:
@@ -19,8 +23,6 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - run: git fetch origin main
-
       - uses: pnpm/action-setup@v2
         with:
           version: 8
@@ -29,7 +31,5 @@ jobs:
       - name: 'Install dependencies'
         run: pnpm install --no-prefer-frozen-lockfile
 
-      - name: Run Affected Tests
-        shell: bash
-        run:
-          npx nx affected --target=test --base=remotes/origin/main --head=HEAD
+      - name: "Check it it's pretty"
+        run: pnpm prettier:check
