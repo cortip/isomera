@@ -26,8 +26,13 @@ jobs:
           version: 8
           run_install: false
 
-      - run: pnpm install --no-prefer-frozen-lockfile
+      - name: "Install dependencies"
+        run: pnpm install --no-prefer-frozen-lockfile
+
+      - name: "Check it it's pretty"
+        run: pnpm prettier:check
 
       - name: Run Affected Tests
         shell: bash
-        run: npx nx affected --target=test --base=remotes/origin/main --head=HEAD
+        run:
+          npx nx affected --target=test --base=remotes/origin/main --head=HEAD

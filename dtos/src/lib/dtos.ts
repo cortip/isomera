@@ -1,3 +1,3 @@
 export function dtos(): string {
-  return 'dtos';
+  return 'dtos'
 }

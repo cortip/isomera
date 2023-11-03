@@ -2,3 +2,12 @@
 /dist
 /coverage
 /.nx/cache
+
+/node_modules
+/docker
+/docs
+/.git
+/.idea
+/.nx
+/.pnpm-store
+/.vscode

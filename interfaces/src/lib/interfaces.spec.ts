@@ -1,7 +1,7 @@
-import { interfaces } from './interfaces';
+import { interfaces } from './interfaces'
 
 describe('interfaces', () => {
   it('should work', () => {
-    expect(interfaces()).toEqual('interfaces');
-  });
-});
+    expect(interfaces()).toEqual('interfaces')
+  })
+})
