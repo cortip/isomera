@@ -1,4 +1,10 @@
 import './global.css'
+import { Roboto } from 'next/font/google'
+
+const roboto = Roboto({
+  subsets: ['latin'],
+  weight: ['500']
+})
 
 export const metadata = {
   title: 'Welcome to landing',
@@ -13,7 +19,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className={roboto.className}>
       <body>{children}</body>
     </html>
   )
