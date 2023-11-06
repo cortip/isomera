@@ -20,7 +20,7 @@
     "@swc/helpers": "~0.5.2",
     "axios": "^1.0.0",
     "class-validator": "^0.14.0",
-    "next": "14.0.0",
+    "next": "14.0.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-router-dom": "6.17.0",
