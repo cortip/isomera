@@ -98,8 +98,8 @@ devDependencies:
     specifier: 17.0.1
     version: 17.0.1(@swc-node/register@1.6.8)(@swc/core@1.3.95)(@types/node@20.8.8)(nx@17.0.1)(typescript@5.2.2)
   '@nx/workspace':
-    specifier: 17.0.1
-    version: 17.0.1(@swc-node/register@1.6.8)(@swc/core@1.3.95)
+    specifier: 17.0.3
+    version: 17.0.3(@swc-node/register@1.6.8)(@swc/core@1.3.95)
   '@pmmmwh/react-refresh-webpack-plugin':
     specifier: ^0.5.7
     version: 0.5.11(react-refresh@0.14.0)(webpack@5.89.0)
@@ -2372,6 +2372,14 @@ packages:
       - nx
     dev: true
 
+  /@nrwl/devkit@17.0.3(nx@17.0.3):
+    resolution: {integrity: sha512-k1o0tvmGcg2/Kw2d56ULixqngCj5zTfp3mn6yS0ytIJrTQnJVkI8GcFCtpnqbzQjD8nKHhvTIcOMsj2BzLos9A==}
+    dependencies:
+      '@nx/devkit': 17.0.3(nx@17.0.3)
+    transitivePeerDependencies:
+      - nx
+    dev: true
+
   /@nrwl/eslint-plugin-nx@17.0.1(@swc-node/register@1.6.8)(@swc/core@1.3.95)(@types/node@20.8.8)(@typescript-eslint/parser@5.62.0)(eslint-config-prettier@9.0.0)(eslint@8.52.0)(nx@17.0.1)(typescript@5.2.2):
     resolution: {integrity: sha512-L3rD1vnZPI637tigeHhLmSUjaNxI0Rwd3xFb8BTm2sCi1wPAR8LVxb3tERC3qjVU9EWl6v2AyLnAFaRK9birhg==}
     dependencies:
@@ -2803,7 +2811,7 @@ packages:
     peerDependencies:
       nx: '>= 16 <= 18'
     dependencies:
-      '@nrwl/devkit': 17.0.3(nx@17.0.1)
+      '@nrwl/devkit': 17.0.3(nx@17.0.3)
       ejs: 3.1.9
       enquirer: 2.3.6
       ignore: 5.2.4
