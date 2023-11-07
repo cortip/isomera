@@ -1,5 +1,5 @@
 <p align="center">
-<img src='docs/assets/logo.svg' alt='Isomera' style='max-width: 180px' />
+<img src='docs/assets/logo.svg' alt='Isomera' style='max-width: 120px' />
 </p>
 
 # ISOMERA: The Ultimate Javascript/Typescript SaaS Boilerplate Monorepo for Modern Developers
