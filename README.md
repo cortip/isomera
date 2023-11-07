@@ -44,7 +44,7 @@ line of code at a time. 🚀
 
 ## Content
 
-* [Global Configuration & Options](docs/Configuration.md)
+- [Global Configuration & Options](docs/Configuration.md)
 
 ## Goals
 
