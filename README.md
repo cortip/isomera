@@ -42,6 +42,10 @@ line of code at a time. 🚀
 - Platform https://app.isomera.org/
 - Documentation https://doc.isomera.org/overview.html
 
+## Content
+
+* [Global Configuration & Options](docs/Configuration.md)
+
 ## Goals
 
 - Keep this starter project updated and aligned with best practices.
