@@ -73,10 +73,10 @@ line of code at a time. 🚀
 - [x] NX monorepo workspace
 - [x] Landing page with Next.js
 - [ ] CI & Tests
-- [ ] Prettier & Linting
+- [x] Prettier & Linting
 - [x] Generated documentation for API with Compodoc
-- [ ] Swagger for API endpoints
-- [ ] DTO as shared lib
+- [x] Swagger for API endpoints
+- [x] DTO as shared lib
 - [ ] Redux-toolkit for app data storage
 - [ ] Interfaces as shared lib
 - [ ] Utils as shared lib (for example time formatting)

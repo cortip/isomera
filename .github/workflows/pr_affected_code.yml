@@ -29,7 +29,12 @@ jobs:
       - name: 'Install dependencies'
         run: pnpm install --no-prefer-frozen-lockfile
 
-      - name: Run Affected Tests
+      - name: Run Affected Unit Tests
         shell: bash
         run:
           npx nx affected --target=test --base=remotes/origin/main --head=HEAD
+
+      - name: Run Affected e2e Tests
+        shell: bash
+        run:
+          npx nx affected --target=e2e --base=remotes/origin/main --head=HEAD
