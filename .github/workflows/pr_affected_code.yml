@@ -36,5 +36,4 @@ jobs:
 
       - name: Run Affected e2e Tests
         shell: bash
-        run:
-          npx nx affected --target=e2e --base=remotes/origin/main --head=HEAD
+        run: npx nx affected --target=e2e --base=remotes/origin/main --head=HEAD
