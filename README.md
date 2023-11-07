@@ -1,4 +1,4 @@
-<p style='text-align: center'>
+<p align="center">
 <img src='docs/assets/logo.svg' alt='Isomera' style='max-width: 180px' />
 </p>
 
