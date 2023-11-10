@@ -1,6 +1,6 @@
 import 'reflect-metadata'
 import { Route, Routes, Link } from 'react-router-dom'
-import { SignInWithEmailCredentialsDto } from 'dtos/src/auth/SignInWithEmailCredentials.dto'
+import { SignInWithEmailCredentialsDto } from '@isomera/dtos'
 
 export function App() {
   const signindto = new SignInWithEmailCredentialsDto({
