@@ -10,7 +10,7 @@ endif
 # --- Some prep ---
 
 ARGS = `arg="$(filter-out $@,$(MAKECMDGOALS))" && echo $${arg:-${1}}`
-DOCKER_RUN_CMD = docker run -it --rm -v ./:/app -v /app/node_modules --workdir="/app" --network="host"
+DOCKER_RUN_CMD = docker run -it --rm -v ./:/app --workdir="/app" --network="host"
 
 # --- Initialization ---
 
