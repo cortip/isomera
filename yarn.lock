@@ -1817,12 +1817,12 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@nrwl/cypress@17.0.1":
-  version "17.0.1"
-  resolved "https://registry.yarnpkg.com/@nrwl/cypress/-/cypress-17.0.1.tgz#38c3a2a905036f76b6a1e05d599a37e84c13f7df"
-  integrity sha512-13eIoTDcpWAcNAPWnwCdXldx3DHApMnpfrraFTgmeHC8e2WlmPPxAcxSasie2Y6fckyP+Mv9KRENZMhET8Vvxw==
+"@nrwl/cypress@17.1.1":
+  version "17.1.1"
+  resolved "https://registry.yarnpkg.com/@nrwl/cypress/-/cypress-17.1.1.tgz#d7c926425561d673d0fd0d2ec17c9e16facfe9d7"
+  integrity sha512-aV6/Fy+xIS5rTZsePbbAKnne8TYR7hLOnrX9rFKumcBjckEev0O+Eby70tlQTCK7NPhXKklR9j4HG1ISsbLahw==
   dependencies:
-    "@nx/cypress" "17.0.1"
+    "@nx/cypress" "17.1.1"
 
 "@nrwl/devkit@17.0.1":
   version "17.0.1"
@@ -1976,15 +1976,15 @@
     consola "^2.15.0"
     node-fetch "^2.6.1"
 
-"@nx/cypress@17.0.1":
-  version "17.0.1"
-  resolved "https://registry.yarnpkg.com/@nx/cypress/-/cypress-17.0.1.tgz#2627f1b21fbc07481c031ce0bb219f747c4fe513"
-  integrity sha512-Z0f+CBf1uHJHb+cvpb0fpO2iUwidAtGVRqB7NpPKMkWkdGYgbiVrXIS3IkfHlZBKVULBNuqg8ylJKIJ9aoJkRA==
+"@nx/cypress@17.1.1":
+  version "17.1.1"
+  resolved "https://registry.yarnpkg.com/@nx/cypress/-/cypress-17.1.1.tgz#b25c864aa7d2b9e351fcc16d6bb4b8c3e988e62a"
+  integrity sha512-p425R5T+fyGMB+RTjdblfOubYNuZ94kP3w/fqC2g2v4i/x2a8xBTWnT8kv9KKt//ngjI4ZLnrMA/wiTO0hZH+A==
   dependencies:
-    "@nrwl/cypress" "17.0.1"
-    "@nx/devkit" "17.0.1"
-    "@nx/eslint" "17.0.1"
-    "@nx/js" "17.0.1"
+    "@nrwl/cypress" "17.1.1"
+    "@nx/devkit" "17.1.1"
+    "@nx/eslint" "17.1.1"
+    "@nx/js" "17.1.1"
     "@phenomnomnominal/tsquery" "~5.0.1"
     detect-port "^1.5.1"
     semver "7.5.3"
@@ -12164,6 +12164,7 @@ wordwrap@^1.0.0:
   integrity sha512-gvVzJFlPycKc5dZN4yPkP8w7Dc37BtP1yczEneOb4uq34pXZcvrtRTmWV8W+Ume+XCxKgbjM+nevkyFPMybd4Q==
 
 "wrap-ansi-cjs@npm:wrap-ansi@^7.0.0", wrap-ansi@^7.0.0:
+  name wrap-ansi-cjs
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/wrap-ansi/-/wrap-ansi-7.0.0.tgz#67e145cff510a6a6984bdf1152911d69d2eb9e43"
   integrity sha512-YVGIj2kamLSTxw6NsZjoBxfSwsn0ycdesmc4p+Q21c5zPuZ1pl+NfxVdxPtdHvmNVOQ6XSYG4AUtyt/Fi7D16Q==
