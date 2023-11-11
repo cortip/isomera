@@ -107,8 +107,8 @@ devDependencies:
     specifier: ^17.0.1
     version: 17.0.2(@swc-node/register@1.6.8)(@swc/core@1.3.95)(@types/node@20.8.8)(eslint@8.52.0)(nx@17.0.1)(typescript@5.2.2)(webpack@5.89.0)
   '@nx/webpack':
-    specifier: 17.0.1
-    version: 17.0.1(@swc-node/register@1.6.8)(@swc/core@1.3.95)(@types/node@20.8.8)(nx@17.0.1)(typescript@5.2.2)
+    specifier: 17.1.1
+    version: 17.1.1(@swc-node/register@1.6.8)(@swc/core@1.3.95)(@types/node@20.8.8)(nx@17.0.1)(typescript@5.2.2)
   '@nx/workspace':
     specifier: 17.0.1
     version: 17.0.1(@swc-node/register@1.6.8)(@swc/core@1.3.95)
@@ -217,6 +217,10 @@ packages:
   /@aashutoshrathi/word-wrap@1.2.6:
     resolution: {integrity: sha512-1Yjs2SvM8TflER/OD3cOjhWWOZb58A2t7wpE2S9XfBYTiIl+XFhQG2bjy4Pu1I+EAlCNUzRDYDdFwFYUKvXcIA==}
     engines: {node: '>=0.10.0'}
+    dev: true
+
+  /@adobe/css-tools@4.3.1:
+    resolution: {integrity: sha512-/62yikz7NLScCGAAST5SHdnjaDJQBDq0M2muyRTpf2VQhw6StBg2ALiu73zSJQ4fMVLA+0uBhBHAle7Wg+2kSg==}
     dev: true
 
   /@aduh95/viz.js@3.4.0:
@@ -2691,10 +2695,10 @@ packages:
       - verdaccio
     dev: true
 
-  /@nrwl/webpack@17.0.1(@swc-node/register@1.6.8)(@swc/core@1.3.95)(@types/node@20.8.8)(nx@17.0.1)(typescript@5.2.2):
-    resolution: {integrity: sha512-snTggVmttopym51KIt+GQdqP1ETJAYBJLHfcgbLYPHV/J9W5POc8E4z2wMSAYUWTFa3KouKYAKpLPLIXr37FtQ==}
+  /@nrwl/webpack@17.1.1(@swc-node/register@1.6.8)(@swc/core@1.3.95)(@types/node@20.8.8)(nx@17.0.1)(typescript@5.2.2):
+    resolution: {integrity: sha512-R5ef0sP9Gah+Yiif9mL9aCjdcz+MQCPryq8tMPB8UZMoB4voZXvT3vabn1Bw9at/yKK1dq85RgynDm89Hc/7nA==}
     dependencies:
-      '@nx/webpack': 17.0.1(@swc-node/register@1.6.8)(@swc/core@1.3.95)(@types/node@20.8.8)(nx@17.0.1)(typescript@5.2.2)
+      '@nx/webpack': 17.1.1(@swc-node/register@1.6.8)(@swc/core@1.3.95)(@types/node@20.8.8)(nx@17.0.1)(typescript@5.2.2)
     transitivePeerDependencies:
       - '@babel/traverse'
       - '@parcel/css'
@@ -3952,13 +3956,13 @@ packages:
       - verdaccio
     dev: true
 
-  /@nx/webpack@17.0.1(@swc-node/register@1.6.8)(@swc/core@1.3.95)(@types/node@20.8.8)(nx@17.0.1)(typescript@5.2.2):
-    resolution: {integrity: sha512-kzzM834eZVbdMfkmzIektY0zVK6a/oea8HtJSdZs7oumDuMB6+ge6hqaFUnj35Uhr4kb+Ry6OvAVPrGJyoj5nQ==}
+  /@nx/webpack@17.1.1(@swc-node/register@1.6.8)(@swc/core@1.3.95)(@types/node@20.8.8)(nx@17.0.1)(typescript@5.2.2):
+    resolution: {integrity: sha512-mxo8swr2Z7yXp6kednAu2ZmZww/t1F663NbENm5R0YEVhP4dHd6Ol8qPfqHeGfp2Nw9sks2uXreqg4NHGesYDQ==}
     dependencies:
       '@babel/core': 7.23.2
-      '@nrwl/webpack': 17.0.1(@swc-node/register@1.6.8)(@swc/core@1.3.95)(@types/node@20.8.8)(nx@17.0.1)(typescript@5.2.2)
-      '@nx/devkit': 17.0.1(nx@17.0.1)
-      '@nx/js': 17.0.1(@swc-node/register@1.6.8)(@swc/core@1.3.95)(@types/node@20.8.8)(nx@17.0.1)(typescript@5.2.2)
+      '@nrwl/webpack': 17.1.1(@swc-node/register@1.6.8)(@swc/core@1.3.95)(@types/node@20.8.8)(nx@17.0.1)(typescript@5.2.2)
+      '@nx/devkit': 17.1.1(nx@17.0.1)
+      '@nx/js': 17.1.1(@swc-node/register@1.6.8)(@swc/core@1.3.95)(@types/node@20.8.8)(nx@17.0.1)(typescript@5.2.2)
       autoprefixer: 10.4.16(postcss@8.4.31)
       babel-loader: 9.1.3(@babel/core@7.23.2)(webpack@5.89.0)
       browserslist: 4.22.1
@@ -3981,6 +3985,8 @@ packages:
       sass-loader: 12.6.0(sass@1.69.5)(webpack@5.89.0)
       source-map-loader: 3.0.2(webpack@5.89.0)
       style-loader: 3.3.3(webpack@5.89.0)
+      stylus: 0.59.0
+      stylus-loader: 7.1.3(stylus@0.59.0)(webpack@5.89.0)
       terser-webpack-plugin: 5.3.9(@swc/core@1.3.95)(webpack@5.89.0)
       ts-loader: 9.5.0(typescript@5.2.2)(webpack@5.89.0)
       tsconfig-paths-webpack-plugin: 4.0.0
@@ -12284,6 +12290,10 @@ packages:
       immutable: 4.3.4
       source-map-js: 1.0.2
 
+  /sax@1.2.4:
+    resolution: {integrity: sha512-NqVDv9TpANUjFm0N8uM5GxL36UgKi9/atZw+x7YFnQ8ckwFGKrl4xX4yWtrey3UJm5nP1kUbnYgLopqWNSRhWw==}
+    dev: true
+
   /sax@1.3.0:
     resolution: {integrity: sha512-0s+oAmw9zLl1V1cS9BtZN7JAd0cW5e0QH4W3LWEK6a4LaLEA2OTpGYWDY+6XasBLtz6wkm3u1xRw95mRuJ59WA==}
 
@@ -12909,6 +12919,32 @@ packages:
       browserslist: 4.22.1
       postcss: 8.4.31
       postcss-selector-parser: 6.0.13
+    dev: true
+
+  /stylus-loader@7.1.3(stylus@0.59.0)(webpack@5.89.0):
+    resolution: {integrity: sha512-TY0SKwiY7D2kMd3UxaWKSf3xHF0FFN/FAfsSqfrhxRT/koXTwffq2cgEWDkLQz7VojMu7qEEHt5TlMjkPx9UDw==}
+    engines: {node: '>= 14.15.0'}
+    peerDependencies:
+      stylus: '>=0.52.4'
+      webpack: ^5.0.0
+    dependencies:
+      fast-glob: 3.3.1
+      normalize-path: 3.0.0
+      stylus: 0.59.0
+      webpack: 5.89.0(@swc/core@1.3.95)
+    dev: true
+
+  /stylus@0.59.0:
+    resolution: {integrity: sha512-lQ9w/XIOH5ZHVNuNbWW8D822r+/wBSO/d6XvtyHLF7LW4KaCIDeVbvn5DF8fGCJAUCwVhVi/h6J0NUcnylUEjg==}
+    hasBin: true
+    dependencies:
+      '@adobe/css-tools': 4.3.1
+      debug: 4.3.4(supports-color@8.1.1)
+      glob: 7.2.3
+      sax: 1.2.4
+      source-map: 0.7.4
+    transitivePeerDependencies:
+      - supports-color
     dev: true
 
   /supports-color@5.5.0:
