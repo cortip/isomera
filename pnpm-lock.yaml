@@ -173,8 +173,8 @@ devDependencies:
     specifier: 6.7.1
     version: 6.7.1(eslint@8.52.0)
   eslint-plugin-react:
-    specifier: 7.32.2
-    version: 7.32.2(eslint@8.52.0)
+    specifier: 7.33.2
+    version: 7.33.2(eslint@8.52.0)
   eslint-plugin-react-hooks:
     specifier: 4.6.0
     version: 4.6.0(eslint@8.52.0)
@@ -2396,14 +2396,6 @@ packages:
       - nx
     dev: true
 
-  /@nrwl/devkit@17.1.1(nx@17.1.1):
-    resolution: {integrity: sha512-zLq/Sje4XqcZdrL7SYqylFD3Wo9KoiZtj+4CFSphME67TshN8qqEYVa6ePHFdM/CHIEuKHeWK4CHbebyPGvtyg==}
-    dependencies:
-      '@nx/devkit': 17.1.1(nx@17.1.1)
-    transitivePeerDependencies:
-      - nx
-    dev: true
-
   /@nrwl/eslint-plugin-nx@17.0.1(@swc-node/register@1.6.8)(@swc/core@1.3.95)(@types/node@20.8.8)(@typescript-eslint/parser@5.62.0)(eslint-config-prettier@9.0.0)(eslint@8.52.0)(nx@17.0.1)(typescript@5.2.2):
     resolution: {integrity: sha512-L3rD1vnZPI637tigeHhLmSUjaNxI0Rwd3xFb8BTm2sCi1wPAR8LVxb3tERC3qjVU9EWl6v2AyLnAFaRK9birhg==}
     dependencies:
@@ -2904,7 +2896,7 @@ packages:
     peerDependencies:
       nx: '>= 16 <= 18'
     dependencies:
-      '@nrwl/devkit': 17.1.1(nx@17.1.1)
+      '@nrwl/devkit': 17.1.1(nx@17.0.1)
       ejs: 3.1.9
       enquirer: 2.3.6
       ignore: 5.2.4
@@ -7666,30 +7658,6 @@ packages:
       eslint: ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0-0
     dependencies:
       eslint: 8.52.0
-    dev: true
-
-  /eslint-plugin-react@7.32.2(eslint@8.52.0):
-    resolution: {integrity: sha512-t2fBMa+XzonrrNkyVirzKlvn5RXzzPwRHtMvLAtVZrt8oxgnTQaYbU6SXTOO1mwQgp1y5+toMSKInnzGr0Knqg==}
-    engines: {node: '>=4'}
-    peerDependencies:
-      eslint: ^3 || ^4 || ^5 || ^6 || ^7 || ^8
-    dependencies:
-      array-includes: 3.1.7
-      array.prototype.flatmap: 1.3.2
-      array.prototype.tosorted: 1.1.2
-      doctrine: 2.1.0
-      eslint: 8.52.0
-      estraverse: 5.3.0
-      jsx-ast-utils: 3.3.5
-      minimatch: 3.1.2
-      object.entries: 1.1.7
-      object.fromentries: 2.0.7
-      object.hasown: 1.1.3
-      object.values: 1.1.7
-      prop-types: 15.8.1
-      resolve: 2.0.0-next.5
-      semver: 6.3.1
-      string.prototype.matchall: 4.0.10
     dev: true
 
   /eslint-plugin-react@7.33.2(eslint@8.52.0):
