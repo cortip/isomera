@@ -10,12 +10,12 @@ endif
 # --- Some prep ---
 
 ARGS = `arg="$(filter-out $@,$(MAKECMDGOALS))" && echo $${arg:-${1}}`
-DOCKER_RUN_CMD = docker run -it --rm -v ./:/app --workdir="/app" --network="host"
+DOCKER_RUN_CMD = docker run -it --rm -u $(shell id -u):$(shell id -g) -v ./:/app --workdir="/app" --network="host"
 
 # --- Initialization ---
 
 devinit:
-		docker build -f docker/utility/node.dockerfile . -t node-dev-env:latest
+		docker build -f docker/utility/node.dockerfile . -t node-dev-env:latest --no-cache
 
 # --- Commands ---
 

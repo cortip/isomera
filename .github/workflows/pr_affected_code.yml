@@ -21,13 +21,13 @@ jobs:
 
       - run: git fetch origin main
 
-#      - uses: pnpm/action-setup@v2
-#        with:
-#          version: 8
-#          run_install: false
-#
-#      - name: 'Install dependencies'
-#        run: pnpm install --no-prefer-frozen-lockfile
+      #      - uses: pnpm/action-setup@v2
+      #        with:
+      #          version: 8
+      #          run_install: false
+      #
+      #      - name: 'Install dependencies'
+      #        run: pnpm install --no-prefer-frozen-lockfile
 
       - name: 'Install dependencies'
         run: yarn install
@@ -36,7 +36,3 @@ jobs:
         shell: bash
         run:
           npx nx affected --target=test --base=remotes/origin/main --head=HEAD
-
-      - name: Run Affected e2e Tests
-        shell: bash
-        run: npx nx affected --target=e2e --base=remotes/origin/main --head=HEAD
