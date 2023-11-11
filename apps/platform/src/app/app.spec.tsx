@@ -20,6 +20,6 @@ describe('App', () => {
         <App />
       </BrowserRouter>
     )
-    expect(getByText(/Welcome platform/gi)).toBeTruthy()
+    expect(getByText(/This is the generated root route/gi)).toBeTruthy()
   })
 })
