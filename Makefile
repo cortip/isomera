@@ -15,7 +15,7 @@ DOCKER_RUN_CMD = docker run -it --rm -u $(shell id -u):$(shell id -g) -v ./:/app
 # --- Initialization ---
 
 devinit:
-		docker build -f docker/utility/node.dockerfile . -t node-dev-env:latest
+		docker build -f docker/utility/node.dockerfile . -t node-dev-env:latest --no-cache
 
 # --- Commands ---
 

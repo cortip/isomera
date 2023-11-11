@@ -61,6 +61,18 @@ line of code at a time. 🚀
 - Maintain a streamlined UI, offering flexibility to choose between SCSS, Styled
   Components, Material UI, or Tailwind for your designs.
 
+## Libraries pick
+
+- TypeScript
+- React
+- Redux-toolkit
+- Next.js
+- Nest.js
+- TypeORM
+- Formik
+- Yup
+- Luxon
+
 ## SDLC ToDo
 
 - [ ] Documentation: Getting Started

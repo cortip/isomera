@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common'
-import { SignInWithEmailCredentialsDto } from 'dtos/src/auth/SignInWithEmailCredentials.dto'
+import { SignInWithEmailCredentialsDto } from '@isomera/dtos'
 
 @Injectable()
 export class AppService {
@@ -8,7 +8,8 @@ export class AppService {
       email: 'lalala@lalala.com',
       password: 'd65sdDFG@!%f4sd65f4sdef'
     })
+    console.log(JSON.stringify(await signindto.validate()))
 
-    return { message: 'Hello API' + JSON.stringify(await signindto.validate()) }
+    return { message: 'Hello API' }
   }
 }
