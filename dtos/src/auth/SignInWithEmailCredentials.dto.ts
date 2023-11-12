@@ -7,11 +7,6 @@ export class SignInWithEmailCredentialsDto
   extends ValidateableDto
   implements Partial<UserInterface>
 {
-  constructor(init?: Partial<SignInWithEmailCredentialsDto>) {
-    super()
-    Object.assign(this, init)
-  }
-
   @IsEmail()
   email?: string
 

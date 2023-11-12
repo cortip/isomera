@@ -1,14 +1,16 @@
 import { transformAndValidateSync } from 'class-transformer-validator'
 import { ValidationError } from 'class-validator'
 
-import { getEnumKeyByEnumValue } from './getEnumKeyByEnumValue'
-import { pascalToSnakeCase } from './pascalToSnakeCase'
+import { getEnumKeyByEnumValue } from '@isomera/utils'
+import { pascalToSnakeCase } from '@isomera/utils'
 import { ValidationMessageEnums } from '../validation/validationMessage.enums'
 
 export type Ret = { [key: string]: string | Ret }
 export type Class = { new (...args: any[]): any }
+export type Data = { [key: string]: string | number }
 
-export const formikValidate = (model: Class, data: any) => {
+export const formikValidate = (model: Class, data: Data) => {
+  console.log({ model, data })
   try {
     transformAndValidateSync(model, data)
 

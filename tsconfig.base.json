@@ -16,7 +16,8 @@
     "baseUrl": ".",
     "paths": {
       "@isomera/dtos": ["dtos/src/index.ts"],
-      "@isomera/interfaces": ["interfaces/src/index.ts"]
+      "@isomera/interfaces": ["interfaces/src/index.ts"],
+      "@isomera/utils": ["utils/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

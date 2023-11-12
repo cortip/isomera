@@ -7,11 +7,6 @@ export class SignUpWithEmailCredentialsDto
   extends ValidateableDto
   implements Partial<UserInterface>
 {
-  constructor(init?: Partial<SignUpWithEmailCredentialsDto>) {
-    super()
-    Object.assign(this, init)
-  }
-
   @IsString()
   name?: string
 
