@@ -2,10 +2,6 @@ import { createApi } from '@reduxjs/toolkit/query/react'
 import customFetchBase from './customFetchBase'
 import { UserInterface } from '@isomera/interfaces'
 import { userApi } from './user.api'
-import {
-  SignInWithEmailCredentialsDto,
-  SignUpWithEmailCredentialsDto
-} from '@isomera/dtos'
 
 export const authApi = createApi({
   reducerPath: 'authApi',
@@ -13,7 +9,7 @@ export const authApi = createApi({
   endpoints: builder => ({
     registerUser: builder.mutation<
       UserInterface,
-      typeof SignUpWithEmailCredentialsDto
+      Pick<UserInterface, 'email' | 'password' | 'name'>
     >({
       query(data) {
         return {
@@ -27,7 +23,7 @@ export const authApi = createApi({
     }),
     loginUser: builder.mutation<
       { access_token: string; status: string },
-      typeof SignInWithEmailCredentialsDto
+      Pick<UserInterface, 'email' | 'password'>
     >({
       query(data) {
         return {
