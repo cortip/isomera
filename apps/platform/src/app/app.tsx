@@ -1,35 +1,27 @@
 import 'reflect-metadata'
 import { Route, Routes, Link } from 'react-router-dom'
-import { SignInWithEmailCredentialsDto } from '@isomera/dtos'
 import { SignInView } from '../views/auth/signIn.view'
-import { ToastContainer } from 'react-toastify'
+import { SignUpView } from '../views/auth/signUp.view'
 
 export function App() {
-  const signindto = new SignInWithEmailCredentialsDto({
-    email: 'lalala@lalala.com',
-    password: ''
-  })
-  console.log(signindto.validate())
-
   return (
     <div>
-      <SignInView />
-      <ToastContainer />
       <Routes>
         <Route
           path="/"
           element={
             <div>
-              This is the generated root route.{' '}
-              <Link to="/page-2">Click here for page 2.</Link>
+              <SignInView />
+              <Link to="/sign-up">Sign Up</Link>
             </div>
           }
         />
         <Route
-          path="/page-2"
+          path="/sign-up"
           element={
             <div>
-              <Link to="/">Click here to go back to root page.</Link>
+              <SignUpView />
+              <Link to="/">Sign In</Link>
             </div>
           }
         />
