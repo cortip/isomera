@@ -1,6 +1,7 @@
 import 'reflect-metadata'
 import { Route, Routes, Link } from 'react-router-dom'
 import { SignInWithEmailCredentialsDto } from '@isomera/dtos'
+import { SignInView } from '../views/auth/signIn.view'
 
 export function App() {
   const signindto = new SignInWithEmailCredentialsDto({
@@ -11,6 +12,7 @@ export function App() {
 
   return (
     <div>
+      <SignInView />
       <Routes>
         <Route
           path="/"

@@ -1,0 +1,89 @@
+# For more information: https://laravel.com/docs/sail
+version: '3'
+services:
+  pgsql:
+    image: 'postgres:16'
+    ports:
+      - '${FORWARD_DB_PORT:-5432}:5432'
+    environment:
+      PGPASSWORD: '${DB_PASSWORD:-secret}'
+      POSTGRES_DB: '${DB_DATABASE}'
+      POSTGRES_USER: '${DB_USERNAME}'
+      POSTGRES_PASSWORD: '${DB_PASSWORD:-secret}'
+    volumes:
+      - 'sail-pgsql:/var/lib/postgresql/data'
+      - './dumps:/dumps'
+    networks:
+      - sail
+    healthcheck:
+      test:
+        [
+          'CMD',
+          'pg_isready',
+          '-q',
+          '-d',
+          '${DB_DATABASE}',
+          '-U',
+          '${DB_USERNAME}'
+        ]
+      retries: 3
+      timeout: 5s
+    restart: always
+
+  redis:
+    image: 'redis:alpine'
+    ports:
+      - '6379'
+    volumes:
+      - 'sail-redis:/data'
+    command:
+      redis-server --requirepass ${REDIS_PASSWORD} --appendonly yes
+      --replica-read-only no
+    networks:
+      - sail
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      retries: 3
+      timeout: 5s
+    restart: always
+
+  mailhog:
+    image: 'mailhog/mailhog:latest'
+    entrypoint: MailHog -auth-file=/data/mailhog/auth.file
+    ports:
+      - '${FORWARD_MAILHOG_PORT:-1025}:1025'
+      - '${FORWARD_MAILHOG_DASHBOARD_PORT:-8025}:8025'
+    networks:
+      - sail
+    volumes:
+      - ./docker/configs/mailhog:/data/mailhog
+    restart: always
+
+  minio:
+    image: 'minio/minio:latest'
+    ports:
+      - '9000:9000'
+      - '8900:8900'
+    environment:
+      MINIO_ROOT_USER: 'app'
+      MINIO_ROOT_PASSWORD: 'JP9Ydnu4'
+    networks:
+      - sail
+    volumes:
+      - 'minio:/data/minio'
+    command: minio server /data/minio --console-address ":8900"
+    healthcheck:
+      test: ['CMD', 'curl', '-f', 'http://localhost:9000/minio/health/live']
+      retries: 3
+      timeout: 5s
+    restart: always
+
+networks:
+  sail:
+    driver: bridge
+volumes:
+  sail-pgsql:
+    driver: local
+  sail-redis:
+    driver: local
+  minio:

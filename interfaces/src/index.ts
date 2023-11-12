@@ -1,1 +1,1 @@
-export * from './lib/interfaces'
+export { UserInterface } from './user/User.interface'
