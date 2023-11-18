@@ -200,3 +200,13 @@ This will launch landing on port 3030:
 ```
 make nx serve-landing
 ```
+
+## Contributors
+
+The "Contribution Leaderboard" ranks users based on the number of commits they have made in their pull requests, displaying them in descending order.
+<be />
+<p align="center">
+  <a href="https://cdn.jsdelivr.net/gh/cortip/isomera@main/.github-contributors/cortip_isomera.svg">
+    <img src="https://cdn.jsdelivr.net/gh/cortip/isomera@main/.github-contributors/cortip_isomera.svg" />
+  </a>
+</p>
