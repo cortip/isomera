@@ -23,7 +23,7 @@ jobs:
           version: 7
       
       - name: Install deps
-        run: pnpm install
+        run: pnpm install --no-frozen-lockfile
 
       - name: Run SVG generation script
         run: pnpx make-github-contributor-svg -t ${{ secrets.GITHUB_TOKEN }} -o cortip -r isomera
