@@ -1,4 +1,4 @@
-name: Is code pretty
+name: "Is code pretty & linted"
 on:
   pull_request:
     branches:
@@ -31,5 +31,8 @@ jobs:
       - name: 'Install dependencies'
         run: pnpm install --no-prefer-frozen-lockfile
 
-      - name: "Check it it's pretty"
+      - name: "Check it's pretty"
         run: pnpm prettier:check
+
+      - name: "Check it's linted"
+        run: npx nx run-many -t lint
