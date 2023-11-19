@@ -3,7 +3,7 @@ import { Route, Routes, Link } from 'react-router-dom'
 import { SignInView } from '../views/auth/signIn.view'
 import { SignUpView } from '../views/auth/signUp.view'
 
-export function App() {
+export function Router() {
   return (
     <div>
       <Routes>
@@ -30,4 +30,4 @@ export function App() {
   )
 }
 
-export default App
+export default Router
