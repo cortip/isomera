@@ -1,4 +1,4 @@
-name: "Is code pretty & linted"
+name: 'Is code pretty & linted'
 on:
   pull_request:
     branches:
