@@ -14,7 +14,7 @@ services:
       - 'sail-pgsql:/var/lib/postgresql/data'
       - './dumps:/dumps'
     networks:
-      - sail
+      - isomera
     healthcheck:
       test:
         [
@@ -40,7 +40,7 @@ services:
       redis-server --requirepass ${REDIS_PASSWORD} --appendonly yes
       --replica-read-only no
     networks:
-      - sail
+      - isomera
     healthcheck:
       test: ['CMD', 'redis-cli', 'ping']
       retries: 3
@@ -54,7 +54,7 @@ services:
       - '${FORWARD_MAILHOG_PORT:-1025}:1025'
       - '${FORWARD_MAILHOG_DASHBOARD_PORT:-8025}:8025'
     networks:
-      - sail
+      - isomera
     volumes:
       - ./docker/configs/mailhog:/data/mailhog
     restart: always
@@ -68,7 +68,7 @@ services:
       MINIO_ROOT_USER: 'app'
       MINIO_ROOT_PASSWORD: 'JP9Ydnu4'
     networks:
-      - sail
+      - isomera
     volumes:
       - 'minio:/data/minio'
     command: minio server /data/minio --console-address ":8900"
@@ -79,7 +79,7 @@ services:
     restart: always
 
 networks:
-  sail:
+  isomera:
     driver: bridge
 volumes:
   sail-pgsql:
