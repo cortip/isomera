@@ -208,8 +208,9 @@ make nx serve-landing
 
 ## Contributors
 
-The "Contribution Leaderboard" ranks users based on the number of commits they have made in their pull requests, displaying them in descending order.
-<be />
+The "Contribution Leaderboard" ranks users based on the number of commits they
+have made in their pull requests, displaying them in descending order. <be />
+
 <p align="center">
   <a href="https://cdn.jsdelivr.net/gh/cortip/isomera_contributors@main/.github-contributors/cortip_isomera.svg">
     <img src="https://cdn.jsdelivr.net/gh/cortip/isomera_contributors@main/.github-contributors/cortip_isomera.svg" />

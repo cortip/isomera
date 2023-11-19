@@ -1,6 +1,7 @@
 # Contributors' Guide for Isomera
 
 ---
+
 <span color="red" style="color:red;">
 
 ##### Main rule:
@@ -11,7 +12,8 @@
 
 ---
 
-Welcome to the Isomera project! Your involvement is key to the success of this innovative SaaS platform. Here's how you can contribute effectively:
+Welcome to the Isomera project! Your involvement is key to the success of this
+innovative SaaS platform. Here's how you can contribute effectively:
 
 1. Issue Selection:
 
@@ -39,4 +41,5 @@ Welcome to the Isomera project! Your involvement is key to the success of this i
 - Write clean, maintainable, enterprise-grade code.
 - Fully document your code to ensure clarity and longevity.
 
-We're thrilled to have you contribute to Isomera. Your commitment to quality and community standards will help us redefine the future of SaaS development!
+We're thrilled to have you contribute to Isomera. Your commitment to quality and
+community standards will help us redefine the future of SaaS development!
