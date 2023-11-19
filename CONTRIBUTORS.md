@@ -1,5 +1,16 @@
 # Contributors' Guide for Isomera
 
+---
+<span color="red" style="color:red;">
+
+##### Main rule:
+
+#### If you show no activity in 3 days on the issue assigned to you, it will be unassigned or reassigned to someone else. Make sure your contribution doesn't go in vane and be active!
+
+</span>
+
+---
+
 Welcome to the Isomera project! Your involvement is key to the success of this innovative SaaS platform. Here's how you can contribute effectively:
 
 1. Issue Selection:
