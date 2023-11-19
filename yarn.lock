@@ -1906,12 +1906,12 @@
   dependencies:
     "@nx/nest" "17.0.1"
 
-"@nrwl/next@17.1.1":
-  version "17.1.1"
-  resolved "https://registry.yarnpkg.com/@nrwl/next/-/next-17.1.1.tgz#179255dbf8114d87aad24bbc389937766029d5b7"
-  integrity sha512-njsIiiCkZrgnKsSmR3DpUIsTpEp52CSko4WiRxGNS/83v9A189zm85ASjHDadhVs3a1Ppo1x4Ia6uF/ZfcdcXA==
+"@nrwl/next@17.1.2":
+  version "17.1.2"
+  resolved "https://registry.yarnpkg.com/@nrwl/next/-/next-17.1.2.tgz#467abbd8f9821effb33eabcf9c14c66c4cfe3650"
+  integrity sha512-cx2krZrD6fucJAsEq4ZiKE2uHlPWlg2rCMuIdn+Zr8nagZG/n2RbTA28JRyaitAhWy2Ipm0laAAh2S13xR3vjg==
   dependencies:
-    "@nx/next" "17.1.1"
+    "@nx/next" "17.1.2"
 
 "@nrwl/node@17.0.1":
   version "17.0.1"
@@ -1919,13 +1919,6 @@
   integrity sha512-FvZ/bnZn1XE2gfYx1hxT4c96C+8W2QiEBVyJfYSQtTWeSaerAadWS01ewrVvFw39fa75vTOtjEkUCRY5CPPo3A==
   dependencies:
     "@nx/node" "17.0.1"
-
-"@nrwl/react@17.1.1":
-  version "17.1.1"
-  resolved "https://registry.yarnpkg.com/@nrwl/react/-/react-17.1.1.tgz#2e1670a442e538acf14b501b0781c22b95e5f9e2"
-  integrity sha512-nSRDoJ8m+ksIYid5tcYlhw14ak7mxVGvKlx8TWNddVfrjPjNfvu5wS0wZV7EULQ0ylAwdto0crQ2/0ohV7RJrg==
-  dependencies:
-    "@nx/react" "17.1.1"
 
 "@nrwl/react@17.1.2":
   version "17.1.2"
@@ -1965,13 +1958,6 @@
   dependencies:
     nx "17.1.2"
     tslib "^2.3.0"
-
-"@nrwl/web@17.1.1":
-  version "17.1.1"
-  resolved "https://registry.yarnpkg.com/@nrwl/web/-/web-17.1.1.tgz#74f8ab5ffab098366a4515d3d1aa2c870be36ec9"
-  integrity sha512-44Fbhbebg+wIsX36rj77S6sS9pDTBv51GCiGQgA4Nby19XXoG2q2adnAAnshzMMCZ105vKLl7SkaVCjt0RCC6Q==
-  dependencies:
-    "@nx/web" "17.1.1"
 
 "@nrwl/web@17.1.2":
   version "17.1.2"
@@ -2354,19 +2340,19 @@
     "@phenomnomnominal/tsquery" "~5.0.1"
     tslib "^2.3.0"
 
-"@nx/next@17.1.1", "@nx/next@^17.0.1":
-  version "17.1.1"
-  resolved "https://registry.yarnpkg.com/@nx/next/-/next-17.1.1.tgz#3fe2644869c8486cbde4bfa2854d5736f707e790"
-  integrity sha512-WiuH++nCNvfU2qdPDxG0ADoRWFsJnyfeyFQkwR+DONTtrKtAGBDBZzHWUtXRIkKElhnbw974FlrUShe7ouhGtw==
+"@nx/next@17.1.2", "@nx/next@^17.0.1":
+  version "17.1.2"
+  resolved "https://registry.yarnpkg.com/@nx/next/-/next-17.1.2.tgz#cd18e637287745a671b2c3951364bb5d5c45c39f"
+  integrity sha512-0TqYy2c4URKxltZs6F+JgaPKgKS34DKz8JXFRiy6PI6a/3S5cYpZ7QDxEhC9QzIYrKOYu3mpCABVmvR86P9trg==
   dependencies:
     "@babel/plugin-proposal-decorators" "^7.22.7"
-    "@nrwl/next" "17.1.1"
-    "@nx/devkit" "17.1.1"
-    "@nx/eslint" "17.1.1"
-    "@nx/js" "17.1.1"
-    "@nx/react" "17.1.1"
-    "@nx/web" "17.1.1"
-    "@nx/workspace" "17.1.1"
+    "@nrwl/next" "17.1.2"
+    "@nx/devkit" "17.1.2"
+    "@nx/eslint" "17.1.2"
+    "@nx/js" "17.1.2"
+    "@nx/react" "17.1.2"
+    "@nx/web" "17.1.2"
+    "@nx/workspace" "17.1.2"
     "@svgr/webpack" "^8.0.1"
     chalk "^4.1.0"
     copy-webpack-plugin "^10.2.4"
@@ -2589,23 +2575,6 @@
   resolved "https://registry.yarnpkg.com/@nx/nx-win32-x64-msvc/-/nx-win32-x64-msvc-17.1.2.tgz#9d32fbf64ed617049f6cee4c34e5259bbc009bb1"
   integrity sha512-oxKCKunuo4wRusMlNu7PlhBijhtNy7eBZPAWyqUsdfnb+CjY2QncjCguW3fnsG9gHQFCa+y0b1WkSkvJ5G1DiQ==
 
-"@nx/react@17.1.1":
-  version "17.1.1"
-  resolved "https://registry.yarnpkg.com/@nx/react/-/react-17.1.1.tgz#6aa32a45aeeed8cdc83ae5c93fc5ada0a2b2d331"
-  integrity sha512-AvF7el6at5HM7i4iVmluqRCU3kWJSGPONttl3lxB57WgE7eU67t5Rs1KQyHMgtfl4/iU48TGGqoGrBYEoL1Z+g==
-  dependencies:
-    "@nrwl/react" "17.1.1"
-    "@nx/devkit" "17.1.1"
-    "@nx/eslint" "17.1.1"
-    "@nx/js" "17.1.1"
-    "@nx/web" "17.1.1"
-    "@phenomnomnominal/tsquery" "~5.0.1"
-    "@svgr/webpack" "^8.0.1"
-    chalk "^4.1.0"
-    file-loader "^6.2.0"
-    minimatch "3.0.5"
-    tslib "^2.3.0"
-
 "@nx/react@17.1.2", "@nx/react@^17.0.1":
   version "17.1.2"
   resolved "https://registry.yarnpkg.com/@nx/react/-/react-17.1.2.tgz#ec5046cff3c15e0d660869c87ab95863e1e49dae"
@@ -2621,19 +2590,6 @@
     chalk "^4.1.0"
     file-loader "^6.2.0"
     minimatch "3.0.5"
-    tslib "^2.3.0"
-
-"@nx/web@17.1.1":
-  version "17.1.1"
-  resolved "https://registry.yarnpkg.com/@nx/web/-/web-17.1.1.tgz#3e68f2eea44a95f74da88467fb925475767c7412"
-  integrity sha512-HWABwr1V6ZO7riHu5fg4ygvDmkSojxgUmR0c35asf0E4E8dPJk3BRcat1oFzEbLpykCqaTZ1IXTw8VpU7kfrkw==
-  dependencies:
-    "@nrwl/web" "17.1.1"
-    "@nx/devkit" "17.1.1"
-    "@nx/js" "17.1.1"
-    chalk "^4.1.0"
-    detect-port "^1.5.1"
-    http-server "^14.1.0"
     tslib "^2.3.0"
 
 "@nx/web@17.1.2":
