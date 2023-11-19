@@ -17,7 +17,7 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .setTitle('Isomera')
-    .setDescription('API routes')
+    .setDescription('API router')
     .setVersion('1.0')
     .addTag('base')
     .build()
