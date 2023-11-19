@@ -50,6 +50,11 @@ line of code at a time. 🚀
 - Platform https://app.isomera.org/
 - Documentation https://doc.isomera.org/overview.html
 
+## Links
+
+- Youtube https://www.youtube.com/@isomera
+- LinkedIn https://www.linkedin.com/company/isomera
+
 ## Content
 
 - [Global Configuration & Options](docs/Configuration.md)
