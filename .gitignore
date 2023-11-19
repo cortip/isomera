@@ -50,3 +50,8 @@ Thumbs.db
 documentation
 
 .pnpm-store
+
+# Ignore .lock files for this project because we need to work with latest libs
+pnpm-lock.yaml
+yarn.lock
+package-lock.json
