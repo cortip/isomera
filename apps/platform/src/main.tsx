@@ -2,7 +2,7 @@ import { StrictMode } from 'react'
 import * as ReactDOM from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 
-import App from './app/app'
+import Router from './router/router'
 import { Provider } from 'react-redux'
 import { store } from './redux/store'
 import { ToastContainer } from 'react-toastify'
@@ -13,7 +13,7 @@ root.render(
     <Provider store={store}>
       <ToastContainer />
       <BrowserRouter>
-        <App />
+        <Router />
       </BrowserRouter>
     </Provider>
   </StrictMode>

@@ -2,16 +2,16 @@ import { render } from '@testing-library/react'
 
 import { BrowserRouter } from 'react-router-dom'
 
-import App from './app'
+import Router from './router'
 import { store } from '../redux/store'
 import { Provider } from 'react-redux'
 
-describe('App', () => {
+describe('Router', () => {
   it('should render successfully', () => {
     const { baseElement } = render(
       <Provider store={store}>
         <BrowserRouter>
-          <App />
+          <Router />
         </BrowserRouter>
       </Provider>
     )
@@ -22,7 +22,7 @@ describe('App', () => {
     const { getByText } = render(
       <Provider store={store}>
         <BrowserRouter>
-          <App />
+          <Router />
         </BrowserRouter>
       </Provider>
     )
