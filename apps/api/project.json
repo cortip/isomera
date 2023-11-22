@@ -84,11 +84,11 @@
         "cwd": "apps/api"
       }
     },
-    "test2": {
+    "migration-run": {
       "executor": "nx:run-commands",
       "outputs": [],
       "options": {
-        "command": "cat src/config/typeorm.config.ts",
+        "command": "nx run api:typeorm migration:run --dataSource src/config/typeorm.datasource.ts",
         "cwd": "apps/api"
       }
     }

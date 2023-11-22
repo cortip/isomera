@@ -210,7 +210,13 @@ make nx serve-landing
 
 To create new migration, use this command:
 
-`nx run api:migration-create --name "whatever-makes-you-happy"`
+`make migration-create awesome-migration`
+
+_awesome-migration_ is the name of migration ;)
+
+And run this command to run all your migrations
+
+`make migration-run`
 
 ## Contributors
 

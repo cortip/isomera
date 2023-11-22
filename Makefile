@@ -48,5 +48,11 @@ serve-landing:
 		$(call DOCKER_RUN_CMD) --entrypoint="nx" node-dev-env:latest serve landing --port 3030
 
 # --- TypeORM actions ---
-migrate:
-		$(call DOCKER_RUN_CMD) --entrypoint="yarn" node-dev-env:latest migration:run
+migration-create:
+		$(call DOCKER_RUN_CMD) --entrypoint="nx" node-dev-env:latest run api:migration-create --name $(call ARGS, defaultstring)
+
+migration-run:
+		$(call DOCKER_RUN_CMD) --entrypoint="nx" node-dev-env:latest run api:migration-run
+
+migration-generate:
+		$(call DOCKER_RUN_CMD) --entrypoint="nx" node-dev-env:latest run api:migration-generate
