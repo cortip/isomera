@@ -206,6 +206,12 @@ This will launch landing on port 3030:
 make nx serve-landing
 ```
 
+## Database
+
+To create new migration, use this command:
+
+`nx run api:migration-create --name "whatever-makes-you-happy"`
+
 ## Contributors
 
 The "Contribution Leaderboard" ranks users based on the number of commits they

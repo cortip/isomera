@@ -4,14 +4,14 @@ import { AppController } from './app.controller'
 import { AppService } from './app.service'
 import { ConfigModule, ConfigService } from '@nestjs/config'
 
-import { typeormConfig } from '../config/typeorm.config'
+import { typeOrmConfig } from '../config/typeorm.config'
 import { TypeOrmModule } from '@nestjs/typeorm'
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      load: [typeormConfig]
+      load: [typeOrmConfig]
     }),
     TypeOrmModule.forRootAsync({
       inject: [ConfigService],

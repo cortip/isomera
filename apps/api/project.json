@@ -64,15 +64,31 @@
       "builder": "@nrwl/workspace:run-commands",
       "outputs": [],
       "options": {
-        "command": "ts-node --project tsconfig.json ../../node_modules/typeorm/cli",
+        "command": "ts-node --project ./tsconfig.orm.json -r tsconfig-paths/register ./src/tools/typeorm.custom-cli.ts",
         "cwd": "apps/api"
       }
     },
-    "migration-new": {
+    "migration-generate": {
       "executor": "nx:run-commands",
       "outputs": [],
       "options": {
-        "command": "nx run api:typeorm migration:generate src/migrations/{args.name} -d src/config/typeorm.config.ts",
+        "command": "nx run api:typeorm migration:generate src/migrations/{args.name} --dataSource src/config/typeorm.datasource.ts",
+        "cwd": "apps/api"
+      }
+    },
+    "migration-create": {
+      "executor": "nx:run-commands",
+      "outputs": [],
+      "options": {
+        "command": "nx run api:typeorm migration:create src/migrations/{args.name}",
+        "cwd": "apps/api"
+      }
+    },
+    "test2": {
+      "executor": "nx:run-commands",
+      "outputs": [],
+      "options": {
+        "command": "cat src/config/typeorm.config.ts",
         "cwd": "apps/api"
       }
     }
