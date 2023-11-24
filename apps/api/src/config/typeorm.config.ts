@@ -1,8 +1,12 @@
 import { registerAs } from '@nestjs/config'
 import { config as dotenvConfig } from 'dotenv'
 import { join } from 'path'
+import { getMetadataArgsStorage } from 'typeorm'
+import { User } from '../entities/User.entity'
 
 dotenvConfig({ path: '.env' })
+
+console.log(getMetadataArgsStorage().tables)
 
 export const config = {
   type: 'postgres',
@@ -14,8 +18,10 @@ export const config = {
   // entities: ['dist/**/*.entity{.ts,.js}'],
   // migrations: ['dist/migrations/*{.ts,.js}'],
 
-  entities: [join(__dirname, '**', '*.entity.{ts,js}')],
-  migrations: [join(__dirname, '**', '*.migration.{ts,js}')],
+  // entities: [join(__dirname, '..', '**', '*.entity.{ts,js}')],
+  // entities: [__dirname + '/../**/*.entity.{js,ts}'],
+  entities: getMetadataArgsStorage().tables.map(tbl => tbl.target),
+  migrations: [join(__dirname, '..', 'migrations', '*.{ts,js}')],
   autoLoadEntities: true,
   synchronize: false
 }
