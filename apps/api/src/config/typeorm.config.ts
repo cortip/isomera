@@ -18,8 +18,8 @@ export const config = {
   // migrations: ['dist/migrations/*{.ts,.js}'],
 
   // entities: [join(__dirname, '..', '**', '*.entity.{ts,js}')],
-  // entities: [__dirname + '/../**/*.entity.{js,ts}'],
-  entities: getMetadataArgsStorage().tables.map(tbl => tbl.target),
+  entities: [__dirname + '/../**/*.entity.{js,ts}'],
+  // entities: getMetadataArgsStorage().tables.map(tbl => tbl.target),
   migrations: [join(__dirname, '..', 'migrations', '*.{ts,js}')],
   autoLoadEntities: true,
   synchronize: false
