@@ -2,7 +2,6 @@ import { registerAs } from '@nestjs/config'
 import { config as dotenvConfig } from 'dotenv'
 import { join } from 'path'
 import { getMetadataArgsStorage } from 'typeorm'
-import { User } from '../entities/User.entity'
 
 dotenvConfig({ path: '.env' })
 

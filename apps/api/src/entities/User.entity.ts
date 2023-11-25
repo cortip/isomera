@@ -1,8 +1,8 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm'
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
 import { UserInterface } from '@isomera/interfaces'
 
-@Entity()
-export class User implements UserInterface {
+@Entity({ name: 'users' })
+export class UserEntity implements UserInterface {
   @PrimaryGeneratedColumn()
   id: number
 

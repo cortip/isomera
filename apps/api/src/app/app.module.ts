@@ -15,8 +15,16 @@ import { TypeOrmModule } from '@nestjs/typeorm'
     }),
     TypeOrmModule.forRootAsync({
       inject: [ConfigService],
-      useFactory: async (configService: ConfigService) =>
-        configService.get('typeorm')
+      useFactory: async (configService: ConfigService) => {
+        return {
+          ...configService.get('typeorm'),
+          /**
+           * This is temporary for development
+           */
+          logging: 'all',
+          logger: 'advanced-console'
+        }
+      }
     })
   ],
   controllers: [AppController],
