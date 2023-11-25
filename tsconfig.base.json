@@ -10,28 +10,16 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
-    "lib": [
-      "es2020",
-      "dom"
-    ],
+    "lib": ["es2020", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "esModuleInterop": true,
     "paths": {
-      "@isomera/dtos": [
-        "dtos/src/index"
-      ],
-      "@isomera/interfaces": [
-        "interfaces/src/index"
-      ],
-      "@isomera/utils": [
-        "utils/src/index"
-      ]
+      "@isomera/dtos": ["dtos/src/index"],
+      "@isomera/interfaces": ["interfaces/src/index"],
+      "@isomera/utils": ["utils/src/index"]
     }
   },
-  "exclude": [
-    "node_modules",
-    "tmp"
-  ]
+  "exclude": ["node_modules", "tmp"]
 }
