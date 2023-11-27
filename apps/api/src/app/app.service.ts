@@ -2,11 +2,10 @@ import { Injectable } from '@nestjs/common'
 import { SignInWithEmailCredentialsDto } from '@isomera/dtos'
 import { DataSource } from 'typeorm'
 import { UserEntity } from '../entities/user.entity'
-// import DataSource from '../config/typeorm.datasource'
 
 @Injectable()
 export class AppService {
-  constructor(private readonly dataSouce: DataSource) {}
+  constructor(private readonly dataSource: DataSource) {}
   async getData(): Promise<{ message: string; users: string[] }> {
     const signindto = new SignInWithEmailCredentialsDto({
       email: 'lalala@lalala.com',
@@ -19,9 +18,8 @@ export class AppService {
      * a bit easier to orientate. Will be removed when we get
      * to features implementation.
      */
-
-    const userRepository = this.dataSouce.getRepository(UserEntity)
-    console.log({ matedata: userRepository.metadata.tableName })
+    const userRepository = this.dataSource.getRepository(UserEntity)
+    console.log({ metadata: userRepository.metadata.tableName })
 
     const users = await userRepository.find()
 
