@@ -13,9 +13,9 @@ updates:
     open-pull-requests-limit: 10
     versioning-strategy: widen
     ignore:
-      - dependency-name: "@nrwl/*"
-      - dependency-name: "@nx/*"
-      - dependency-name: "nx"
+      - dependency-name: '@nrwl/*'
+      - dependency-name: '@nx/*'
+      - dependency-name: 'nx'
 
   - package-ecosystem: github-actions
     directory: /
