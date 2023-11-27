@@ -9,7 +9,7 @@ export const authApi = createApi({
   endpoints: builder => ({
     registerUser: builder.mutation<
       UserInterface,
-      Pick<UserInterface, 'email' | 'password' | 'name'>
+      Pick<UserInterface, 'email' | 'password' | 'firstName' | 'lastName'>
     >({
       query(data) {
         return {
