@@ -14,10 +14,11 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
+    "esModuleInterop": true,
     "paths": {
-      "@isomera/dtos": ["dtos/src/index.ts"],
-      "@isomera/interfaces": ["interfaces/src/index.ts"],
-      "@isomera/utils": ["utils/src/index.ts"]
+      "@isomera/dtos": ["dtos/src/index"],
+      "@isomera/interfaces": ["interfaces/src/index"],
+      "@isomera/utils": ["utils/src/index"]
     }
   },
   "exclude": ["node_modules", "tmp"]

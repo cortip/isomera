@@ -5,6 +5,20 @@
   "projectType": "application",
   "targets": {
     "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": ["nest build -c apps/api/nest-cli.json"]
+      },
+      "outputs": ["{options.outputPath}"]
+    },
+    "serve": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": ["nest start --watch -c apps/api/nest-cli.json"]
+      },
+      "outputs": ["{options.outputPath}"]
+    },
+    "build:webpack": {
       "executor": "@nx/webpack:webpack",
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
@@ -23,7 +37,7 @@
         "production": {}
       }
     },
-    "serve": {
+    "serve:webpack": {
       "executor": "@nx/js:node",
       "defaultConfiguration": "development",
       "options": {
@@ -57,6 +71,39 @@
           "ci": true,
           "codeCoverage": true
         }
+      }
+    },
+    "typeorm": {
+      "executor": "nx:run-commands",
+      "builder": "@nrwl/workspace:run-commands",
+      "outputs": [],
+      "options": {
+        "command": "ts-node --project ./tsconfig.orm.json -r tsconfig-paths/register ./src/tools/typeorm.custom-cli.ts",
+        "cwd": "apps/api"
+      }
+    },
+    "migration-generate": {
+      "executor": "nx:run-commands",
+      "outputs": [],
+      "options": {
+        "command": "nx run api:typeorm migration:generate src/migrations/{args.name} --dataSource src/config/typeorm.datasource.ts",
+        "cwd": "apps/api"
+      }
+    },
+    "migration-create": {
+      "executor": "nx:run-commands",
+      "outputs": [],
+      "options": {
+        "command": "nx run api:typeorm migration:create src/migrations/{args.name}",
+        "cwd": "apps/api"
+      }
+    },
+    "migration-run": {
+      "executor": "nx:run-commands",
+      "outputs": [],
+      "options": {
+        "command": "nx run api:typeorm migration:run --dataSource src/config/typeorm.datasource.ts",
+        "cwd": "apps/api"
       }
     }
   },

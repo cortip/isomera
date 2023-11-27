@@ -207,6 +207,18 @@ This will launch landing on port 3030:
 make nx serve-landing
 ```
 
+## Database
+
+To create new migration, use this command:
+
+`make migration-create awesome-migration`
+
+_awesome-migration_ is the name of migration ;)
+
+And run this command to run all your migrations
+
+`make migration-run`
+
 ## Contributors
 
 The "Contribution Leaderboard" ranks users based on the number of commits they

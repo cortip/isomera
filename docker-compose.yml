@@ -3,12 +3,12 @@ services:
   pgsql:
     image: 'postgres:16'
     ports:
-      - '${FORWARD_DB_PORT:-5432}:5432'
+      - '${DATABASE_PORT:-5432}:5432'
     environment:
-      PGPASSWORD: '${DB_PASSWORD:-secret}'
-      POSTGRES_DB: '${DB_DATABASE}'
-      POSTGRES_USER: '${DB_USERNAME}'
-      POSTGRES_PASSWORD: '${DB_PASSWORD:-secret}'
+      PGPASSWORD: '${DATABASE_PASSWORD:-secret}'
+      POSTGRES_DB: '${DATABASE_NAME}'
+      POSTGRES_USER: '${DATABASE_USERNAME}'
+      POSTGRES_PASSWORD: '${DATABASE_PASSWORD:-secret}'
     volumes:
       - 'isomera-pgsql:/var/lib/postgresql/data'
       - './dumps:/dumps'
@@ -21,9 +21,9 @@ services:
           'pg_isready',
           '-q',
           '-d',
-          '${DB_DATABASE}',
+          '${DATABASE_NAME}',
           '-U',
-          '${DB_USERNAME}'
+          '${DATABASE_USERNAME}'
         ]
       retries: 3
       timeout: 5s
@@ -34,7 +34,7 @@ services:
     ports:
       - '6379'
     volumes:
-      - 'sail-redis:/data'
+      - 'isomera-redis:/data'
     command:
       redis-server --requirepass ${REDIS_PASSWORD} --appendonly yes
       --replica-read-only no
@@ -69,7 +69,7 @@ services:
     networks:
       - isomera
     volumes:
-      - 'minio:/data/minio'
+      - 'isomera-minio:/data/minio'
     command: minio server /data/minio --console-address ":8900"
     healthcheck:
       test: ['CMD', 'curl', '-f', 'http://localhost:9000/minio/health/live']
@@ -81,8 +81,9 @@ networks:
   isomera:
     driver: bridge
 volumes:
-  sail-pgsql:
+  isomera-pgsql:
     driver: local
-  sail-redis:
+  isomera-redis:
     driver: local
-  minio:
+  isomera-minio:
+    driver: local
