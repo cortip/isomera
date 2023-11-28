@@ -1,15 +1,30 @@
-import { useFormik } from 'formik'
-import { SignInWithEmailCredentialsDto } from '@isomera/dtos'
-import { formikValidate } from '@isomera/dtos'
-import { useLocation, useNavigate } from 'react-router-dom'
-import { useEffect } from 'react'
-import { toast } from 'react-toastify'
+import { useSignInFormHook } from '@isomera/impl'
 
 export const SignInView = () => {
-  const navigate = useNavigate()
-  const location = useLocation()
+  // const navigate = useNavigate()
+  // const location = useLocation()
 
-  const from = (location.state?.from.pathname as string) || '/profile'
+  // const from = (location.state?.from.pathname as string) || '/profile'
+  //
+  // const {
+  //   values,
+  //   handleChange,
+  //   handleBlur,
+  //   errors,
+  //   touched,
+  //   handleSubmit,
+  //   isSubmitting
+  // } = useFormik({
+  //   initialValues: {
+  //     email: '',
+  //     password: ''
+  //   },
+  //   validate: values => formikValidate(SignInWithEmailCredentialsDto, values),
+  //   onSubmit: values => {
+  //     alert(JSON.stringify(values, null, 2))
+  //     // 👇 Executing the loginUser Mutation
+  //   }
+  // })
 
   const {
     values,
@@ -19,17 +34,7 @@ export const SignInView = () => {
     touched,
     handleSubmit,
     isSubmitting
-  } = useFormik({
-    initialValues: {
-      email: '',
-      password: ''
-    },
-    validate: values => formikValidate(SignInWithEmailCredentialsDto, values),
-    onSubmit: values => {
-      alert(JSON.stringify(values, null, 2))
-      // 👇 Executing the loginUser Mutation
-    }
-  })
+  } = useSignInFormHook()
 
   // useEffect(() => {
   //   if (isSuccess) {

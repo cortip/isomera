@@ -1,3 +1,3 @@
-export { UserInterface } from './user/User.interface'
-export { SignInResponseInterface } from './auth/signInResponse.interface'
-export { ErrorMessageEnum } from './error/ErrorMessage.enum'
+export * from './user/User.interface'
+export * from './auth/signInResponse.interface'
+export * from './error/ErrorMessage.enum'

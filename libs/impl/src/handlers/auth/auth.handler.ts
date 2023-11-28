@@ -4,12 +4,12 @@ import {
   REFRESH_TOKEN_KEY
 } from '../../constants/storage'
 
-interface ISetAuthStateParams {
+interface SetAuthStateParamsInterface {
   accessToken: string
   refreshToken: string
 }
 
-interface ISetConfirmParams {
+interface SetConfirmParamsInterface {
   confirmToken: string
 }
 
@@ -43,14 +43,16 @@ export const getConfirmToken = () => {
   return confirmToken
 }
 
-export const setConfirmState = ({ confirmToken }: ISetConfirmParams) => {
+export const setConfirmState = ({
+  confirmToken
+}: SetConfirmParamsInterface) => {
   localStorage.setItem(CONFIRM_TOKEN_KEY, confirmToken)
 }
 
 export const setAuthState = ({
   accessToken,
   refreshToken
-}: ISetAuthStateParams) => {
+}: SetAuthStateParamsInterface) => {
   localStorage.setItem(ACCESS_TOKEN_KEY, accessToken)
   localStorage.setItem(REFRESH_TOKEN_KEY, refreshToken)
 }

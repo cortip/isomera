@@ -46,17 +46,27 @@ export class UserResponseDto {
   @IsString()
   lastName!: string
 
+  @IsString()
+  accessToken!: string
+
+  @IsString()
+  refreshToken!: string
+
   static map({
     email,
     firstName,
     lastName,
-    id
+    id,
+    accessToken,
+    refreshToken
   }: UserInterface): UserResponseDto {
     return {
       email,
       firstName,
       lastName,
-      id
+      id,
+      accessToken: accessToken || '',
+      refreshToken: refreshToken || ''
     }
   }
 }

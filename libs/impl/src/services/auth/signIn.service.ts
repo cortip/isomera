@@ -2,9 +2,9 @@ import { AxiosResponse } from 'axios'
 
 import { SignInWithEmailCredentialsDto } from '@isomera/dtos'
 
-import { API_LOGIN_ROUTE } from '../../constants/apiRoutes'
-import { axiosInstance } from '../../utils/axios'
-import { getRoute } from '../../utils/getRoute'
+import { API_LOGIN_ROUTE } from '../../constants'
+import { axiosInstance } from '../../utils'
+import { getRoute } from '../../utils'
 import { SignInResponseInterface } from '@isomera/interfaces'
 
 export const signInService = async (
