@@ -5,4 +5,4 @@ monorepo - api, platform and landing.
 
 For example, in [auth.config.ts](../config/auth.config.ts) you can configure validation rules for
 class-validator, where generic ```public validate()``` method is called. Implementation example can be seen here
-[SignInWithEmailCredentials.dto.ts:14](../libs/dtos/src/auth/SignInWithEmailCredentials.dto.ts)
+[SignInWithEmailCredentials.dto.ts:14](../libs/dtos/src/auth/request/SignInWithEmailCredentials.dto.ts)

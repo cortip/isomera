@@ -5,12 +5,18 @@ import { BrowserRouter } from 'react-router-dom'
 import Router from './router/router'
 import { ToastContainer } from 'react-toastify'
 
+import { QueryClient, QueryClientProvider } from 'react-query'
+
+const queryClient = new QueryClient()
+
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <StrictMode>
     <ToastContainer />
-    <BrowserRouter>
-      <Router />
-    </BrowserRouter>
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        <Router />
+      </BrowserRouter>
+    </QueryClientProvider>
   </StrictMode>
 )
