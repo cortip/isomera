@@ -2,15 +2,10 @@ import { useFormik } from 'formik'
 import { SignInWithEmailCredentialsDto } from '@isomera/dtos'
 import { formikValidate } from '@isomera/dtos'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { useLoginUserMutation } from '../../redux/api/auth.api'
 import { useEffect } from 'react'
 import { toast } from 'react-toastify'
 
 export const SignInView = () => {
-  // 👇 API Login Mutation
-  const [loginUser, { isLoading, isError, error, isSuccess }] =
-    useLoginUserMutation()
-
   const navigate = useNavigate()
   const location = useLocation()
 
@@ -33,30 +28,29 @@ export const SignInView = () => {
     onSubmit: values => {
       alert(JSON.stringify(values, null, 2))
       // 👇 Executing the loginUser Mutation
-      loginUser(values)
     }
   })
 
-  useEffect(() => {
-    if (isSuccess) {
-      toast.success('You successfully logged in')
-      navigate(from)
-    }
-    if (isError) {
-      if (Array.isArray((error as any).data.error)) {
-        ;(error as any).data.error.forEach((el: any) =>
-          toast.error(el.message, {
-            position: 'top-right'
-          })
-        )
-      } else {
-        toast.error((error as any).data.message, {
-          position: 'top-right'
-        })
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoading])
+  // useEffect(() => {
+  //   if (isSuccess) {
+  //     toast.success('You successfully logged in')
+  //     navigate(from)
+  //   }
+  //   if (isError) {
+  //     if (Array.isArray((error as any).data.error)) {
+  //       ;(error as any).data.error.forEach((el: any) =>
+  //         toast.error(el.message, {
+  //           position: 'top-right'
+  //         })
+  //       )
+  //     } else {
+  //       toast.error((error as any).data.message, {
+  //         position: 'top-right'
+  //       })
+  //     }
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [isLoading])
 
   return (
     <form onSubmit={handleSubmit}>
