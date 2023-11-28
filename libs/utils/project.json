@@ -1,21 +1,21 @@
 {
-  "name": "dtos",
-  "$schema": "../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "dtos/src",
+  "name": "utils",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/utils/src",
   "projectType": "library",
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["dtos/**/*.ts"]
+        "lintFilePatterns": ["libs/utils/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "dtos/jest.config.ts",
+        "jestConfig": "libs/utils/jest.config.ts",
         "passWithNoTests": true
       },
       "configurations": {

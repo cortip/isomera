@@ -16,9 +16,9 @@
     "baseUrl": ".",
     "esModuleInterop": true,
     "paths": {
-      "@isomera/dtos": ["dtos/src/index"],
-      "@isomera/interfaces": ["interfaces/src/index"],
-      "@isomera/utils": ["utils/src/index"]
+      "@isomera/dtos": ["libs/dtos/src/index"],
+      "@isomera/interfaces": ["libs/interfaces/src/index"],
+      "@isomera/utils": ["libs/utils/src/index"]
     }
   },
   "exclude": ["node_modules", "tmp"]

@@ -1,9 +1,8 @@
 import { transformAndValidateSync } from 'class-transformer-validator'
 import { ValidationError } from 'class-validator'
 
-import { getEnumKeyByEnumValue } from '@isomera/utils'
-import { pascalToSnakeCase } from '@isomera/utils'
 import { ValidationMessageEnums } from '../validation/validationMessage.enums'
+import { getEnumKeyByEnumValue, pascalToSnakeCase } from '@isomera/utils'
 
 export type Ret = { [key: string]: string | Ret }
 export type Class = { new (...args: any[]): any }

@@ -5,7 +5,7 @@ export class ValidateableDto {
     this.validate = async () => {
       return await CVValidate(this)
     }
-    Object.assign(this, init)
+    Object.assign(this as object, init)
   }
 
   public validate: () => Promise<ValidationError[]>
