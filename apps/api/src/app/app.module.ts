@@ -6,9 +6,11 @@ import { ConfigModule, ConfigService } from '@nestjs/config'
 
 import { typeOrmConfig } from '../config/typeorm.config'
 import { TypeOrmModule } from '@nestjs/typeorm'
+import { TerminusModule } from '@nestjs/terminus'
 
 @Module({
   imports: [
+    TerminusModule,
     ConfigModule.forRoot({
       isGlobal: true,
       load: [typeOrmConfig]

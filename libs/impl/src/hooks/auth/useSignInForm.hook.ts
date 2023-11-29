@@ -6,8 +6,9 @@ import { pages } from '../../constants/pages'
 import { useSignInHook } from './useSignIn.hook'
 import { formikValidate, SignInWithEmailCredentialsDto } from '@isomera/dtos'
 import { useHandleErrorHook } from '../error/useHandleError.hook'
+import { Pure } from '@isomera/interfaces'
 
-const initialValues: Omit<SignInWithEmailCredentialsDto, 'validate'> = {
+const initialValues: Pure<SignInWithEmailCredentialsDto> = {
   email: '',
   password: ''
 }
