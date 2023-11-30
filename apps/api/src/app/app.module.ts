@@ -7,6 +7,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config'
 import { typeOrmConfig } from '../config/typeorm.config'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { TerminusModule } from '@nestjs/terminus'
+import { AuthModule } from '../auth/auth.module'
 
 @Module({
   imports: [
@@ -27,7 +28,8 @@ import { TerminusModule } from '@nestjs/terminus'
           logger: 'advanced-console'
         }
       }
-    })
+    }),
+    AuthModule
   ],
   controllers: [AppController],
   providers: [AppService]
