@@ -3,28 +3,33 @@ import { render } from '@testing-library/react'
 import { BrowserRouter } from 'react-router-dom'
 
 import Router from './router'
-import { store } from '../redux/store'
-import { Provider } from 'react-redux'
+import { QueryClient, QueryClientProvider } from 'react-query'
 
 describe('Router', () => {
+  let queryClient: QueryClient
+
+  beforeAll(() => {
+    queryClient = new QueryClient()
+  })
+
   it('should render successfully', () => {
     const { baseElement } = render(
-      <Provider store={store}>
+      <QueryClientProvider client={queryClient}>
         <BrowserRouter>
           <Router />
         </BrowserRouter>
-      </Provider>
+      </QueryClientProvider>
     )
     expect(baseElement).toBeTruthy()
   })
 
   it('should have a sign in button', () => {
     const { getByText } = render(
-      <Provider store={store}>
+      <QueryClientProvider client={queryClient}>
         <BrowserRouter>
           <Router />
         </BrowserRouter>
-      </Provider>
+      </QueryClientProvider>
     )
     expect(getByText(/Sign In/gi)).toBeTruthy()
   })

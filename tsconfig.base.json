@@ -18,6 +18,7 @@
     "paths": {
       "@isomera/dtos": ["libs/dtos/src/index"],
       "@isomera/interfaces": ["libs/interfaces/src/index"],
+      "@isomera/impl": ["libs/impl/src/index.ts"],
       "@isomera/utils": ["libs/utils/src/index"]
     }
   },

@@ -207,13 +207,21 @@ This will launch landing on port 3030:
 make nx serve-landing
 ```
 
+## REPL for Nest.js
+
+```
+npm run start -- --watch --entryFile repl
+```
+
 ## Database
 
 To create new migration, use this command:
 
-`make migration-create awesome-migration`
+`make migration-create --name awesome-migration`
 
 _awesome-migration_ is the name of migration ;)
+
+(if you forget to add `--name` flag, it will create new file in src dir)
 
 And run this command to run all your migrations
 
