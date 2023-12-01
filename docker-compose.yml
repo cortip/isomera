@@ -49,7 +49,7 @@ services:
   mailhog:
     image: 'mailhog/mailhog:latest'
     entrypoint: MailHog
-#      -auth-file=/data/mailhog/auth.file
+    #      -auth-file=/data/mailhog/auth.file
     ports:
       - '${FORWARD_MAILHOG_PORT:-1025}:1025'
       - '${FORWARD_MAILHOG_DASHBOARD_PORT:-8025}:8025'
