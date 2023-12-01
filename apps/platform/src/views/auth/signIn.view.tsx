@@ -5,26 +5,6 @@ export const SignInView = () => {
   // const location = useLocation()
 
   // const from = (location.state?.from.pathname as string) || '/profile'
-  //
-  // const {
-  //   values,
-  //   handleChange,
-  //   handleBlur,
-  //   errors,
-  //   touched,
-  //   handleSubmit,
-  //   isSubmitting
-  // } = useFormik({
-  //   initialValues: {
-  //     email: '',
-  //     password: ''
-  //   },
-  //   validate: values => formikValidate(SignInWithEmailCredentialsDto, values),
-  //   onSubmit: values => {
-  //     alert(JSON.stringify(values, null, 2))
-  //     // 👇 Executing the loginUser Mutation
-  //   }
-  // })
 
   const {
     values,
