@@ -1,0 +1,47 @@
+name: 'CI'
+on:
+  pull_request:
+    branches:
+      - '*'
+  push:
+    branches:
+      - '*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [20.x]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+          run_install: false
+
+      - name: 'Install dependencies'
+        run: pnpm install --no-prefer-frozen-lockfile
+
+      - name: 'Test dtos'
+        run: pnpm nx run dtos:test
+
+      - name: 'Test impl'
+        run: pnpm nx run impl:test
+
+      - name: 'Test interfaces'
+        run: pnpm nx run interfaces:test
+
+      - name: 'Test utils'
+        run: pnpm nx run utils:test
+
+      - name: 'Test api'
+        run: pnpm nx run api:test
