@@ -52,6 +52,6 @@ export class UserEntity implements UserInterface {
   }
 
   async checkPassword(plainPassword: string): Promise<boolean> {
-    return await bcrypt.compare(plainPassword, this.password)
+    return await bcrypt.compare(plainPassword, String(this.password))
   }
 }
