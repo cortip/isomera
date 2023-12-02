@@ -42,6 +42,9 @@ export class UserEntity implements UserInterface {
   @Column({ type: 'boolean', default: false })
   active: boolean
 
+  @Column()
+  passwordResetCode: string | null
+
   @BeforeInsert()
   @BeforeUpdate()
   async hashPassword(): Promise<void> {

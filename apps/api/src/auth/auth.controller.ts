@@ -24,6 +24,7 @@ import { TokenInterceptor } from './interceptors/token.interceptor'
 import { ConfirmCodeService } from '../user/confirm-code.service'
 import { Pure } from '@isomera/interfaces'
 import { ConfirmationCodeDto } from '@isomera/dtos'
+import { ForgotPasswordResetRequestDto } from '@isomera/dtos'
 
 @Controller('auth')
 export class AuthController {
@@ -72,5 +73,14 @@ export class AuthController {
   @UseGuards(SessionAuthGuard, JWTAuthGuard)
   me(@AuthUser() user: Pure<SignInWithEmailCredentialsDto>): UserEntity {
     return user as UserEntity
+  }
+
+  @Post('/request-password-reset')
+  @HttpCode(HttpStatus.OK)
+  async requestPasswordReset(
+    @Body() body: Pure<ForgotPasswordResetRequestDto>
+  ): Promise<{ status: string }> {
+    await this.authService.requestPasswordReset(body.email)
+    return { status: 'ok' }
   }
 }

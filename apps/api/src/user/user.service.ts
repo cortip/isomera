@@ -4,6 +4,7 @@ import { Repository, FindOneOptions } from 'typeorm'
 
 import { UserUpdate } from './dto/user-update.dto'
 import { UserEntity } from '../entities/user.entity'
+import { UpdateResult } from 'typeorm/query-builder/result/UpdateResult'
 
 @Injectable()
 export class UserService {
@@ -40,5 +41,18 @@ export class UserService {
     this.userRepository.merge(user, updates)
 
     return this.userRepository.save(user)
+  }
+
+  async setPasswordResetCode(
+    id: number,
+    passwordResetCode: string
+  ): Promise<UpdateResult> {
+    const user = await this.userRepository.findOneBy({ id })
+
+    if (!user) {
+      throw new NotFoundException(`There isn't any user with id: ${id}`)
+    }
+
+    return await this.userRepository.update({ id }, { passwordResetCode })
   }
 }

@@ -1,4 +1,6 @@
 export * from './auth/useSignIn.hook'
 export * from './auth/useSignInForm.hook'
+export * from './auth/usePasswordResetRequest.hook'
+export * from './auth/usePasswordResetRequestForm.hook'
 export * from './error/useHandleError.hook'
 export * from './user/useUser.hook'
