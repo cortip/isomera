@@ -7,7 +7,10 @@ import {
 import { JwtService } from '@nestjs/jwt'
 
 import { UserEntity } from '../entities/user.entity'
-import { SignUpWithEmailCredentialsDto } from '@isomera/dtos'
+import {
+  ResetPasswordRequestDto,
+  SignUpWithEmailCredentialsDto
+} from '@isomera/dtos'
 import { JwtPayload } from '@isomera/interfaces'
 import { UserService } from '../user/user.service'
 import { MailerService } from '../mailer/mailer.service'
@@ -102,20 +105,45 @@ export class AuthService {
     return this.mailerService.sendEmail(user, 'Welcome!', 'welcome', { user })
   }
 
-  async requestPasswordReset(email: string) {
-    const user: UserEntity = await this.userService.findOne({
-      where: { email }
-    })
-    if (user) {
-      //passwordResetCode
-      const passwordResetCode = generateRandomStringUtil(32)
-      await this.userService.setPasswordResetCode(user.id, passwordResetCode)
-      void this.mailerService.sendEmail(
-        user,
-        'Password reset code',
-        'password-reset-code',
-        { user, code: passwordResetCode }
-      )
+  async requestPasswordReset(email: string): Promise<boolean> {
+    /**
+     * Do not fail if user is not found. We do not want people to know whether email they
+     * provided is actually registered or not.
+     */
+    try {
+      const user: UserEntity = await this.userService.findOne({
+        where: { email }
+      })
+      if (user?.id) {
+        const passwordResetCode = generateRandomStringUtil(32)
+        await this.userService.setPasswordResetCode(user.id, passwordResetCode)
+        void this.mailerService.sendEmail(
+          user,
+          'Password reset code',
+          'password-reset-code',
+          { user, code: passwordResetCode }
+        )
+        return true
+      }
+    } catch (e) {
+      return false
     }
+    return false
+  }
+
+  async setNewPassword(
+    resetPasswordRequestDto: Pure<ResetPasswordRequestDto>
+  ): Promise<boolean> {
+    const user: UserEntity = await this.userService.findOne({
+      where: { passwordResetCode: resetPasswordRequestDto.passwordResetCode }
+    })
+    if (user?.id) {
+      const updateResult = await this.userService.setNewPassword(
+        user.id,
+        resetPasswordRequestDto.newPassword
+      )
+      return updateResult.affected > 0
+    }
+    return false
   }
 }

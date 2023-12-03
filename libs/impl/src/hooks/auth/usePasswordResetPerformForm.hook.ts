@@ -3,29 +3,37 @@ import { useFormik } from 'formik'
 import { useNavigate } from 'react-router-dom'
 
 import { pages } from '../../constants/pages'
-import { formikValidate } from '@isomera/dtos'
+import {
+  ForgotPasswordResetRequestDto,
+  formikValidate,
+  ResetPasswordRequestDto
+} from '@isomera/dtos'
 import { useHandleErrorHook } from '../error/useHandleError.hook'
-import { Pure } from '@isomera/interfaces'
-import { usePasswordResetRequestHook } from './usePasswordResetRequest.hook'
-import { ForgotPasswordResetRequestDto } from '@isomera/dtos'
+import { Pure, StatusType } from '@isomera/interfaces'
+import { usePasswordResetPerformHook } from './usePasswordResetPerform.hook'
 import { toast } from 'react-toastify'
 
-const initialValues: Pure<ForgotPasswordResetRequestDto> = {
-  email: ''
+const initialValues: Pure<ResetPasswordRequestDto> = {
+  newPassword: '',
+  passwordResetCode: ''
 }
 
-export const usePasswordResetRequestForm = () => {
-  const { requestReset } = usePasswordResetRequestHook()
+export const usePasswordResetPerformForm = () => {
+  const { performReset } = usePasswordResetPerformHook()
   const { handleError } = useHandleErrorHook()
   const navigate = useNavigate()
 
   const onSubmit = async (values: typeof initialValues) => {
     try {
-      await requestReset(values)
-      toast.success(
-        `If there was such user registered with email ${values.email}, then you'll receive confirmation code.`
-      )
-      navigate(pages.passwordResetRequestConfirmation.path)
+      const result = await performReset(values)
+      if (result.status === StatusType.OK) {
+        toast.success(
+          'Password changed successfully. Please log in with your new password.'
+        )
+      } else {
+        toast.error('Password change failed. Please try again.')
+      }
+      navigate(pages.login.path)
     } catch (error) {
       handleError(error, { view: 'login' })
     }

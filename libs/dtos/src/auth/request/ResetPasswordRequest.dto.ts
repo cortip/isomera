@@ -22,5 +22,5 @@ export class ResetPasswordRequestDto extends ValidateableDto {
   newPassword!: string
 
   @Length(32)
-  resetToken!: string
+  passwordResetCode!: string
 }
