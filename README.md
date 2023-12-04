@@ -46,16 +46,10 @@ line of code at a time. 🚀
 
 ## Thanks for our sponsors
 
-<p align="center">
-  <a href="https://www.cortip.com" target="_blank">
-    <img src="https://raw.githubusercontent.com/cortip/isomera/main/docs/assets/sponsors/cortip.png" alt="Cortip" />
-  </a>
-  <a href="https://www.atlassian.com" target="_blank">
-    <img src="https://raw.githubusercontent.com/cortip/isomera/main/docs/assets/sponsors/atlassian.png" alt="Atlassian" />
-  </a>
-  <a href="https://sentry.io" target="_blank">
-    <img src="https://raw.githubusercontent.com/cortip/isomera/main/docs/assets/sponsors/sentry.png" alt="Sentry" />
-  </a>
+<p align="center" style="text-align: center;">
+  <a href="https://www.cortip.com" target="_blank" style="text-decoration: none;"><img src="https://raw.githubusercontent.com/cortip/isomera/main/docs/assets/sponsors/cortip.png" width="200" alt="Cortip" /></a>
+  <a href="https://www.atlassian.com" target="_blank" style="text-decoration: none;"><img src="https://raw.githubusercontent.com/cortip/isomera/main/docs/assets/sponsors/atlassian.png" width="200" alt="Atlassian" /></a>
+  <a href="https://sentry.io" target="_blank" style="text-decoration: none;"><img src="https://raw.githubusercontent.com/cortip/isomera/main/docs/assets/sponsors/sentry.png" width="200" alt="Sentry" /></a>
 </p>
 
 ## Preview
