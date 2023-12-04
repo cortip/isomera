@@ -46,7 +46,7 @@ line of code at a time. 🚀
 
 ## Thanks for our sponsors
 
-<p>
+<p align="center">
   <a href="https://www.cortip.com" target="_blank">
     <img src="https://raw.githubusercontent.com/cortip/isomera/main/docs/assets/sponsors/cortip.png" alt="Cortip" />
   </a>
