@@ -2,8 +2,8 @@ import { useMutation } from 'react-query'
 
 import { SignInWithEmailCredentialsDto } from '@isomera/dtos'
 
-import { setConfirmState } from '../../handlers/auth/auth.handler'
-import { signInService } from '../../services/auth/signIn.service'
+import { setConfirmState } from '../../handlers'
+import { signInService } from '../../services'
 import { Pure } from '@isomera/interfaces'
 
 export const useSignInHook = () => {

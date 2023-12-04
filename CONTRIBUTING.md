@@ -6,7 +6,7 @@
 
 ##### Main rule:
 
-#### If you show no activity in 3 days on the issue assigned to you, it will be unassigned or reassigned to someone else. Make sure your contribution doesn't go in vane and be active!
+#### If you show no activity in 3 days on the issue assigned to you, it will be unassigned or reassigned to someone else. Make sure your contribution doesn't go in vane and be active! Since it's not a full-time job, we understand that there might be any kind of circumstances delaying delivery, so it is enough to post a comment mentioning when you're planning to finish. This does not apply for paid frellancers or contractors working on issues.
 
 </span>
 

@@ -7,6 +7,9 @@
 // Authentication
 
 export const API_LOGIN_ROUTE = '/auth/login'
+
+export const API_FORGOT_PASSWORD_REQUEST_RESET_ROUTE =
+  '/auth/request-password-reset'
 export const API_REGISTER_ROUTE = '/auth/register'
 export const API_CONFIRM_ROUTE = '/auth/confirm'
 export const API_LOGOUT_ROUTE = '/auth/logout'

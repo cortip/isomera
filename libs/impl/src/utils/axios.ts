@@ -1,15 +1,11 @@
 import axios, { AxiosError } from 'axios'
 import createAuthRefreshInterceptor from 'axios-auth-refresh'
 
-import {
-  clearAuthState,
-  getAccessToken,
-  setAuthState
-} from '../handlers/auth/auth.handler'
-import { refreshService } from '../services/auth/refresh.service'
+import { clearAuthState, getAccessToken, setAuthState } from '../handlers'
+import { refreshService } from '../services'
 
 const { NX_REACT_APP_API_URL } = process.env
-
+console.log('process.env', process.env)
 export const axiosInstance = axios.create({
   baseURL: NX_REACT_APP_API_URL,
   headers: {

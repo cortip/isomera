@@ -6,4 +6,6 @@ export interface UserInterface {
   password: string
   accessToken?: string
   refreshToken?: string
+  passwordResetCode?: string | null
+  active: boolean
 }

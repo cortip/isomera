@@ -1,6 +1,6 @@
-import { useSignInFormHook } from '@isomera/impl'
+import { usePasswordResetRequestForm } from '@isomera/impl'
 
-export const SignInView = () => {
+export const PasswordResetView = () => {
   // const navigate = useNavigate()
   // const location = useLocation()
 
@@ -14,7 +14,7 @@ export const SignInView = () => {
     touched,
     handleSubmit,
     isSubmitting
-  } = useSignInFormHook()
+  } = usePasswordResetRequestForm()
 
   // useEffect(() => {
   //   if (isSuccess) {
@@ -53,21 +53,8 @@ export const SignInView = () => {
         {touched.email && errors.email && <span>{errors.email}</span>}
       </div>
       <div>
-        <label htmlFor="password">Password</label>
-        <input
-          id="password"
-          name="password"
-          type="password"
-          onChange={handleChange}
-          onBlur={handleBlur}
-          value={values.password}
-          required
-        />
-        {touched.password && errors.password && <span>{errors.password}</span>}
-      </div>
-      <div>
         <button type="submit" disabled={isSubmitting}>
-          Sign In
+          Sent confirmation code
         </button>
       </div>
     </form>

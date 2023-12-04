@@ -13,6 +13,7 @@ import { UserService } from '../user/user.service'
 import { MailerService } from '../mailer/mailer.service'
 import { ConfirmCodeService } from '../user/confirm-code.service'
 import { Pure } from '@isomera/interfaces'
+import { generateRandomStringUtil } from '@isomera/utils'
 
 @Injectable()
 export class AuthService {
@@ -99,5 +100,22 @@ export class AuthService {
 
   async sendGreetings(user: UserEntity) {
     return this.mailerService.sendEmail(user, 'Welcome!', 'welcome', { user })
+  }
+
+  async requestPasswordReset(email: string) {
+    const user: UserEntity = await this.userService.findOne({
+      where: { email }
+    })
+    if (user) {
+      //passwordResetCode
+      const passwordResetCode = generateRandomStringUtil(32)
+      await this.userService.setPasswordResetCode(user.id, passwordResetCode)
+      void this.mailerService.sendEmail(
+        user,
+        'Password reset code',
+        'password-reset-code',
+        { user, code: passwordResetCode }
+      )
+    }
   }
 }

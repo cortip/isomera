@@ -42,6 +42,9 @@ export class UserEntity implements UserInterface {
   @Column({ type: 'boolean', default: false })
   active: boolean
 
+  @Column()
+  passwordResetCode: string | null
+
   @BeforeInsert()
   @BeforeUpdate()
   async hashPassword(): Promise<void> {
@@ -52,6 +55,6 @@ export class UserEntity implements UserInterface {
   }
 
   async checkPassword(plainPassword: string): Promise<boolean> {
-    return await bcrypt.compare(plainPassword, this.password)
+    return await bcrypt.compare(plainPassword, String(this.password))
   }
 }

@@ -52,6 +52,7 @@ line of code at a time. 🚀
 
 ## Links
 
+- Blog https://isomera.blog
 - Youtube https://www.youtube.com/@isomera
 - LinkedIn https://www.linkedin.com/company/isomera
 - Discord https://discord.gg/T3CBgm8yPT
