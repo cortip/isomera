@@ -3,46 +3,63 @@ import { createMock } from 'ts-auto-mock'
 import { ProfileController } from './profile.controller'
 import { UserService } from './user.service'
 import { UserEntity } from '../entities/user.entity'
+import { InjectionToken } from '@nestjs/common'
+
+jest.mock('../entities/user.entity')
 
 describe('Profile Controller', () => {
-  let controller: ProfileController
+  let profileController: ProfileController
   let mockedUserService: jest.Mocked<UserService>
+
+
+  const testUserProfile = {
+    firstName: 'John',
+    lastName: 'Doe'
+  }
+
+  const testId = 1
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [ProfileController]
-    })
-      .useMocker(token => {
-        if (Object.is(token, UserService)) {
-          return createMock<UserService>()
+    }).useMocker((token: InjectionToken) => {
+      if (token === UserService) {
+        return {
+          findOne: jest.fn().mockImplementation(() => testUserProfile),
+          update: jest.fn().mockImplementation((testId: number, args: {}) => { return { args } })
         }
-      })
+      }
+    })
       .compile()
 
-    controller = module.get<ProfileController>(ProfileController)
+    profileController = module.get<ProfileController>(ProfileController)
     mockedUserService = module.get<UserService, jest.Mocked<UserService>>(
       UserService
     )
   })
 
+  afterAll(() => {
+    jest.clearAllMocks()
+  })
+
   it('should be defined', () => {
-    expect(controller).toBeDefined()
+    expect(profileController).toBeDefined()
   })
 
   it('should get a profile', async () => {
-    await expect(controller.get(1)).resolves.toBeDefined()
+    const where = 1
+    const result = await profileController.get(where)
+
+    expect(result).toEqual(testUserProfile)
   })
 
   it('should update a profile', async () => {
     const updatesUser = {
-      firstName: 'John',
+      firstName: 'Jane',
       lastName: 'Doe'
     }
-
-    mockedUserService.update.mockResolvedValueOnce(
-      createMock<UserEntity>({ firstName: updatesUser.firstName })
-    )
-
-    await expect(controller.update(1, updatesUser)).resolves.toBeDefined()
+    const testUserId = 2
+    const updateProfile = await profileController.update(testUserId, updatesUser)
+    await expect(updateProfile).resolves.toBeDefined()
   })
 })
