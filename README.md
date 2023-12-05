@@ -44,7 +44,7 @@ innovators, and let's co-create the ultimate Javascript/Typescript boilerplate
 for the next generation. Join the ISOMERA family and let's craft the future, one
 line of code at a time. 🚀
 
-## Thanks for our sponsors
+## Thanks to our sponsors
 
 <p align="center" style="text-align: center;">
   <a href="https://www.cortip.com" target="_blank" style="text-decoration: none;"><img src="https://raw.githubusercontent.com/cortip/isomera/main/docs/assets/sponsors/cortip.png" width="200" alt="Cortip" /></a>
