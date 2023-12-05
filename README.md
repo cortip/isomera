@@ -13,7 +13,7 @@ all-encompassing Javascript/Typescript starter boilerplate monorepo. Designed
 for visionary developers, ISOMERA streamlines the creation of enterprise-grade
 applications by providing a robust, modular, and scalable foundation. Whether
 you're kickstarting a project with React, Next, Nest, or diving deep into
-TypeORM, Redux, and Material UI, our platform is your ticket to efficiency.
+TypeORM, React Query, and Material UI, our platform is your ticket to efficiency.
 Beyond a mere boilerplate, ISOMERA offers comprehensive documentation, training
 materials, and a community-driven approach. Contribute to the revolution, join a
 community of like-minded developers, and redefine the standards of SaaS
@@ -44,6 +44,14 @@ innovators, and let's co-create the ultimate Javascript/Typescript boilerplate
 for the next generation. Join the ISOMERA family and let's craft the future, one
 line of code at a time. 🚀
 
+## Thanks to our sponsors
+
+<p align="center" style="text-align: center;">
+  <a href="https://www.cortip.com" target="_blank" style="text-decoration: none;"><img src="https://raw.githubusercontent.com/cortip/isomera/main/docs/assets/sponsors/cortip.png" width="200" alt="Cortip" /></a>
+  <a href="https://www.atlassian.com" target="_blank" style="text-decoration: none;"><img src="https://raw.githubusercontent.com/cortip/isomera/main/docs/assets/sponsors/atlassian.png" width="200" alt="Atlassian" /></a>
+  <a href="https://sentry.io" target="_blank" style="text-decoration: none;"><img src="https://raw.githubusercontent.com/cortip/isomera/main/docs/assets/sponsors/sentry.png" width="200" alt="Sentry" /></a>
+</p>
+
 ## Preview
 
 - Landing page https://www.isomera.org/
@@ -72,12 +80,12 @@ line of code at a time. 🚀
 
 - TypeScript
 - React
-- Redux-toolkit
+- React Query
 - Next.js
 - Nest.js
 - TypeORM
 - Formik
-- Yup
+- Class-validator (for Formik validations & DTOs)
 - Luxon
 
 ## SDLC ToDo
@@ -96,7 +104,7 @@ line of code at a time. 🚀
 - [x] Generated documentation for API with Compodoc
 - [x] Swagger for API endpoints
 - [x] DTO as shared lib
-- [ ] Redux-toolkit for app data storage
+- [ ] React Query for app data storage
 - [x] Interfaces as shared lib
 - [x] Utils as shared lib (for example time formatting)
 - [ ] TypeORM & DB migrations
