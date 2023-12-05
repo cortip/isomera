@@ -13,7 +13,7 @@ all-encompassing Javascript/Typescript starter boilerplate monorepo. Designed
 for visionary developers, ISOMERA streamlines the creation of enterprise-grade
 applications by providing a robust, modular, and scalable foundation. Whether
 you're kickstarting a project with React, Next, Nest, or diving deep into
-TypeORM, Redux, and Material UI, our platform is your ticket to efficiency.
+TypeORM, React Query, and Material UI, our platform is your ticket to efficiency.
 Beyond a mere boilerplate, ISOMERA offers comprehensive documentation, training
 materials, and a community-driven approach. Contribute to the revolution, join a
 community of like-minded developers, and redefine the standards of SaaS
@@ -80,7 +80,7 @@ line of code at a time. 🚀
 
 - TypeScript
 - React
-- Redux-toolkit
+- React Query
 - Next.js
 - Nest.js
 - TypeORM
@@ -104,7 +104,7 @@ line of code at a time. 🚀
 - [x] Generated documentation for API with Compodoc
 - [x] Swagger for API endpoints
 - [x] DTO as shared lib
-- [ ] Redux-toolkit for app data storage
+- [ ] React Query for app data storage
 - [x] Interfaces as shared lib
 - [x] Utils as shared lib (for example time formatting)
 - [ ] TypeORM & DB migrations
