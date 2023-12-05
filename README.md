@@ -85,7 +85,7 @@ line of code at a time. 🚀
 - Nest.js
 - TypeORM
 - Formik
-- Yup
+- Class-validator (for Formik validations & DTOs)
 - Luxon
 
 ## SDLC ToDo
