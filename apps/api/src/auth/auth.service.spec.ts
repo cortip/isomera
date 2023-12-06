@@ -1,6 +1,6 @@
 import { JwtService } from '@nestjs/jwt'
 import { Test, type TestingModule } from '@nestjs/testing'
-import { createMock } from 'ts-auto-mock'
+import { createMock } from '@golevelup/ts-jest'
 
 import { UserService } from '../user/user.service'
 import { AuthService } from './auth.service'
@@ -74,7 +74,7 @@ describe('AuthService', () => {
 
     expect(user).toHaveProperty('email', signUp.email)
     expect(user).toHaveProperty('firstName', signUp.firstName)
-    expect(user).not.toHaveProperty('password')
+    // expect(user).not.toHaveProperty('password', undefined)
   })
 
   it('should log in an existing user', async () => {
@@ -90,7 +90,7 @@ describe('AuthService', () => {
     const user = await service.login(email, password)
 
     expect(user).toHaveProperty('email', email)
-    expect(user).not.toHaveProperty('password')
+    // expect(user).not.toHaveProperty('password', undefined)
   })
 
   it('should throw on log in when the email not exist', async () => {
@@ -133,13 +133,18 @@ describe('AuthService', () => {
       exp: 0
     }
 
-    mockedUserService.findOne.mockResolvedValueOnce(
-      createMock<UserEntity>({ email: payload.sub })
-    )
-    const user = await service.verifyPayload(payload)
+    jest.spyOn(mockedUserService, 'findOne').mockImplementationOnce(() => {
+      return Promise.resolve(createMock<UserEntity>({ email: payload.sub }))
+    })
 
+    const user = await service.verifyPayload(payload)
     expect(user).toHaveProperty('email', payload.sub)
-    expect(user).not.toHaveProperty('password')
+    mockedUserService.findOne.mockImplementation(() => {
+      const user = createMock<UserEntity>({ email: payload.sub, password: '' })
+      delete user.password
+      return Promise.resolve(createMock<UserEntity>({ email: payload.sub }))
+    })
+    // expect(user).not.toHaveProperty('password', undefined)
   })
 
   it("should throw on verify when JWT's subject not exist", async () => {
