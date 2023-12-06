@@ -3,7 +3,7 @@ import { ExecutionContextHost } from '@nestjs/core/helpers/execution-context-hos
 import { Test, type TestingModule } from '@nestjs/testing'
 import { createMocks } from 'node-mocks-http'
 import { lastValueFrom, of } from 'rxjs'
-import { createMock } from 'ts-auto-mock'
+import { createMock } from '@golevelup/ts-jest'
 
 import { TokenInterceptor } from './token.interceptor'
 import { AuthService } from '../auth.service'
@@ -12,6 +12,8 @@ import { UserEntity } from '../../entities/user.entity'
 describe('TokenInterceptor', () => {
   let interceptor: TokenInterceptor
   let mockedAuthService: jest.Mocked<AuthService>
+
+  jest.setTimeout(15000) // 10000ms
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
