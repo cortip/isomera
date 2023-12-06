@@ -11,7 +11,6 @@ describe('Profile Controller', () => {
   let profileController: ProfileController
   let mockedUserService: jest.Mocked<UserService>
 
-
   const testUserProfile = {
     firstName: 'John',
     lastName: 'Doe'
@@ -22,14 +21,17 @@ describe('Profile Controller', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [ProfileController]
-    }).useMocker((token: InjectionToken) => {
-      if (token === UserService) {
-        return {
-          findOne: jest.fn().mockImplementation(() => testUserProfile),
-          update: jest.fn().mockImplementation((testId: number, args: {}) => { return { args } })
-        }
-      }
     })
+      .useMocker((token: InjectionToken) => {
+        if (token === UserService) {
+          return {
+            findOne: jest.fn().mockImplementation(() => testUserProfile),
+            update: jest.fn().mockImplementation((testId: number, args: {}) => {
+              return { args }
+            })
+          }
+        }
+      })
       .compile()
 
     profileController = module.get<ProfileController>(ProfileController)
@@ -59,7 +61,10 @@ describe('Profile Controller', () => {
       lastName: 'Doe'
     }
     const testUserId = 2
-    const updateProfile = await profileController.update(testUserId, updatesUser)
-    await expect(updateProfile).resolves.toBeDefined()
+    const updateProfile = await profileController.update(
+      testUserId,
+      updatesUser
+    )
+    expect(updateProfile).toBeDefined()
   })
 })
