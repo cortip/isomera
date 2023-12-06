@@ -13,11 +13,11 @@ all-encompassing Javascript/Typescript starter boilerplate monorepo. Designed
 for visionary developers, ISOMERA streamlines the creation of enterprise-grade
 applications by providing a robust, modular, and scalable foundation. Whether
 you're kickstarting a project with React, Next, Nest, or diving deep into
-TypeORM, React Query, and Material UI, our platform is your ticket to efficiency.
-Beyond a mere boilerplate, ISOMERA offers comprehensive documentation, training
-materials, and a community-driven approach. Contribute to the revolution, join a
-community of like-minded developers, and redefine the standards of SaaS
-development.
+TypeORM, React Query, and Material UI, our platform is your ticket to
+efficiency. Beyond a mere boilerplate, ISOMERA offers comprehensive
+documentation, training materials, and a community-driven approach. Contribute
+to the revolution, join a community of like-minded developers, and redefine the
+standards of SaaS development.
 
 Every developer understands the journey: starting with basic functionalities
 and, over time, integrating advanced features like 2FA, role management, or
