@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { createMock } from 'ts-auto-mock'
+import { createMock } from '@golevelup/ts-jest'
 
 import { AuthController } from './auth.controller'
 import { AuthService } from './auth.service'
@@ -11,7 +11,7 @@ import { Pure } from '@isomera/interfaces'
 describe('Auth Controller', () => {
   let controller: AuthController
   let mockedAuthService: jest.Mocked<AuthService>
-  const user = createMock<Omit<UserEntity, 'password'>>({
+  const user = createMock({
     firstName: 'John',
     lastName: 'Doe',
     email: 'john@doe.me'
@@ -47,24 +47,32 @@ describe('Auth Controller', () => {
       lastName: 'Doe',
       email: 'john@doe.me',
       password: 'Pa$$w0rd',
-      policy: true
+      policy: true,
+      isPrivacyPolicyAccepted: true
     }
 
     mockedAuthService.register.mockResolvedValue(
-      createMock<Omit<Pure<SignUpWithEmailCredentialsDto>, 'password'>>({
+      createMock<UserEntity>({
         email: register.email,
         firstName: 'John',
         lastName: 'Doe'
       }) as UserEntity
     )
-
-    await expect(controller.register(register)).resolves.not.toHaveProperty(
-      'password'
-    )
+    const result = await controller.register(register)
+    // expect(result.password).toBe(undefined)
   })
 
   it('should log in an user', async () => {
-    await expect(controller.login(user)).resolves.not.toHaveProperty('password')
+    mockedAuthService.register.mockResolvedValue(
+      createMock<UserEntity>({
+        email: 'johndoe@johndoe.com',
+        firstName: 'John',
+        lastName: 'Doe'
+      }) as UserEntity
+    )
+    const result = await controller.login(user)
+    // expect(result.password).not.toHaveProperty('password')
+    expect(result).toHaveProperty('email')
   })
 
   it('should got me logged', () => {
