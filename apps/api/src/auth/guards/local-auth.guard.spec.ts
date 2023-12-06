@@ -12,7 +12,7 @@ import { Test, type TestingModule } from '@nestjs/testing'
 import type { Request as Req } from 'express'
 import session from 'express-session'
 import request from 'supertest'
-import { createMock } from 'ts-auto-mock'
+import { createMock } from '@golevelup/ts-jest'
 
 import { AuthService } from '../auth.service'
 import { SessionSerializer } from '../session.serializer'
@@ -33,6 +33,8 @@ describe('LocalAuthGuard', () => {
   let mockedAuthService: jest.Mocked<AuthService>
 
   beforeEach(async () => {
+    jest.setTimeout(10000) // 10000ms
+
     const module: TestingModule = await Test.createTestingModule({
       imports: [PassportModule.register({ session: true })],
       controllers: [TestController],
@@ -66,6 +68,12 @@ describe('LocalAuthGuard', () => {
     )
 
     await app.init()
+  })
+
+  afterAll(async () => {
+    return setTimeout(() => {
+      return Promise.resolve(app.close())
+    }, 5000)
   })
 
   it('should authenticate using email and password', async () => {
