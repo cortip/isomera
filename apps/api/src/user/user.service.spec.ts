@@ -28,14 +28,13 @@ describe('UserService', () => {
       create: jest.fn(entity => entity),
       findOne: jest.fn(({ where }) => testUser),
       update: jest.fn(),
-      save: jest.fn().mockImplementationOnce((entity) => {
+      save: jest.fn().mockImplementationOnce(entity => {
         return Promise.resolve(testUser)
       }),
       findOneBy: jest.fn(),
-      merge: jest.fn(),
+      merge: jest.fn()
     })
   )
-
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -84,14 +83,15 @@ describe('UserService', () => {
   it('should throw on find one when the user not exist', async () => {
     mockedUserRepository.findOne.mockImplementationOnce(({ where }) => {
       return Promise.reject(
-        new NotFoundException("\"There isn't any user with identifier: [object Object]\""))
+        new NotFoundException(
+          '"There isn\'t any user with identifier: [object Object]"'
+        )
+      )
     })
 
     await expect(
       userService.findOne({ where: { email: 'notexisting@example.com' } })
-    ).rejects.toThrow(
-      `"There isn't any user with identifier: [object Object]"`
-    )
+    ).rejects.toThrow(`"There isn't any user with identifier: [object Object]"`)
   })
 
   it('should update an user', async () => {
@@ -105,9 +105,11 @@ describe('UserService', () => {
       return Promise.resolve(testUser)
     })
 
-    jest.spyOn(mockedUserRepository, 'merge').mockImplementationOnce((user, updates) => {
-      return Promise.resolve({ testUser, ...updates })
-    })
+    jest
+      .spyOn(mockedUserRepository, 'merge')
+      .mockImplementationOnce((user, updates) => {
+        return Promise.resolve({ testUser, ...updates })
+      })
 
     const user = await userService.update(id, updates)
 
@@ -115,7 +117,6 @@ describe('UserService', () => {
     expect(user).toHaveProperty('firstName', updates.firstName)
     expect(mockedUserRepository.merge).toHaveBeenCalled()
     expect(mockedUserRepository.merge).toHaveBeenCalledTimes(1)
-
   })
 
   it('should throw on update when the user not exist', async () => {
@@ -126,7 +127,9 @@ describe('UserService', () => {
     }
 
     mockedUserRepository.findOneBy.mockImplementationOnce(({ id }) => {
-      return Promise.reject(new NotFoundException(`There isn't any user with id: ${id}`))
+      return Promise.reject(
+        new NotFoundException(`There isn't any user with id: ${id}`)
+      )
     })
 
     await expect(
