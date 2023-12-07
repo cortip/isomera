@@ -11,7 +11,8 @@
         "outDir": "dist/apps/api/src"
       },
       { "include": "**/*.txt" }
-    ]
+    ],
+    "plugins": ["@nestjs/swagger/plugin"]
   },
   "entryFile": "../dist/apps/api/src/main"
 }

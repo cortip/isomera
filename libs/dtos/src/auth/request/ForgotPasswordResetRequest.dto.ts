@@ -1,5 +1,6 @@
 import { IsEmail } from 'class-validator'
 import { ValidateableDto } from '../../generics/Validateable.dto'
+import { ApiProperty } from '@nestjs/swagger'
 
 /**
  * @openapi
@@ -16,6 +17,7 @@ import { ValidateableDto } from '../../generics/Validateable.dto'
  *         email: john@doe.com
  */
 export class ForgotPasswordResetRequestDto extends ValidateableDto {
+  @ApiProperty()
   @IsEmail()
   email!: string
 }
