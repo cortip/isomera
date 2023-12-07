@@ -3,7 +3,15 @@
   "collection": "@nestjs/schematics",
   "sourceRoot": "apps/api/src",
   "compilerOptions": {
-    "tsConfigPath": "apps/api/tsconfig.app.json"
+    "tsConfigPath": "apps/api/tsconfig.app.json",
+    "assets": [
+      {
+        "include": "**/*.hbs",
+        "watchAssets": true,
+        "outDir": "dist/apps/api/src"
+      },
+      { "include": "**/*.txt" }
+    ]
   },
   "entryFile": "../dist/apps/api/src/main"
 }

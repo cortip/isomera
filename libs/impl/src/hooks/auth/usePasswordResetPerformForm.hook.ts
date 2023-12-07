@@ -3,11 +3,7 @@ import { useFormik } from 'formik'
 import { useNavigate } from 'react-router-dom'
 
 import { pages } from '../../constants/pages'
-import {
-  ForgotPasswordResetRequestDto,
-  formikValidate,
-  ResetPasswordRequestDto
-} from '@isomera/dtos'
+import { formikValidate, ResetPasswordRequestDto } from '@isomera/dtos'
 import { useHandleErrorHook } from '../error/useHandleError.hook'
 import { Pure, StatusType } from '@isomera/interfaces'
 import { usePasswordResetPerformHook } from './usePasswordResetPerform.hook'
@@ -49,7 +45,7 @@ export const usePasswordResetPerformForm = () => {
     isSubmitting
   } = useFormik({
     initialValues,
-    validate: values => formikValidate(ForgotPasswordResetRequestDto, values),
+    validate: values => formikValidate(ResetPasswordRequestDto, values),
     onSubmit
   })
 

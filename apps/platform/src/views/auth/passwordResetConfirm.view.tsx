@@ -14,7 +14,7 @@ export const PasswordResetConfirmView = () => {
   return (
     <form onSubmit={handleSubmit}>
       <div>
-        <label htmlFor="email">New Password</label>
+        <label htmlFor="newPassword">New Password</label>
         <input
           id="newPassword"
           name="newPassword"
@@ -29,7 +29,9 @@ export const PasswordResetConfirmView = () => {
         )}
       </div>
       <div>
-        <label htmlFor="email">Email</label>
+        <label htmlFor="passwordResetCode">
+          Confirmation code received on email
+        </label>
         <input
           id="passwordResetCode"
           name="passwordResetCode"
