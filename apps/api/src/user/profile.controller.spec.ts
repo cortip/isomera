@@ -1,22 +1,17 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { createMock } from 'ts-auto-mock'
 import { ProfileController } from './profile.controller'
 import { UserService } from './user.service'
-import { UserEntity } from '../entities/user.entity'
 import { InjectionToken } from '@nestjs/common'
 
 jest.mock('../entities/user.entity')
 
 describe('Profile Controller', () => {
   let profileController: ProfileController
-  let mockedUserService: jest.Mocked<UserService>
 
   const testUserProfile = {
     firstName: 'John',
     lastName: 'Doe'
   }
-
-  const testId = 1
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -26,7 +21,7 @@ describe('Profile Controller', () => {
         if (token === UserService) {
           return {
             findOne: jest.fn().mockImplementation(() => testUserProfile),
-            update: jest.fn().mockImplementation((testId: number, args: {}) => {
+            update: jest.fn().mockImplementation((testId: number, args) => {
               return { args }
             })
           }
@@ -35,9 +30,6 @@ describe('Profile Controller', () => {
       .compile()
 
     profileController = module.get<ProfileController>(ProfileController)
-    mockedUserService = module.get<UserService, jest.Mocked<UserService>>(
-      UserService
-    )
   })
 
   afterAll(() => {
