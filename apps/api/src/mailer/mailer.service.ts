@@ -17,6 +17,7 @@ export class MailerService {
         }
       })
     } catch (err) {
+      console.error(err)
       throw new HttpException(
         'Email could not be sent',
         HttpStatus.INTERNAL_SERVER_ERROR

@@ -3,29 +3,28 @@ import { useFormik } from 'formik'
 import { useNavigate } from 'react-router-dom'
 
 import { pages } from '../../constants/pages'
-import { formikValidate } from '@isomera/dtos'
+import { formikValidate, SignUpWithEmailCredentialsDto } from '@isomera/dtos'
 import { useHandleErrorHook } from '../error/useHandleError.hook'
 import { Pure } from '@isomera/interfaces'
-import { usePasswordResetRequestHook } from './usePasswordResetRequest.hook'
-import { ForgotPasswordResetRequestDto } from '@isomera/dtos'
-import { toast } from 'react-toastify'
+import { useSignUpHook } from './useSignUp.hook'
 
-const initialValues: Pure<ForgotPasswordResetRequestDto> = {
-  email: ''
+const initialValues: Pure<SignUpWithEmailCredentialsDto> = {
+  email: '',
+  password: '',
+  firstName: '',
+  lastName: '',
+  isPrivacyPolicyAccepted: undefined
 }
 
-export const usePasswordResetRequestForm = () => {
-  const { requestReset } = usePasswordResetRequestHook()
+export const useSignUpFormHook = () => {
+  const { register } = useSignUpHook()
   const { handleError } = useHandleErrorHook()
   const navigate = useNavigate()
 
   const onSubmit = async (values: typeof initialValues) => {
     try {
-      await requestReset(values)
-      toast.success(
-        `If there was such user registered with email ${values.email}, then you'll receive confirmation code.`
-      )
-      navigate(pages.passwordResetRequestConfirmation.path)
+      await register(values)
+      navigate(pages.login.path)
     } catch (error) {
       handleError(error, { view: 'login' })
     }
@@ -38,10 +37,11 @@ export const usePasswordResetRequestForm = () => {
     errors,
     touched,
     handleSubmit,
+    setFieldValue,
     isSubmitting
   } = useFormik({
     initialValues,
-    validate: values => formikValidate(ForgotPasswordResetRequestDto, values),
+    validate: values => formikValidate(SignUpWithEmailCredentialsDto, values),
     onSubmit
   })
 
@@ -52,6 +52,7 @@ export const usePasswordResetRequestForm = () => {
     errors,
     touched,
     handleSubmit,
+    setFieldValue,
     isSubmitting
   }
 }

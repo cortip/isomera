@@ -14,6 +14,9 @@ import { AuthUser } from '../user/user.decorator'
 import { UserEntity } from '../entities/user.entity'
 import { AuthService } from './auth.service'
 import {
+  ConfirmationCodeDto,
+  ForgotPasswordResetRequestDto,
+  ResetPasswordRequestDto,
   SignInWithEmailCredentialsDto,
   SignUpWithEmailCredentialsDto
 } from '@isomera/dtos'
@@ -22,9 +25,12 @@ import { LocalAuthGuard } from './guards/local-auth.guard'
 import { SessionAuthGuard } from './guards/session-auth.guard'
 import { TokenInterceptor } from './interceptors/token.interceptor'
 import { ConfirmCodeService } from '../user/confirm-code.service'
-import { Pure } from '@isomera/interfaces'
-import { ConfirmationCodeDto } from '@isomera/dtos'
-import { ForgotPasswordResetRequestDto } from '@isomera/dtos'
+import {
+  PasswordResetPerformInterface,
+  PasswordResetRequestInterface,
+  Pure,
+  StatusType
+} from '@isomera/interfaces'
 
 @Controller('auth')
 export class AuthController {
@@ -33,6 +39,7 @@ export class AuthController {
     private readonly confirmCodeService: ConfirmCodeService
   ) {}
 
+  //
   @Post('register')
   @HttpCode(HttpStatus.CREATED)
   @UseInterceptors(TokenInterceptor)
@@ -79,8 +86,17 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   async requestPasswordReset(
     @Body() body: Pure<ForgotPasswordResetRequestDto>
-  ): Promise<{ status: string }> {
+  ): Promise<PasswordResetRequestInterface> {
     await this.authService.requestPasswordReset(body.email)
-    return { status: 'ok' }
+    return { status: StatusType.OK }
+  }
+
+  @Post('/request-password-reset/confirm')
+  @HttpCode(HttpStatus.OK)
+  async resetPassword(
+    @Body() body: Pure<ResetPasswordRequestDto>
+  ): Promise<PasswordResetPerformInterface> {
+    const result = await this.authService.setNewPassword(body)
+    return { status: result ? StatusType.OK : StatusType.FAIL }
   }
 }

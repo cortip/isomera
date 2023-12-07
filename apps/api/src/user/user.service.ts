@@ -55,4 +55,14 @@ export class UserService {
 
     return await this.userRepository.update({ id }, { passwordResetCode })
   }
+
+  async setNewPassword(id: number, password: string): Promise<UpdateResult> {
+    const user = await this.userRepository.findOneBy({ id })
+
+    if (!user) {
+      throw new NotFoundException(`There isn't any user with id: ${id}`)
+    }
+
+    return await this.userRepository.update({ id }, { password })
+  }
 }

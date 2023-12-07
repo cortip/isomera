@@ -4,11 +4,13 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn
 } from 'typeorm'
 import { UserInterface } from '@isomera/interfaces'
 import bcrypt from 'bcryptjs'
+import { ConfirmCodeEntity } from './confirm-code.entity'
 
 @Entity({ name: 'users' })
 export class UserEntity implements UserInterface {
@@ -44,6 +46,9 @@ export class UserEntity implements UserInterface {
 
   @Column()
   passwordResetCode: string | null
+
+  @OneToMany(() => ConfirmCodeEntity, confirmCode => confirmCode.user)
+  confirmationCodes: ConfirmCodeEntity[]
 
   @BeforeInsert()
   @BeforeUpdate()
