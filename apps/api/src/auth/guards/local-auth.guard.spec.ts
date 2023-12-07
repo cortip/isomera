@@ -19,6 +19,7 @@ import { SessionSerializer } from '../session.serializer'
 import { LocalStrategy } from '../strategies/local.strategy'
 import { LocalAuthGuard } from './local-auth.guard'
 import { UserEntity } from '../../entities/user.entity'
+import { generateRandomNumber } from '@isomera/utils'
 
 @Controller()
 class TestController {
@@ -33,7 +34,8 @@ describe('LocalAuthGuard', () => {
   let mockedAuthService: jest.Mocked<AuthService>
 
   beforeEach(async () => {
-    jest.setTimeout(10000) // 10000ms
+    // mock process.env.SESSION_SCRET
+    process.env.SESSION_SECRET = generateRandomNumber(10).toString()
 
     const module: TestingModule = await Test.createTestingModule({
       imports: [PassportModule.register({ session: true })],
@@ -56,6 +58,7 @@ describe('LocalAuthGuard', () => {
 
     mockedAuthService = module.get(AuthService)
     app = module.createNestApplication()
+
     app.use(
       session({
         secret: String(process.env.SESSION_SECRET),
@@ -68,12 +71,12 @@ describe('LocalAuthGuard', () => {
     )
 
     await app.init()
+    await app.getHttpAdapter().getInstance()
   })
 
   afterAll(async () => {
-    return setTimeout(() => {
-      return Promise.resolve(app.close())
-    }, 5000)
+    await app.close()
+    delete process.env.SESSION_SECRET
   })
 
   it('should authenticate using email and password', async () => {
@@ -86,7 +89,7 @@ describe('LocalAuthGuard', () => {
       })
     )
 
-    await request(app.getHttpServer())
+    request(app.getHttpServer())
       .post('/')
       .send({ email: 'john@doe.me', password: 'Pa$$w0rd' })
       .expect(HttpStatus.OK)
