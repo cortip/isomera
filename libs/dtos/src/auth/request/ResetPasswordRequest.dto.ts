@@ -1,6 +1,7 @@
 import { Length, IsStrongPassword } from 'class-validator'
 import { authConfig } from '../../../../../config/auth.config'
 import { ValidateableDto } from '../../generics/Validateable.dto'
+import { ApiProperty } from '@nestjs/swagger'
 
 /**
  * @openapi
@@ -18,9 +19,11 @@ import { ValidateableDto } from '../../generics/Validateable.dto'
  *           type: string
  */
 export class ResetPasswordRequestDto extends ValidateableDto {
+  @ApiProperty()
   @IsStrongPassword(authConfig.isStrongPasswordOptions)
   newPassword!: string
 
+  @ApiProperty()
   @Length(32)
-  resetToken!: string
+  passwordResetCode!: string
 }
