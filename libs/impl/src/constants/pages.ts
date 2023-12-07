@@ -11,6 +11,9 @@ export const pages = {
   verificationCode: {
     path: '/verification-code'
   },
+  passwordResetRequest: {
+    path: '/reset-password'
+  },
   passwordResetRequestConfirmation: {
     path: '/reset-password/confirm'
   },
