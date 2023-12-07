@@ -34,7 +34,6 @@ describe('LocalAuthGuard', () => {
   let mockedAuthService: jest.Mocked<AuthService>
 
   beforeEach(async () => {
-    // mock process.env.SESSION_SCRET
     process.env.SESSION_SECRET = generateRandomNumber(10).toString()
 
     const module: TestingModule = await Test.createTestingModule({
