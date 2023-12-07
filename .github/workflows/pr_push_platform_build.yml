@@ -1,0 +1,36 @@
+name: 'PR & Push Platform Build'
+on:
+  pull_request:
+    branches:
+      - '*'
+    paths:
+      - 'libs/**'
+      - 'apps/platform/**'
+  push:
+    branches:
+      - '*'
+    paths:
+      - 'libs/**'
+      - 'apps/platform/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [20.x]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: 'Install dependencies'
+        run: yarn install
+
+      - name: 'Build Platform'
+        run: npx nx run platform:build
