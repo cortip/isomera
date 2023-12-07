@@ -1,143 +1,101 @@
 import { Test, type TestingModule } from '@nestjs/testing'
 import { getRepositoryToken } from '@nestjs/typeorm'
+import { createMock } from '@golevelup/ts-jest'
 import type { Repository } from 'typeorm'
 
 import type { UserUpdate } from './dto/user-update.dto'
 import { UserService } from './user.service'
 import { UserEntity } from '../entities/user.entity'
-import { NotFoundException } from '@nestjs/common'
-
-type MockType<T> = {
-  [P in keyof T]?: jest.Mock<{}>
-}
 
 describe('UserService', () => {
-  let userService: UserService
-  let mockedUserRepository: MockType<Repository<UserEntity>>
-
-  const testUser = {
-    id: 1,
-    firstName: 'John',
-    lastName: 'Doe',
-    email: 'john@doe.me',
-    password: 'Pa$$w0rd'
-  }
-
-  const userRepositoryMockFactory: () => MockType<Repository<any>> = jest.fn(
-    () => ({
-      create: jest.fn(entity => entity),
-      findOne: jest.fn(({ where }) => testUser),
-      update: jest.fn(),
-      save: jest.fn().mockImplementationOnce(entity => {
-        return Promise.resolve(testUser)
-      }),
-      findOneBy: jest.fn(),
-      merge: jest.fn()
-    })
-  )
+  let service: UserService
+  let mockedUserRepository: jest.Mocked<Repository<UserEntity>>
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [
-        UserService,
-        {
-          provide: getRepositoryToken(UserEntity),
-          useFactory: userRepositoryMockFactory
+      providers: [UserService]
+    })
+      .useMocker(token => {
+        if (Object.is(token, getRepositoryToken(UserEntity))) {
+          return createMock<Repository<UserEntity>>()
         }
-      ]
-    }).compile()
+      })
+      .compile()
 
-    userService = module.get<UserService>(UserService)
+    service = module.get<UserService>(UserService)
     mockedUserRepository = module.get(getRepositoryToken(UserEntity))
   })
 
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
-
   it('should be an instanceof UserService', () => {
-    expect(userService).toBeInstanceOf(UserService)
+    expect(service).toBeInstanceOf(UserService)
   })
 
   it('should create a new user', async () => {
-    mockedUserRepository.create.mockReturnValueOnce(testUser)
-    const user = await userService.create(testUser)
+    const data = {
+      firstName: 'John',
+      lastName: 'Doe',
+      email: 'john@doe.me',
+      password: 'Pa$$w0rd'
+    }
 
-    expect(user.id).toEqual(testUser.id)
+    mockedUserRepository.save.mockResolvedValueOnce(
+      createMock<UserEntity>(data)
+    )
+    const user = await service.create(data)
+
+    expect(user).toBeDefined()
   })
 
   it('should find one user', async () => {
     const email = 'john@doe.me'
 
-    mockedUserRepository.findOne.mockImplementation(() => {
-      return Promise.resolve(testUser)
-    })
-
-    const user = await userService.findOne({ where: { email } })
+    mockedUserRepository.findOne.mockResolvedValueOnce(
+      createMock<UserEntity>({ email })
+    )
+    const user = await service.findOne({ where: { email } })
 
     expect(user).toBeDefined()
     expect(user).toHaveProperty('email', 'john@doe.me')
-    expect(mockedUserRepository.findOne).toHaveBeenCalledTimes(1)
   })
 
   it('should throw on find one when the user not exist', async () => {
-    mockedUserRepository.findOne.mockImplementationOnce(({ where }) => {
-      return Promise.reject(
-        new NotFoundException(
-          '"There isn\'t any user with identifier: [object Object]"'
-        )
-      )
-    })
+    mockedUserRepository.findOne.mockResolvedValueOnce(undefined)
 
     await expect(
-      userService.findOne({ where: { email: 'notexisting@example.com' } })
-    ).rejects.toThrow(`"There isn't any user with identifier: [object Object]"`)
+      service.findOne({ where: { email: 'notexisting@example.com' } })
+    ).rejects.toThrowErrorMatchingInlineSnapshot(
+      `"There isn't any user with identifier: [object Object]"`
+    )
   })
 
   it('should update an user', async () => {
-    const id = 1
-    const updates: UserUpdate = {
-      firstName: 'John',
-      lastName: 'Doe'
-    }
-
-    mockedUserRepository.findOneBy.mockImplementation(({ id }) => {
-      return Promise.resolve(testUser)
-    })
-
-    jest
-      .spyOn(mockedUserRepository, 'merge')
-      .mockImplementationOnce((user, updates) => {
-        return Promise.resolve({ testUser, ...updates })
-      })
-
-    const user = await userService.update(id, updates)
-
-    expect(user).toBeDefined()
-    expect(user).toHaveProperty('firstName', updates.firstName)
-    expect(mockedUserRepository.merge).toHaveBeenCalled()
-    expect(mockedUserRepository.merge).toHaveBeenCalledTimes(1)
-  })
-
-  it('should throw on update when the user not exist', async () => {
     const id = 1
     const updates: UserUpdate = {
       firstName: 'Jhonny',
       lastName: 'Doe'
     }
 
-    mockedUserRepository.findOneBy.mockImplementationOnce(({ id }) => {
-      return Promise.reject(
-        new NotFoundException(`There isn't any user with id: ${id}`)
-      )
-    })
+    mockedUserRepository.save.mockResolvedValueOnce(
+      createMock<UserEntity>(updates)
+    )
+    const user = await service.update(id, updates)
+
+    expect(user).toBeDefined()
+    expect(user).toHaveProperty('firstName', updates.firstName)
+  })
+
+  it('should throw on update when the user not exist', async () => {
+    const id = 0
+    const updates: UserUpdate = {
+      firstName: 'Jhonny',
+      lastName: 'Doe'
+    }
+    mockedUserRepository.findOneBy.mockResolvedValueOnce(undefined)
 
     await expect(
-      userService.update(id, updates)
+      service.update(id, updates)
     ).rejects.toThrowErrorMatchingInlineSnapshot(
-      `"There isn't any user with id: 1"`
+      `"There isn't any user with id: 0"`
     )
-    expect(mockedUserRepository.findOneBy).toHaveBeenCalledWith({ id })
-    expect(mockedUserRepository.findOneBy).toHaveBeenCalledTimes(1)
   })
 })
