@@ -104,16 +104,16 @@ line of code at a time. 🚀
 - [x] Generated documentation for API with Compodoc
 - [x] Swagger for API endpoints
 - [x] DTO as shared lib
-- [ ] React Query for app data storage
+- [x] React Query for app data storage
 - [x] Interfaces as shared lib
 - [x] Utils as shared lib (for example time formatting)
-- [ ] TypeORM & DB migrations
+- [x] TypeORM & DB migrations
 - [ ] Plan a strict rules for timestamps (this is frequent problem for projects
       where users has to interact across multiple timezones)
 - [ ] Connect S3 or other object bucket
 - [ ] Production Dockerfiles
 - [ ] SSL in development
-- [ ] Transactional emails and templates (prod/dev)
+- [x] Transactional emails and templates (prod/dev)
 - [ ] Websockets for notifications and updates
 - [ ] GDPR compliance
 - [ ] Easy solution for roles and access management
