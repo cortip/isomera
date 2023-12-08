@@ -67,7 +67,8 @@ line of code at a time. 🚀
 
 ## Tutorials
 
-- Brief introduction into projects structure https://isomera.blog/project-structure-philosophy-and-hot-to-run-isomera-2023-12-08/
+- Brief introduction into projects structure
+  https://isomera.blog/project-structure-philosophy-and-hot-to-run-isomera-2023-12-08/
 
 ## Content
 
