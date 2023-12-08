@@ -59,7 +59,11 @@ describe('Auth Controller', () => {
       }) as UserEntity
     )
     const result = await controller.register(register)
-    // expect(result.password).toBe(undefined)
+    const userEntityObjectKeys = Object.getOwnPropertyNames((result))
+
+    expect(userEntityObjectKeys).not.toEqual(
+      expect.arrayContaining(['password'])
+    )
   })
 
   it('should log in an user', async () => {
@@ -67,11 +71,15 @@ describe('Auth Controller', () => {
       createMock<UserEntity>({
         email: 'johndoe@johndoe.com',
         firstName: 'John',
-        lastName: 'Doe'
+        lastName: 'Doe',
       }) as UserEntity
     )
-    const result = await controller.login(user)
-    // expect(result.password).not.toHaveProperty('password')
+    const result: UserEntity = await controller.login(user)
+    const userEntityObjectKeys = Object.getOwnPropertyNames((result))
+
+    expect(userEntityObjectKeys).not.toEqual(
+      expect.arrayContaining(['password'])
+    )
     expect(result).toHaveProperty('email')
   })
 
