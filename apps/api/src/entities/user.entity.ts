@@ -11,6 +11,7 @@ import {
 import { UserInterface } from '@isomera/interfaces'
 import bcrypt from 'bcryptjs'
 import { ConfirmCodeEntity } from './confirm-code.entity'
+import { OrganizationEntity } from './organization.entity'
 
 @Entity({ name: 'users' })
 export class UserEntity implements UserInterface {
@@ -49,6 +50,9 @@ export class UserEntity implements UserInterface {
 
   @OneToMany(() => ConfirmCodeEntity, confirmCode => confirmCode.user)
   confirmationCodes: ConfirmCodeEntity[]
+
+  @OneToMany(() => OrganizationEntity, organization => organization.user)
+  organizations: OrganizationEntity[]
 
   @BeforeInsert()
   @BeforeUpdate()

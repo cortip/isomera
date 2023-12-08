@@ -1,4 +1,5 @@
 import { ConfirmationCodeInterface } from '../auth/confirmationCode.interface'
+import { OrganizationInterface } from '../organization/organization.interface'
 
 export interface UserInterface {
   id?: number
@@ -11,4 +12,5 @@ export interface UserInterface {
   passwordResetCode?: string | null
   active: boolean
   confirmationCodes?: ConfirmationCodeInterface[]
+  organizations: OrganizationInterface[]
 }
