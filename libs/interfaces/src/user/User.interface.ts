@@ -1,3 +1,5 @@
+import { ConfirmationCodeInterface } from '../auth/confirmationCode.interface'
+
 export interface UserInterface {
   id?: number
   firstName: string
@@ -8,4 +10,5 @@ export interface UserInterface {
   refreshToken?: string
   passwordResetCode?: string | null
   active: boolean
+  confirmationCodes?: ConfirmationCodeInterface[]
 }

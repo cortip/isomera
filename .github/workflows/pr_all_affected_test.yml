@@ -1,4 +1,4 @@
-name: Nx Affected CI
+name: PR ALL Affected Test
 on:
   pull_request:
     branches: [main]

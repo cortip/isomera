@@ -6,7 +6,7 @@ import { getEnumKeyByEnumValue, pascalToSnakeCase } from '@isomera/utils'
 
 export type Ret = { [key: string]: string | Ret }
 export type Class = { new (...args: any[]): any }
-export type Data = { [key: string]: string | number }
+export type Data = { [key: string]: string | number | boolean }
 
 export const formikValidate = (model: Class, data: Data) => {
   console.log({ model, data })

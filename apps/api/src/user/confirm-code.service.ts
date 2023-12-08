@@ -1,10 +1,11 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { MoreThan, Repository } from 'typeorm'
-import { generateRandomNumber } from '@isomera/utils'
+import { generateRandomStringUtil } from '@isomera/utils'
 import { format } from 'date-fns'
 import { ConfirmCodeEntity } from '../entities/confirm-code.entity'
 import { UserEntity } from '../entities/user.entity'
+import { DateTime } from 'luxon'
 
 @Injectable()
 export class ConfirmCodeService {
@@ -18,13 +19,13 @@ export class ConfirmCodeService {
   public async genNewCode(user: UserEntity): Promise<ConfirmCodeEntity> {
     await this.invalidateOlderCodes(user) // If there are other codes, we want to invalidate them
 
-    const code = generateRandomNumber(7).toString()
+    const code = generateRandomStringUtil(7)
     const createCode = new ConfirmCodeEntity()
 
     createCode.code = code
     createCode.user = user
-    createCode.expiresIn = new Date(new Date().getTime() + 1000 * 60 * 30) // Half hour
-
+    createCode.expiresIn = DateTime.now().plus({ minute: 30 }).toJSDate()
+    console.log('xxx createCode.expiresIn', createCode.expiresIn)
     await this.confirmCodeRepository.save(createCode)
 
     return createCode
