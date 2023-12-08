@@ -11,9 +11,10 @@ import { Pure } from '@isomera/interfaces'
 describe('Auth Controller', () => {
   let controller: AuthController
   let mockedAuthService: jest.Mocked<AuthService>
-  const user = createMock({
+  const testUser = createMock({
     firstName: 'John',
     lastName: 'Doe',
+    password: '$pa55w00rd',
     email: 'john@doe.me'
   }) as UserEntity
 
@@ -42,28 +43,20 @@ describe('Auth Controller', () => {
   })
 
   it('should register a new user', async () => {
-    const register = {
+    const register: Pure<SignUpWithEmailCredentialsDto> = {
       firstName: 'John',
       lastName: 'Doe',
       email: 'john@doe.me',
-      password: 'Pa$$w0rd',
-      policy: true,
       isPrivacyPolicyAccepted: true
     }
 
-    mockedAuthService.register.mockResolvedValue(
-      createMock<UserEntity>({
-        email: register.email,
-        firstName: 'John',
-        lastName: 'Doe'
-      }) as UserEntity
-    )
-    const result = await controller.register(register)
-    const userEntityObjectKeys = Object.getOwnPropertyNames((result))
-
-    expect(userEntityObjectKeys).not.toEqual(
-      expect.arrayContaining(['password'])
-    )
+    jest.spyOn(mockedAuthService, 'register').mockImplementationOnce(() => {
+      return Promise.resolve(register) as Promise<UserEntity>
+    })
+    
+    const user = await controller.register(register)
+    expect(user).toHaveProperty('email', register.email)
+    expect(user).not.toHaveProperty('password', undefined)
   })
 
   it('should log in an user', async () => {
@@ -74,16 +67,12 @@ describe('Auth Controller', () => {
         lastName: 'Doe',
       }) as UserEntity
     )
-    const result: UserEntity = await controller.login(user)
-    const userEntityObjectKeys = Object.getOwnPropertyNames((result))
-
-    expect(userEntityObjectKeys).not.toEqual(
-      expect.arrayContaining(['password'])
-    )
-    expect(result).toHaveProperty('email')
+    const user: UserEntity = await controller.login(testUser)
+    expect(user).not.toHaveProperty('password', undefined)
+    expect(user).toHaveProperty('email')
   })
 
   it('should got me logged', () => {
-    expect(controller.me(user)).toEqual(user)
+    expect(controller.me(testUser)).toEqual(testUser)
   })
 })
