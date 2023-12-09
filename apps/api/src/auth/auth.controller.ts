@@ -39,7 +39,6 @@ export class AuthController {
     private readonly confirmCodeService: ConfirmCodeService
   ) {}
 
-  
   @Post('register')
   @HttpCode(HttpStatus.CREATED)
   @UseInterceptors(TokenInterceptor)
