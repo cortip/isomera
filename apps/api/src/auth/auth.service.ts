@@ -25,13 +25,13 @@ export class AuthService {
     private readonly jwtService: JwtService,
     private readonly mailerService: MailerService,
     private readonly confirmCode: ConfirmCodeService
-  ) { }
+  ) {}
 
   async register(
     SignUpWithEmailCredentialsDto: Pure<SignUpWithEmailCredentialsDto>
   ): Promise<UserEntity> {
     const user = await this.userService.create(SignUpWithEmailCredentialsDto)
-    user.password = undefined
+    delete user.password
 
     //TODO: mock confirmCode
     if (process.env.NODE_ENV !== 'test') {
@@ -73,7 +73,7 @@ export class AuthService {
         `Wrong password for user with email: ${email}`
       )
     }
-    user.password = undefined
+    delete user.password
 
     return user
   }
@@ -88,7 +88,7 @@ export class AuthService {
         `There isn't any user with email: ${payload.sub}`
       )
     }
-    user.password = undefined
+    delete user.password
 
     return user
   }
