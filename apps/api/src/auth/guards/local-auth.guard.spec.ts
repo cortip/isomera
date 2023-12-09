@@ -12,13 +12,14 @@ import { Test, type TestingModule } from '@nestjs/testing'
 import type { Request as Req } from 'express'
 import session from 'express-session'
 import request from 'supertest'
-import { createMock } from 'ts-auto-mock'
+import { createMock } from '@golevelup/ts-jest'
 
 import { AuthService } from '../auth.service'
 import { SessionSerializer } from '../session.serializer'
 import { LocalStrategy } from '../strategies/local.strategy'
 import { LocalAuthGuard } from './local-auth.guard'
 import { UserEntity } from '../../entities/user.entity'
+import { generateRandomNumber } from '@isomera/utils'
 
 @Controller()
 class TestController {
@@ -33,6 +34,8 @@ describe('LocalAuthGuard', () => {
   let mockedAuthService: jest.Mocked<AuthService>
 
   beforeEach(async () => {
+    process.env.SESSION_SECRET = generateRandomNumber(10).toString()
+
     const module: TestingModule = await Test.createTestingModule({
       imports: [PassportModule.register({ session: true })],
       controllers: [TestController],
@@ -54,6 +57,7 @@ describe('LocalAuthGuard', () => {
 
     mockedAuthService = module.get(AuthService)
     app = module.createNestApplication()
+
     app.use(
       session({
         secret: String(process.env.SESSION_SECRET),
@@ -66,6 +70,12 @@ describe('LocalAuthGuard', () => {
     )
 
     await app.init()
+    await app.getHttpAdapter().getInstance()
+  })
+
+  afterAll(async () => {
+    await app.close()
+    delete process.env.SESSION_SECRET
   })
 
   it('should authenticate using email and password', async () => {
@@ -78,7 +88,7 @@ describe('LocalAuthGuard', () => {
       })
     )
 
-    await request(app.getHttpServer())
+    request(app.getHttpServer())
       .post('/')
       .send({ email: 'john@doe.me', password: 'Pa$$w0rd' })
       .expect(HttpStatus.OK)

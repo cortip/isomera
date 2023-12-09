@@ -39,7 +39,6 @@ export class AuthController {
     private readonly confirmCodeService: ConfirmCodeService
   ) {}
 
-  //
   @Post('register')
   @HttpCode(HttpStatus.CREATED)
   @UseInterceptors(TokenInterceptor)
@@ -61,6 +60,7 @@ export class AuthController {
   async login(
     @AuthUser() user: Pure<SignInWithEmailCredentialsDto>
   ): Promise<UserEntity> {
+    delete user.password
     return user as UserEntity
   }
 
