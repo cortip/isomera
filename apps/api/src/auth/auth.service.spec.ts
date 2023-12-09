@@ -143,7 +143,6 @@ describe('AuthService', () => {
 
     expect(user).toHaveProperty('email', payload.sub)
     expect(Object.getOwnPropertyNames(user)).not.toContain(['password'])
-
   })
 
   it("should throw on verify when JWT's subject not exist", async () => {
