@@ -54,6 +54,9 @@ describe('AuthService', () => {
     // >(ConfirmCodeService);
   })
 
+  afterAll(() => {
+    jest.clearAllMocks()
+  })
   it('should be an instanceof AuthService', () => {
     expect(service).toBeInstanceOf(AuthService)
   })
@@ -74,7 +77,7 @@ describe('AuthService', () => {
 
     expect(user).toHaveProperty('email', signUp.email)
     expect(user).toHaveProperty('firstName', signUp.firstName)
-    // expect(user).not.toHaveProperty('password', undefined)
+    expect(Object.getOwnPropertyNames(user)).not.toContain(['password'])
   })
 
   it('should log in an existing user', async () => {
@@ -90,7 +93,7 @@ describe('AuthService', () => {
     const user = await service.login(email, password)
 
     expect(user).toHaveProperty('email', email)
-    // expect(user).not.toHaveProperty('password', undefined)
+    expect(Object.getOwnPropertyNames(user)).not.toContain(['password'])
   })
 
   it('should throw on log in when the email not exist', async () => {
@@ -133,18 +136,14 @@ describe('AuthService', () => {
       exp: 0
     }
 
-    jest.spyOn(mockedUserService, 'findOne').mockImplementationOnce(() => {
-      return Promise.resolve(createMock<UserEntity>({ email: payload.sub }))
-    })
-
+    mockedUserService.findOne.mockResolvedValueOnce(
+      createMock<UserEntity>({ email: payload.sub })
+    )
     const user = await service.verifyPayload(payload)
+
     expect(user).toHaveProperty('email', payload.sub)
-    mockedUserService.findOne.mockImplementation(() => {
-      const user = createMock<UserEntity>({ email: payload.sub, password: '' })
-      delete user.password
-      return Promise.resolve(createMock<UserEntity>({ email: payload.sub }))
-    })
-    // expect(user).not.toHaveProperty('password', undefined)
+    expect(Object.getOwnPropertyNames(user)).not.toContain(['password'])
+
   })
 
   it("should throw on verify when JWT's subject not exist", async () => {

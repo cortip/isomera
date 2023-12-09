@@ -38,6 +38,10 @@ describe('Auth Controller', () => {
     )
   })
 
+  afterEach(() => {
+    jest.clearAllMocks()
+  })
+
   it('should be defined', () => {
     expect(controller).toBeDefined()
   })
@@ -47,16 +51,14 @@ describe('Auth Controller', () => {
       firstName: 'John',
       lastName: 'Doe',
       email: 'john@doe.me',
+      password: 'Pa$$w0rd',
       isPrivacyPolicyAccepted: true
     }
 
-    jest.spyOn(mockedAuthService, 'register').mockImplementationOnce(() => {
-      return Promise.resolve(register) as Promise<UserEntity>
-    })
-    
     const user = await controller.register(register)
     expect(user).toHaveProperty('email', register.email)
-    expect(user).not.toHaveProperty('password', undefined)
+    expect(Object.getOwnPropertyNames(user)).not.toContain(['password'])
+
   })
 
   it('should log in an user', async () => {
@@ -68,7 +70,7 @@ describe('Auth Controller', () => {
       }) as UserEntity
     )
     const user: UserEntity = await controller.login(testUser)
-    expect(user).not.toHaveProperty('password', undefined)
+    expect(Object.getOwnPropertyNames(user)).not.toContain(['password'])
     expect(user).toHaveProperty('email')
   })
 
