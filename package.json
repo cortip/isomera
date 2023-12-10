@@ -101,7 +101,7 @@
     "babel-jest": "^29.4.1",
     "cypress": "^13.0.0",
     "eslint": "~8.54.0",
-    "eslint-config-next": "14.0.1",
+    "eslint-config-next": "14.0.4",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-cypress": "^2.13.4",
     "eslint-plugin-import": "2.29.0",
