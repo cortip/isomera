@@ -17,7 +17,9 @@ export class TokenInterceptor implements NestInterceptor {
 
   intercept(
     context: ExecutionContext,
-    next: CallHandler<Partial<UserEntity> & { access_token: string; refresh_token: string }>
+    next: CallHandler<
+      Partial<UserEntity> & { access_token: string; refresh_token: string }
+    >
   ): Observable<
     Partial<UserEntity> & { access_token: string; refresh_token: string }
   > {

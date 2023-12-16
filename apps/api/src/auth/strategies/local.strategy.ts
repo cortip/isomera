@@ -14,7 +14,12 @@ export class LocalStrategy extends PassportStrategy(Strategy, 'local') {
     })
   }
 
-  validate(email: string, password: string): Promise<Partial<UserEntity> & { refresh_token: string, access_token: string}> {
+  validate(
+    email: string,
+    password: string
+  ): Promise<
+    Partial<UserEntity> & { refresh_token: string; access_token: string }
+  > {
     return this.authService.login(email, password)
   }
 }

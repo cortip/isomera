@@ -21,7 +21,7 @@ import { Pure } from '@isomera/interfaces'
 import { generateRandomStringUtil } from '@isomera/utils'
 import { OrganizationService } from '../organization/organization.service'
 import { ConfigService } from '@nestjs/config'
-import * as bcrypt from  'bcrypt'
+import * as bcrypt from 'bcrypt'
 
 @Injectable()
 export class AuthService {
@@ -64,7 +64,12 @@ export class AuthService {
     }
   }
 
-  async login(email: string, password: string): Promise<Partial<UserEntity> & { refresh_token: string, access_token: string}> {
+  async login(
+    email: string,
+    password: string
+  ): Promise<
+    Partial<UserEntity> & { refresh_token: string; access_token: string }
+  > {
     let user: UserEntity
 
     try {
@@ -82,11 +87,11 @@ export class AuthService {
     }
     delete user.password
 
-    const {refresh_token, access_token} = this.signToken(user);
+    const { refresh_token, access_token } = this.signToken(user)
 
-    await this.storeRefreshToken(user, refresh_token);
-    
-    return {...user, refresh_token, access_token}
+    await this.storeRefreshToken(user, refresh_token)
+
+    return { ...user, refresh_token, access_token }
   }
 
   async verifyPayload(payload: JwtPayload): Promise<UserEntity> {
@@ -200,35 +205,33 @@ export class AuthService {
   }
 
   async getUserIfRefreshTokenMatched(
-		email: string,
-		refreshToken: string,
-	): Promise<UserEntity> {
-			const user = await this.userService.findOne({ where: { email } })
-			if (!user) {
-				throw new UnauthorizedException();
-			}
-			await this.verifyPlainContentWithHashedContent(
-				refreshToken,
-				user.refreshToken,
-			);
-			return user;
-	}
+    email: string,
+    refreshToken: string
+  ): Promise<UserEntity> {
+    const user = await this.userService.findOne({ where: { email } })
+    if (!user) {
+      throw new UnauthorizedException()
+    }
+    await this.verifyPlainContentWithHashedContent(
+      refreshToken,
+      user.refreshToken
+    )
+    return user
+  }
 
   private async verifyPlainContentWithHashedContent(
     plainText: string,
-    hashedText: string,
-) {
-    const is_matching = await bcrypt.compare(plainText, hashedText);
+    hashedText: string
+  ) {
+    const is_matching = await bcrypt.compare(plainText, hashedText)
     if (!is_matching) {
-        throw new BadRequestException();
+      throw new BadRequestException()
     }
-}
+  }
 
-async storeRefreshToken(user: UserEntity, token: string): Promise<void> {
+  async storeRefreshToken(user: UserEntity, token: string): Promise<void> {
     const salt = await bcrypt.genSalt()
-    const hashed_token = await bcrypt.hash(token, salt);
-    await this.userService.storeRefreshToken(user, hashed_token);
-}
-
-
+    const hashed_token = await bcrypt.hash(token, salt)
+    await this.userService.storeRefreshToken(user, hashed_token)
+  }
 }

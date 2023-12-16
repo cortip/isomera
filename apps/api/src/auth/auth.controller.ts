@@ -106,10 +106,10 @@ export class AuthController {
   async refreshToken(
     @AuthUser() user: Pure<UserEntity>
   ): Promise<RefreshTokenResponseInterface> {
-		const accessToken = this.authService.generateAccessToken(user.email);
-		return {
-			access_token: accessToken,
+    const accessToken = this.authService.generateAccessToken(user.email)
+    return {
+      access_token: accessToken,
       status: StatusType.OK
-		};
+    }
   }
 }

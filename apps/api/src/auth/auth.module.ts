@@ -32,6 +32,12 @@ import { JwtRefreshTokenStrategy } from './strategies/jwt-refresh-token.strategy
     OrganizationModule
   ],
   controllers: [AuthController],
-  providers: [AuthService, LocalStrategy, JwtStrategy, SessionSerializer, JwtRefreshTokenStrategy]
+  providers: [
+    AuthService,
+    LocalStrategy,
+    JwtStrategy,
+    SessionSerializer,
+    JwtRefreshTokenStrategy
+  ]
 })
 export class AuthModule {}
