@@ -8,6 +8,7 @@ import { JwtService } from '@nestjs/jwt'
 
 import { UserEntity } from '../entities/user.entity'
 import {
+  ConfirmationCodeDto,
   ResetPasswordRequestDto,
   SignUpWithEmailCredentialsDto
 } from '@isomera/dtos'
@@ -17,6 +18,8 @@ import { MailerService } from '../mailer/mailer.service'
 import { ConfirmCodeService } from '../user/confirm-code.service'
 import { Pure } from '@isomera/interfaces'
 import { generateRandomStringUtil } from '@isomera/utils'
+import { OrganizationService } from '../organization/organization.service'
+import { ConfigService } from '@nestjs/config'
 
 @Injectable()
 export class AuthService {
@@ -24,7 +27,9 @@ export class AuthService {
     private readonly userService: UserService,
     private readonly jwtService: JwtService,
     private readonly mailerService: MailerService,
-    private readonly confirmCode: ConfirmCodeService
+    private readonly confirmCode: ConfirmCodeService,
+    private readonly organizationService: OrganizationService,
+    private readonly configService: ConfigService
   ) {}
 
   async register(
@@ -93,12 +98,35 @@ export class AuthService {
     return user
   }
 
-  signToken(user: UserEntity): string {
+  signToken(user: UserEntity): {refresh_token: string, access_token: string} {
+    return {
+      refresh_token: this.generateRefreshToken(user.email),
+      access_token: this.generateAccessToken(user.email)
+    }
+  }
+
+  private generateAccessToken(email: string): string {
     const payload = {
-      sub: user.email
+      sub: email
     }
 
-    return this.jwtService.sign(payload)
+    return this.jwtService.sign(payload, {
+      expiresIn: `${this.configService.get<string>(
+          'JWT_ACCESS_TOKEN_EXPIRATION_TIME',
+      )}s`,
+    });
+  }
+
+  private generateRefreshToken(email: string): string {
+    const payload = {
+      sub: email
+    }
+
+    return this.jwtService.sign(payload, {
+      expiresIn: `${this.configService.get<string>(
+          'JWT_REFRESH_TOKEN_EXPIRATION_TIME',
+      )}s`,
+    });
   }
 
   async sendGreetings(user: UserEntity) {
@@ -145,5 +173,20 @@ export class AuthService {
       return updateResult.affected > 0
     }
     return false
+  }
+
+  /**
+   * After verify user, create personal organization for this user and send email
+   * @param code 
+   * @param email 
+   */
+  public async verifyCode({code, email}: Pure<ConfirmationCodeDto>): Promise<UserEntity> {
+    const user = await this.confirmCode.verifyCode(code, email);
+
+    await this.organizationService.createDefaultOrganization(user.id);
+
+    await this.sendGreetings(user);
+    
+    return user
   }
 }

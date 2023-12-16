@@ -69,9 +69,7 @@ export class AuthController {
   async confirmCode(
     @Body() body: Pure<ConfirmationCodeDto>
   ): Promise<UserEntity> {
-    const user = await this.confirmCodeService.verifyCode(body.code, body.email)
-
-    await this.authService.sendGreetings(user)
+    const user = await this.authService.verifyCode(body)
 
     return user
   }

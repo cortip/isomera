@@ -18,21 +18,21 @@ export class TokenInterceptor implements NestInterceptor {
   intercept(
     context: ExecutionContext,
     next: CallHandler<UserEntity>
-  ): Observable<UserEntity> {
+  ): Observable<Partial<UserEntity> & {access_token: string, refresh_token: string}> {
     return next.handle().pipe(
       map(user => {
         const response = context.switchToHttp().getResponse<Response>()
-        const token = this.authService.signToken(user)
+        const {refresh_token, access_token} = this.authService.signToken(user)
 
-        response.setHeader('Authorization', `Bearer ${token}`)
-        response.cookie('token', token, {
+        response.setHeader('Authorization', `Bearer ${access_token}`)
+        response.cookie('token', access_token, {
           httpOnly: true,
           signed: true,
           sameSite: 'strict',
           secure: process.env.NODE_ENV === 'production'
         })
 
-        return user
+        return {...user, access_token, refresh_token}
       })
     )
   }
