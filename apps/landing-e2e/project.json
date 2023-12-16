@@ -19,12 +19,18 @@
     },
     "lint": {
       "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
+      "outputs": [
+        "{options.outputFile}"
+      ],
       "options": {
-        "lintFilePatterns": ["apps/landing-e2e/**/*.{js,ts}"]
+        "lintFilePatterns": [
+          "apps/landing-e2e/**/*.{js,ts}"
+        ]
       }
     }
   },
   "tags": [],
-  "implicitDependencies": ["landing"]
+  "implicitDependencies": [
+    "landing"
+  ]
 }
