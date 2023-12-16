@@ -165,7 +165,7 @@ describe('AuthService', () => {
     const user = createMock<UserEntity>({ email: 'john@doe.me' })
 
     mockedJwtService.sign.mockReturnValueOnce('j.w.t')
-    const {refresh_token, access_token} = service.signToken(user)
+    const { refresh_token, access_token } = service.signToken(user)
 
     expect(access_token).toEqual(expect.any(String))
     expect(refresh_token).toEqual(expect.any(String))

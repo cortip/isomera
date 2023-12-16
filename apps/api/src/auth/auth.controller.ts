@@ -24,19 +24,21 @@ import { JWTAuthGuard } from './guards/jwt-auth.guard'
 import { LocalAuthGuard } from './guards/local-auth.guard'
 import { SessionAuthGuard } from './guards/session-auth.guard'
 import { TokenInterceptor } from './interceptors/token.interceptor'
-import { ConfirmCodeService } from '../user/confirm-code.service'
 import {
   PasswordResetPerformInterface,
   PasswordResetRequestInterface,
   Pure,
+  RefreshTokenResponseInterface,
   StatusType
 } from '@isomera/interfaces'
+import { UserService } from '../user/user.service'
+import { JwtRefreshTokenGuard } from './guards/jwt-refresh-token'
 
 @Controller('auth')
 export class AuthController {
   constructor(
     private readonly authService: AuthService,
-    private readonly confirmCodeService: ConfirmCodeService
+    private readonly userService: UserService
   ) {}
 
   @Post('register')
@@ -96,5 +98,18 @@ export class AuthController {
   ): Promise<PasswordResetPerformInterface> {
     const result = await this.authService.setNewPassword(body)
     return { status: result ? StatusType.OK : StatusType.FAIL }
+  }
+
+  @UseGuards(JwtRefreshTokenGuard)
+  @Post('/refresh-token')
+  @HttpCode(HttpStatus.OK)
+  async refreshToken(
+    @AuthUser() user: Pure<UserEntity>
+  ): Promise<RefreshTokenResponseInterface> {
+		const accessToken = this.authService.generateAccessToken(user.email);
+		return {
+			access_token: accessToken,
+      status: StatusType.OK
+		};
   }
 }

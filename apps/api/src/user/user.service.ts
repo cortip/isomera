@@ -65,4 +65,8 @@ export class UserService {
 
     return await this.userRepository.update({ id }, { password })
   }
+
+  async storeRefreshToken(user: UserEntity, token: string): Promise<UpdateResult> {
+    return await this.userRepository.update({ id: user.id }, { refreshToken: token })
+	}
 }

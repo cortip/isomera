@@ -2,7 +2,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  PrimaryGeneratedColumn,
+  PrimaryGeneratedColumn
 } from 'typeorm'
 import { UserOrganizationInterace } from '@isomera/interfaces'
 

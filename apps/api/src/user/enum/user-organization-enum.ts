@@ -1,4 +1,4 @@
 export enum UserOrganizationRoleEnum {
-    OWNER = 1,
-    MEMBER = 2,
+  OWNER = 1,
+  MEMBER = 2
 }

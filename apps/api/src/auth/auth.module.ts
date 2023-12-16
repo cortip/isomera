@@ -11,6 +11,7 @@ import { LocalStrategy } from './strategies/local.strategy'
 import { MailerModule } from '../mailer/mailer.module'
 import { ConfirmCodeModule } from '../user/confirm-code.module'
 import { OrganizationModule } from '../organization/organization.module'
+import { JwtRefreshTokenStrategy } from './strategies/jwt-refresh-token.strategy'
 
 @Module({
   imports: [
@@ -31,6 +32,6 @@ import { OrganizationModule } from '../organization/organization.module'
     OrganizationModule
   ],
   controllers: [AuthController],
-  providers: [AuthService, LocalStrategy, JwtStrategy, SessionSerializer]
+  providers: [AuthService, LocalStrategy, JwtStrategy, SessionSerializer, JwtRefreshTokenStrategy]
 })
 export class AuthModule {}

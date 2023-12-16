@@ -5,7 +5,11 @@ import { OrganizationEntity } from '../entities/organization.entity'
 import { UserOrganizationEntity } from '../entities/user-organization.entity'
 
 @Module({
-  imports: [TypeOrmModule.forFeature([OrganizationEntity, UserOrganizationEntity]), OrganizationEntity, UserOrganizationEntity],
+  imports: [
+    TypeOrmModule.forFeature([OrganizationEntity, UserOrganizationEntity]),
+    OrganizationEntity,
+    UserOrganizationEntity
+  ],
   providers: [OrganizationService],
   exports: [OrganizationService]
 })

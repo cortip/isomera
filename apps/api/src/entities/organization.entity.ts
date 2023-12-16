@@ -3,7 +3,7 @@ import {
   CreateDateColumn,
   Entity,
   PrimaryGeneratedColumn,
-  UpdateDateColumn,
+  UpdateDateColumn
 } from 'typeorm'
 import { OrganizationInterface } from '@isomera/interfaces'
 
@@ -21,5 +21,5 @@ export class OrganizationEntity implements OrganizationInterface {
   @UpdateDateColumn()
   updatedAt: Date
 
-  static DEFAULT_ORGANIZATION_NAME =  'Isomera personal user'
+  static DEFAULT_ORGANIZATION_NAME = 'Isomera personal user'
 }

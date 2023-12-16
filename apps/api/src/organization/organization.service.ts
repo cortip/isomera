@@ -12,7 +12,7 @@ export class OrganizationService {
     private readonly organizationRepository: Repository<OrganizationEntity>,
 
     @InjectRepository(UserOrganizationEntity)
-    private readonly userOrganizationRepository: Repository<UserOrganizationEntity>,
+    private readonly userOrganizationRepository: Repository<UserOrganizationEntity>
   ) {}
 
   async create(data: Partial<OrganizationEntity>): Promise<OrganizationEntity> {
@@ -22,9 +22,15 @@ export class OrganizationService {
   }
 
   async createDefaultOrganization(userId: number): Promise<OrganizationEntity> {
-    const organization = await this.create({name: OrganizationEntity.DEFAULT_ORGANIZATION_NAME})
+    const organization = await this.create({
+      name: OrganizationEntity.DEFAULT_ORGANIZATION_NAME
+    })
 
-    const user = this.userOrganizationRepository.create({organizationId: organization.id, userId: userId, role: UserOrganizationRoleEnum.OWNER})
+    const user = this.userOrganizationRepository.create({
+      organizationId: organization.id,
+      userId: userId,
+      role: UserOrganizationRoleEnum.OWNER
+    })
 
     await this.userOrganizationRepository.save(user)
 

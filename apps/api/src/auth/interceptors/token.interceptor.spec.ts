@@ -47,14 +47,12 @@ describe('TokenInterceptor', () => {
 
     lastValueFrom(interceptor.intercept(context, next))
 
-    jest
-      .spyOn(mockedAuthService, 'signToken')
-      .mockImplementationOnce(() => {
-        return {
-          refresh_token: 'refresh_token',
-          access_token: 'jwt'
-        }
-      })
+    jest.spyOn(mockedAuthService, 'signToken').mockImplementationOnce(() => {
+      return {
+        refresh_token: 'refresh_token',
+        access_token: 'jwt'
+      }
+    })
     jest.spyOn(res, 'getHeader').mockReturnValue('Bearer j.w.t')
 
     expect(res.getHeader('Authorization')).toBe('Bearer j.w.t')

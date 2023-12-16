@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   HttpException,
   HttpStatus,
   Injectable,
@@ -20,6 +21,7 @@ import { Pure } from '@isomera/interfaces'
 import { generateRandomStringUtil } from '@isomera/utils'
 import { OrganizationService } from '../organization/organization.service'
 import { ConfigService } from '@nestjs/config'
+import * as bcrypt from  'bcrypt'
 
 @Injectable()
 export class AuthService {
@@ -62,7 +64,7 @@ export class AuthService {
     }
   }
 
-  async login(email: string, password: string): Promise<UserEntity> {
+  async login(email: string, password: string): Promise<Partial<UserEntity> & { refresh_token: string, access_token: string}> {
     let user: UserEntity
 
     try {
@@ -80,7 +82,11 @@ export class AuthService {
     }
     delete user.password
 
-    return user
+    const {refresh_token, access_token} = this.signToken(user);
+
+    await this.storeRefreshToken(user, refresh_token);
+    
+    return {...user, refresh_token, access_token}
   }
 
   async verifyPayload(payload: JwtPayload): Promise<UserEntity> {
@@ -98,35 +104,35 @@ export class AuthService {
     return user
   }
 
-  signToken(user: UserEntity): {refresh_token: string, access_token: string} {
+  signToken(user: UserEntity): { refresh_token: string; access_token: string } {
     return {
       refresh_token: this.generateRefreshToken(user.email),
       access_token: this.generateAccessToken(user.email)
     }
   }
 
-  private generateAccessToken(email: string): string {
+  public generateAccessToken(email: string): string {
     const payload = {
       sub: email
     }
 
     return this.jwtService.sign(payload, {
       expiresIn: `${this.configService.get<string>(
-          'JWT_ACCESS_TOKEN_EXPIRATION_TIME',
-      )}s`,
-    });
+        'JWT_ACCESS_TOKEN_EXPIRATION_TIME'
+      )}s`
+    })
   }
 
-  private generateRefreshToken(email: string): string {
+  public generateRefreshToken(email: string): string {
     const payload = {
       sub: email
     }
 
     return this.jwtService.sign(payload, {
       expiresIn: `${this.configService.get<string>(
-          'JWT_REFRESH_TOKEN_EXPIRATION_TIME',
-      )}s`,
-    });
+        'JWT_REFRESH_TOKEN_EXPIRATION_TIME'
+      )}s`
+    })
   }
 
   async sendGreetings(user: UserEntity) {
@@ -177,16 +183,52 @@ export class AuthService {
 
   /**
    * After verify user, create personal organization for this user and send email
-   * @param code 
-   * @param email 
+   * @param code
+   * @param email
    */
-  public async verifyCode({code, email}: Pure<ConfirmationCodeDto>): Promise<UserEntity> {
-    const user = await this.confirmCode.verifyCode(code, email);
+  public async verifyCode({
+    code,
+    email
+  }: Pure<ConfirmationCodeDto>): Promise<UserEntity> {
+    const user = await this.confirmCode.verifyCode(code, email)
 
-    await this.organizationService.createDefaultOrganization(user.id);
+    await this.organizationService.createDefaultOrganization(user.id)
 
-    await this.sendGreetings(user);
-    
+    await this.sendGreetings(user)
+
     return user
   }
+
+  async getUserIfRefreshTokenMatched(
+		email: string,
+		refreshToken: string,
+	): Promise<UserEntity> {
+			const user = await this.userService.findOne({ where: { email } })
+			if (!user) {
+				throw new UnauthorizedException();
+			}
+			await this.verifyPlainContentWithHashedContent(
+				refreshToken,
+				user.refreshToken,
+			);
+			return user;
+	}
+
+  private async verifyPlainContentWithHashedContent(
+    plainText: string,
+    hashedText: string,
+) {
+    const is_matching = await bcrypt.compare(plainText, hashedText);
+    if (!is_matching) {
+        throw new BadRequestException();
+    }
+}
+
+async storeRefreshToken(user: UserEntity, token: string): Promise<void> {
+    const salt = await bcrypt.genSalt()
+    const hashed_token = await bcrypt.hash(token, salt);
+    await this.userService.storeRefreshToken(user, hashed_token);
+}
+
+
 }
