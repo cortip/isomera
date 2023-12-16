@@ -23,16 +23,17 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - uses: pnpm/action-setup@v2
-        with:
-          version: 8
-          run_install: false
-
       - name: 'Install dependencies'
-        run: pnpm install --no-prefer-frozen-lockfile
+        run: yarn install
+
+      - name: 'Link dependencies for mobile app'
+        run: |
+          npx nx run mobile:install
+          npx nx run mobile:sync-deps
+          npx nx run mobile:ensure-symlink
 
       - name: "Check it's pretty"
-        run: pnpm prettier:check
+        run: yarn prettier:check
 
       - name: "Check it's linted"
         run: npx nx run-many -t lint

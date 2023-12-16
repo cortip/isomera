@@ -32,6 +32,12 @@ jobs:
       - name: 'Install dependencies'
         run: yarn install
 
+      - name: 'Link dependencies for mobile app'
+        run: |
+          npx nx run mobile:install
+          npx nx run mobile:sync-deps
+          npx nx run mobile:ensure-symlink
+
       - name: Run Affected Unit Tests
         shell: bash
         run:

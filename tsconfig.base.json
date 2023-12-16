@@ -17,8 +17,8 @@
     "esModuleInterop": true,
     "paths": {
       "@isomera/dtos": ["libs/dtos/src/index"],
-      "@isomera/interfaces": ["libs/interfaces/src/index"],
       "@isomera/impl": ["libs/impl/src/index.ts"],
+      "@isomera/interfaces": ["libs/interfaces/src/index"],
       "@isomera/utils": ["libs/utils/src/index"]
     }
   },
