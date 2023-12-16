@@ -25,7 +25,8 @@
     "**/*.jsx",
     "../../apps/landing/.next/types/**/*.ts",
     "../../dist/apps/landing/.next/types/**/*.ts",
-    "next-env.d.ts"
+    "next-env.d.ts",
+    ".next/types/**/*.ts"
   ],
   "exclude": [
     "node_modules",

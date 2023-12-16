@@ -53,5 +53,22 @@ documentation
 
 # Ignore .lock files for this project because we need to work with latest libs
 pnpm-lock.yaml
-yarn.lock
 package-lock.json
+
+# Expo
+node_modules/
+.expo/
+.yarn/
+dist/
+npm-debug.*
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+*.orig.*
+web-build/
+cache/
+
+
+apps/mobile-e2e/artifacts

@@ -192,11 +192,11 @@ Consistency is important.
 This is pretty simple, just
 
 ```
-make nx run-many -- -t test
+nx run-many -- -t test
 ```
 
 ```
-make nx run-many -- -t e2e
+nx run-many -- -t e2e
 ```
 
 ### Running services
@@ -206,19 +206,19 @@ make nx run-many -- -t e2e
 This will launch API service on port 8080:
 
 ```
-make nx serve-api
+nx run api:serve
 ```
 
 This will launch platform on port 4200:
 
 ```
-make nx serve-platform
+nx run platform:serve
 ```
 
 This will launch landing on port 3030:
 
 ```
-make nx serve-landing
+nx landing:serve
 ```
 
 ## REPL for Nest.js
