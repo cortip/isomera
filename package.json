@@ -117,7 +117,7 @@
     "babel-preset-expo": "~9.5.2",
     "cypress": "^13.0.0",
     "detox": "^20.11.1",
-    "eas-cli": "~5.2.0",
+    "eas-cli": "~5.9.2",
     "eslint": "~8.54.0",
     "eslint-config-next": "14.0.1",
     "eslint-config-prettier": "^9.0.0",
