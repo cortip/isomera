@@ -25,6 +25,7 @@ import { LocalAuthGuard } from './guards/local-auth.guard'
 import { SessionAuthGuard } from './guards/session-auth.guard'
 import { TokenInterceptor } from './interceptors/token.interceptor'
 import {
+  LogoutResponseInterface,
   PasswordResetPerformInterface,
   PasswordResetRequestInterface,
   Pure,
@@ -105,6 +106,18 @@ export class AuthController {
     const accessToken = this.authService.generateAccessToken(user.email)
     return {
       access_token: accessToken,
+      status: StatusType.OK
+    }
+  }
+
+  @Post('/logout')
+  @UseGuards(SessionAuthGuard, JWTAuthGuard)
+  @HttpCode(HttpStatus.OK)
+  async logout(
+    @AuthUser() user: Pure<UserEntity>
+  ): Promise<LogoutResponseInterface> {
+    await this.authService.logout(user)
+    return {
       status: StatusType.OK
     }
   }

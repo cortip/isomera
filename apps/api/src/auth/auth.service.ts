@@ -232,4 +232,8 @@ export class AuthService {
     const hashedToken = await bcrypt.hash(token, salt)
     await this.userService.storeRefreshToken(user, hashedToken)
   }
+
+  async logout(user: UserEntity) {
+    return this.userService.storeRefreshToken(user, null);
+  }
 }
