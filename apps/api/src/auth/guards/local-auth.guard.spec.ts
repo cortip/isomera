@@ -20,6 +20,7 @@ import { LocalStrategy } from '../strategies/local.strategy'
 import { LocalAuthGuard } from './local-auth.guard'
 import { UserEntity } from '../../entities/user.entity'
 import { generateRandomNumber } from '@isomera/utils'
+import { LoginResponseInterface } from '@isomera/interfaces'
 
 @Controller()
 class TestController {
@@ -80,11 +81,13 @@ describe('LocalAuthGuard', () => {
 
   it('should authenticate using email and password', async () => {
     mockedAuthService.login.mockResolvedValueOnce(
-      createMock<UserEntity>({
+      createMock<LoginResponseInterface>({
         email: 'john@doe.me',
         id: 1,
         firstName: 'John',
-        lastName: 'Doe'
+        lastName: 'Doe',
+        access_token: '',
+        refresh_token: ''
       })
     )
 

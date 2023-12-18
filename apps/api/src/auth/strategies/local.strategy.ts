@@ -3,7 +3,7 @@ import { PassportStrategy } from '@nestjs/passport'
 import { Strategy } from 'passport-local'
 
 import { AuthService } from '../auth.service'
-import { UserEntity } from '../../entities/user.entity'
+import { LoginResponseInterface } from '@isomera/interfaces'
 
 @Injectable()
 export class LocalStrategy extends PassportStrategy(Strategy, 'local') {
@@ -14,12 +14,7 @@ export class LocalStrategy extends PassportStrategy(Strategy, 'local') {
     })
   }
 
-  validate(
-    email: string,
-    password: string
-  ): Promise<
-    Partial<UserEntity> & { refresh_token: string; access_token: string }
-  > {
+  validate(email: string, password: string): Promise<LoginResponseInterface> {
     return this.authService.login(email, password)
   }
 }

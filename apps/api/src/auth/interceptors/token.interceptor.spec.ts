@@ -7,7 +7,7 @@ import { createMock } from '@golevelup/ts-jest'
 
 import { TokenInterceptor } from './token.interceptor'
 import { AuthService } from '../auth.service'
-import { UserEntity } from '../../entities/user.entity'
+import { LoginResponseInterface } from '@isomera/interfaces'
 
 describe('TokenInterceptor', () => {
   let interceptor: TokenInterceptor
@@ -36,12 +36,14 @@ describe('TokenInterceptor', () => {
 
   it('should add the token to the response', async () => {
     const { req, res } = createMocks()
-    const user = createMock<UserEntity>({
+    const user = createMock<LoginResponseInterface>({
       email: 'john@johndoe.com',
-      firstName: 'John'
+      firstName: 'John',
+      refresh_token: '',
+      access_token: ''
     })
     const context = new ExecutionContextHost([req, res])
-    const next = createMock<CallHandler<UserEntity>>({
+    const next = createMock<CallHandler<LoginResponseInterface>>({
       handle: () => of(user)
     })
 

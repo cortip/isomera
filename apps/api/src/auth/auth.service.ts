@@ -13,7 +13,7 @@ import {
   ResetPasswordRequestDto,
   SignUpWithEmailCredentialsDto
 } from '@isomera/dtos'
-import { JwtPayload } from '@isomera/interfaces'
+import { JwtPayload, LoginResponseInterface } from '@isomera/interfaces'
 import { UserService } from '../user/user.service'
 import { MailerService } from '../mailer/mailer.service'
 import { ConfirmCodeService } from '../user/confirm-code.service'
@@ -67,9 +67,7 @@ export class AuthService {
   async login(
     email: string,
     password: string
-  ): Promise<
-    Partial<UserEntity> & { refresh_token: string; access_token: string }
-  > {
+  ): Promise<LoginResponseInterface> {
     let user: UserEntity
 
     try {
@@ -231,7 +229,7 @@ export class AuthService {
 
   async storeRefreshToken(user: UserEntity, token: string): Promise<void> {
     const salt = await bcrypt.genSalt()
-    const hashed_token = await bcrypt.hash(token, salt)
-    await this.userService.storeRefreshToken(user, hashed_token)
+    const hashedToken = await bcrypt.hash(token, salt)
+    await this.userService.storeRefreshToken(user, hashedToken)
   }
 }

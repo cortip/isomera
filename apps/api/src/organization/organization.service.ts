@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 import { OrganizationEntity } from '../entities/organization.entity'
 import { UserOrganizationEntity } from '../entities/user-organization.entity'
-import { UserOrganizationRoleEnum } from '../user/enum/user-organization-enum'
+import { UserOrganizationRoleEnum } from '@isomera/interfaces'
 
 @Injectable()
 export class OrganizationService {

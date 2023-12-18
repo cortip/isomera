@@ -31,15 +31,11 @@ import {
   RefreshTokenResponseInterface,
   StatusType
 } from '@isomera/interfaces'
-import { UserService } from '../user/user.service'
 import { JwtRefreshTokenGuard } from './guards/jwt-refresh-token'
 
 @Controller('auth')
 export class AuthController {
-  constructor(
-    private readonly authService: AuthService,
-    private readonly userService: UserService
-  ) {}
+  constructor(private readonly authService: AuthService) {}
 
   @Post('register')
   @HttpCode(HttpStatus.CREATED)

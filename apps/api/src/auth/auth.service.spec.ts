@@ -10,6 +10,8 @@ import { ConfirmCodeService } from '../user/confirm-code.service'
 import { UserEntity } from '../entities/user.entity'
 import { SignUpWithEmailCredentialsDto } from '@isomera/dtos'
 import { Pure } from '@isomera/interfaces'
+import { OrganizationService } from '../organization/organization.service'
+import { ConfigService } from '@nestjs/config'
 
 describe('AuthService', () => {
   let service: AuthService
@@ -20,7 +22,24 @@ describe('AuthService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [AuthService]
+      providers: [
+        AuthService,
+        {
+          provide: ConfigService,
+          useValue: {
+            get: jest.fn((key: string) => {
+              // this is being super extra, in the case that you need multiple keys with the `get` method
+              if (key === 'JWT_ACCESS_TOKEN_EXPIRATION_TIME') {
+                return 123
+              }
+              if (key === 'JWT_REFRESH_TOKEN_EXPIRATION_TIME') {
+                return 123
+              }
+              return null
+            })
+          }
+        }
+      ]
     })
       .useMocker(token => {
         if (Object.is(token, UserService)) {
@@ -34,6 +53,14 @@ describe('AuthService', () => {
         }
         if (Object.is(token, ConfirmCodeService)) {
           return createMock<ConfirmCodeService>()
+        }
+
+        if (Object.is(token, OrganizationService)) {
+          return createMock<OrganizationService>()
+        }
+
+        if (Object.is(token, ConfigService)) {
+          return createMock<ConfigService>()
         }
       })
       .compile()
@@ -90,6 +117,7 @@ describe('AuthService', () => {
         checkPassword: jest.fn().mockResolvedValue(true)
       })
     )
+    mockedJwtService.sign.mockReturnValue('j.w.t')
     const user = await service.login(email, password)
 
     expect(user).toHaveProperty('email', email)
@@ -164,7 +192,7 @@ describe('AuthService', () => {
   it('should sign a new JWT', () => {
     const user = createMock<UserEntity>({ email: 'john@doe.me' })
 
-    mockedJwtService.sign.mockReturnValueOnce('j.w.t')
+    mockedJwtService.sign.mockReturnValue('j.w.t')
     const { refresh_token, access_token } = service.signToken(user)
 
     expect(access_token).toEqual(expect.any(String))
