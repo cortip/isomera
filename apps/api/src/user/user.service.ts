@@ -77,11 +77,11 @@ export class UserService {
       throw new NotFoundException(`There isn't any user with id: ${id}`)
     }
 
-    user.password = password;
-    user.passwordResetCode= null;
-    user.passwordResetExpiredTime = null;
+    user.password = password
+    user.passwordResetCode = null
+    user.passwordResetExpiredTime = null
 
-    return this.userRepository.save(user);
+    return this.userRepository.save(user)
   }
 
   async storeRefreshToken(

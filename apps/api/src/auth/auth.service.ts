@@ -188,7 +188,7 @@ export class AuthService {
         resetPasswordRequestDto.newPassword
       )
 
-      return true;
+      return true
     }
     return false
   }

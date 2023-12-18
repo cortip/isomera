@@ -98,7 +98,7 @@ export class AuthController {
   }
 
   @UseGuards(JwtRefreshTokenGuard)
-  @Post('/refresh-token')
+  @Post('/refresh')
   @HttpCode(HttpStatus.OK)
   async refreshToken(
     @AuthUser() user: Pure<UserEntity>
