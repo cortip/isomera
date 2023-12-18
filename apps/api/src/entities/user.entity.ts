@@ -68,6 +68,6 @@ export class UserEntity implements UserInterface {
   }
 
   public isValidResetCodeTime() {
-    return moment().isSameOrBefore(this.passwordResetExpiredTime);
+    return moment().isSameOrBefore(this.passwordResetExpiredTime)
   }
 }

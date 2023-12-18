@@ -6,7 +6,7 @@ import { UserUpdate } from './dto/user-update.dto'
 import { UserEntity } from '../entities/user.entity'
 import { UpdateResult } from 'typeorm/query-builder/result/UpdateResult'
 import { ConfigService } from '@nestjs/config'
-import moment from 'moment';
+import moment from 'moment'
 
 @Injectable()
 export class UserService {
@@ -56,21 +56,32 @@ export class UserService {
       throw new NotFoundException(`There isn't any user with id: ${id}`)
     }
 
-    const resetPasswordPeriod = this.configService.get<number>('RESET_PASSWORD_PERIOD')
-    const expiredTime = moment().clone().add(resetPasswordPeriod, 'minutes').format('YYYY-MM-DD HH:mm:ss');
-    console.log(moment().clone().add(resetPasswordPeriod, 'minutes'))
+    const resetPasswordPeriod = this.configService.get<number>(
+      'RESET_PASSWORD_PERIOD'
+    )
+    const expiredTime = moment()
+      .clone()
+      .add(resetPasswordPeriod, 'minutes')
+      .format('YYYY-MM-DD HH:mm:ss')
 
-    return await this.userRepository.update({ id }, { passwordResetCode, passwordResetExpiredTime: expiredTime })
+    return await this.userRepository.update(
+      { id },
+      { passwordResetCode, passwordResetExpiredTime: expiredTime }
+    )
   }
 
-  async setNewPassword(id: number, password: string): Promise<UpdateResult> {
+  async setNewPassword(id: number, password: string): Promise<UserEntity> {
     const user = await this.userRepository.findOneBy({ id })
 
     if (!user) {
       throw new NotFoundException(`There isn't any user with id: ${id}`)
     }
 
-    return await this.userRepository.update({ id }, { password, passwordResetCode: null, passwordResetExpiredTime: null })
+    user.password = password;
+    user.passwordResetCode= null;
+    user.passwordResetExpiredTime = null;
+
+    return this.userRepository.save(user);
   }
 
   async storeRefreshToken(

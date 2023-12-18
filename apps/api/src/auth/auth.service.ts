@@ -154,12 +154,12 @@ export class AuthService {
       if (user?.id) {
         const passwordResetCode = generateRandomStringUtil(32)
         await this.userService.setPasswordResetCode(user.id, passwordResetCode)
-        // void this.mailerService.sendEmail(
-        //   user,
-        //   'Password reset code',
-        //   'password-reset-code',
-        //   { user, code: passwordResetCode }
-        // )
+        void this.mailerService.sendEmail(
+          user,
+          'Password reset code',
+          'password-reset-code',
+          { user, code: passwordResetCode }
+        )
         return true
       }
     } catch (e) {
@@ -175,20 +175,20 @@ export class AuthService {
       where: { passwordResetCode: resetPasswordRequestDto.passwordResetCode }
     })
 
-    if(! user.isValidResetCodeTime()) {
+    if (!user.isValidResetCodeTime()) {
       throw new HttpException(
-        "Invalid password reset code",
+        'Invalid password reset code',
         HttpStatus.BAD_REQUEST
       )
     }
-    
+
     if (user?.id) {
-      const updateResult = await this.userService.setNewPassword(
+      await this.userService.setNewPassword(
         user.id,
         resetPasswordRequestDto.newPassword
       )
 
-      return updateResult.affected > 0
+      return true;
     }
     return false
   }
