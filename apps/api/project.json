@@ -7,7 +7,8 @@
     "build": {
       "executor": "nx:run-commands",
       "options": {
-        "commands": ["nest build -c apps/api/nest-cli.json"]
+        "commands": ["nest build -c apps/api/nest-cli.json"],
+        "generatePackageJson": true
       },
       "outputs": ["{options.outputPath}"]
     },
