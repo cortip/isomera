@@ -6,6 +6,7 @@ import type { Repository } from 'typeorm'
 import type { UserUpdate } from './dto/user-update.dto'
 import { UserService } from './user.service'
 import { UserEntity } from '../entities/user.entity'
+import { ConfigService } from '@nestjs/config'
 
 describe('UserService', () => {
   let service: UserService
@@ -13,7 +14,21 @@ describe('UserService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [UserService]
+      providers: [
+        UserService,
+        {
+          provide: ConfigService,
+          useValue: {
+            get: jest.fn((key: string) => {
+              // this is being super extra, in the case that you need multiple keys with the `get` method
+              if (key === 'RESET_PASSWORD_PERIOD') {
+                return 123
+              }
+              return null
+            })
+          }
+        }
+      ]
     })
       .useMocker(token => {
         if (Object.is(token, getRepositoryToken(UserEntity))) {
