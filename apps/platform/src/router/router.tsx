@@ -6,11 +6,9 @@ import { pages } from '@isomera/impl'
 import { PasswordResetView } from '../views/auth/passwordReset.view'
 import { PasswordResetConfirmView } from '../views/auth/passwordResetConfirm.view'
 import { UserInfoView } from '../views/user /info.view'
-import { useAuth } from '../provider/authProvider'
 import { NoProtectedRoute, ProtectedRoute } from './protectedRoute'
 
 const Routes = () => {
-  const { token } = useAuth()
 
   // Define routes accessible only to authenticated users
   const routesForAuthenticatedOnly = [
