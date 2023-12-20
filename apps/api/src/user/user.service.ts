@@ -49,7 +49,7 @@ export class UserService {
   async setPasswordResetCode(
     id: number,
     passwordResetCode: string
-  ): Promise<UpdateResult> {
+  ): Promise<UserEntity> {
     const user = await this.userRepository.findOneBy({ id })
 
     if (!user) {
@@ -64,10 +64,9 @@ export class UserService {
       .add(resetPasswordPeriod, 'minutes')
       .format('YYYY-MM-DD HH:mm:ss')
 
-    return await this.userRepository.update(
-      { id },
-      { passwordResetCode, passwordResetExpiredTime: expiredTime }
-    )
+      user.passwordResetCode = passwordResetCode;
+      user.passwordResetExpiredTime = expiredTime;
+      return this.userRepository.save(user)
   }
 
   async setNewPassword(id: number, password: string): Promise<UserEntity> {
@@ -87,10 +86,8 @@ export class UserService {
   async storeRefreshToken(
     user: UserEntity,
     token: string
-  ): Promise<UpdateResult> {
-    return await this.userRepository.update(
-      { id: user.id },
-      { refreshToken: token }
-    )
+  ): Promise<UserEntity> {
+    user.refreshToken = token;
+    return this.userRepository.save(user)
   }
 }

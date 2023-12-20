@@ -113,4 +113,82 @@ describe('UserService', () => {
       `"There isn't any user with id: 0"`
     )
   })
+
+  it('should store refresh token', async () => {
+    const data = {
+      firstName: 'John',
+      lastName: 'Doe',
+      email: 'john@doe.me',
+      refreshToken: 'jwt '
+    }
+
+    mockedUserRepository.save.mockResolvedValueOnce(
+      createMock<UserEntity>(data)
+    )
+    const user = await service.create(data)
+
+    mockedUserRepository.save.mockResolvedValueOnce(
+      createMock<UserEntity>({refreshToken: 'new_token'})
+    )
+    const userAfter = await service.storeRefreshToken(user, 'new_token')
+
+    expect(user).toBeDefined()
+    expect(userAfter).toHaveProperty('refreshToken', 'new_token')
+  })
+
+  it('should reset password success', async () => {
+    const data = {
+      password: 'password',
+      passwordResetCode: '1',
+      passwordResetExpiredTime: '2'
+    }
+
+    mockedUserRepository.save.mockResolvedValueOnce(
+      createMock<UserEntity>(data)
+    )
+    const user = await service.create(data)
+
+    mockedUserRepository.save.mockResolvedValueOnce(
+      createMock<UserEntity>({password: 'new_password', passwordResetCode: null, passwordResetExpiredTime: null})
+    )
+    const userAfter = await service.setNewPassword(user.id, 'new_password')
+
+    expect(user).toBeDefined()
+    expect(userAfter).toHaveProperty('passwordResetCode', null)
+    expect(userAfter).toHaveProperty('password', 'new_password')
+    expect(userAfter).toHaveProperty('passwordResetExpiredTime', null)
+  })
+
+  it('should reset password with invalid id', async () => {
+    const userId = 100;
+    mockedUserRepository.findOneBy.mockResolvedValueOnce(undefined)
+
+    await expect(
+      service.setNewPassword(userId, 'new_password')
+    ).rejects.toThrowErrorMatchingInlineSnapshot(
+      `"There isn't any user with id: ${userId}"`
+    )
+  })
+
+  it('should set password reset code', async () => {
+    const data = {
+      passwordResetCode: null,
+      passwordResetExpiredTime: null,
+      email: 'john@doe.me',
+      id: 1
+    }
+    mockedUserRepository.findOneBy.mockResolvedValueOnce(
+      createMock<UserEntity>(data)
+    )
+
+    mockedUserRepository.save.mockResolvedValueOnce(
+      createMock<UserEntity>({passwordResetCode: '123', passwordResetExpiredTime: '456'})
+    )
+
+    const user = await service.setPasswordResetCode(data.id, '123')
+
+    expect(user).toBeDefined()
+    expect(user).toHaveProperty('passwordResetCode', '123')
+    expect(user).toHaveProperty('passwordResetExpiredTime', '456')
+  })
 })
