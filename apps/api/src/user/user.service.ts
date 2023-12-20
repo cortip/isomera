@@ -64,9 +64,9 @@ export class UserService {
       .add(resetPasswordPeriod, 'minutes')
       .format('YYYY-MM-DD HH:mm:ss')
 
-      user.passwordResetCode = passwordResetCode;
-      user.passwordResetExpiredTime = expiredTime;
-      return this.userRepository.save(user)
+    user.passwordResetCode = passwordResetCode
+    user.passwordResetExpiredTime = expiredTime
+    return this.userRepository.save(user)
   }
 
   async setNewPassword(id: number, password: string): Promise<UserEntity> {
@@ -87,7 +87,7 @@ export class UserService {
     user: UserEntity,
     token: string
   ): Promise<UserEntity> {
-    user.refreshToken = token;
+    user.refreshToken = token
     return this.userRepository.save(user)
   }
 }

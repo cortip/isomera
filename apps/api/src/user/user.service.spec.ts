@@ -128,7 +128,7 @@ describe('UserService', () => {
     const user = await service.create(data)
 
     mockedUserRepository.save.mockResolvedValueOnce(
-      createMock<UserEntity>({refreshToken: 'new_token'})
+      createMock<UserEntity>({ refreshToken: 'new_token' })
     )
     const userAfter = await service.storeRefreshToken(user, 'new_token')
 
@@ -149,7 +149,11 @@ describe('UserService', () => {
     const user = await service.create(data)
 
     mockedUserRepository.save.mockResolvedValueOnce(
-      createMock<UserEntity>({password: 'new_password', passwordResetCode: null, passwordResetExpiredTime: null})
+      createMock<UserEntity>({
+        password: 'new_password',
+        passwordResetCode: null,
+        passwordResetExpiredTime: null
+      })
     )
     const userAfter = await service.setNewPassword(user.id, 'new_password')
 
@@ -160,7 +164,7 @@ describe('UserService', () => {
   })
 
   it('should reset password with invalid id', async () => {
-    const userId = 100;
+    const userId = 100
     mockedUserRepository.findOneBy.mockResolvedValueOnce(undefined)
 
     await expect(
@@ -182,7 +186,10 @@ describe('UserService', () => {
     )
 
     mockedUserRepository.save.mockResolvedValueOnce(
-      createMock<UserEntity>({passwordResetCode: '123', passwordResetExpiredTime: '456'})
+      createMock<UserEntity>({
+        passwordResetCode: '123',
+        passwordResetExpiredTime: '456'
+      })
     )
 
     const user = await service.setPasswordResetCode(data.id, '123')
