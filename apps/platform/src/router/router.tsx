@@ -9,7 +9,6 @@ import { UserInfoView } from '../views/user /info.view'
 import { NoProtectedRoute, ProtectedRoute } from './protectedRoute'
 
 const Routes = () => {
-
   // Define routes accessible only to authenticated users
   const routesForAuthenticatedOnly = [
     {

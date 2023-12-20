@@ -14,7 +14,7 @@ root.render(
   <StrictMode>
     <ToastContainer />
     <QueryClientProvider client={queryClient}>
-          <Routes />
+      <Routes />
     </QueryClientProvider>
   </StrictMode>
 )
