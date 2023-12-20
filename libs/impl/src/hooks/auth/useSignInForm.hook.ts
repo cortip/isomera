@@ -21,7 +21,7 @@ export const useSignInFormHook = () => {
   const onSubmit = async (values: typeof initialValues) => {
     try {
       await login(values)
-      navigate(pages.verificationCode.path)
+      navigate(pages.userInfo.path)
     } catch (error) {
       handleError(error, { view: 'login' })
     }

@@ -5,6 +5,7 @@ import { SignUpView } from '../views/auth/signUp.view'
 import { pages } from '@isomera/impl'
 import { PasswordResetView } from '../views/auth/passwordReset.view'
 import { PasswordResetConfirmView } from '../views/auth/passwordResetConfirm.view'
+import { UserInfoView } from '../views/user /info.view'
 
 export function Router() {
   return (
@@ -44,6 +45,14 @@ export function Router() {
             <div>
               <PasswordResetConfirmView />
               <Link to="/">Sign In</Link>
+            </div>
+          }
+        />
+        <Route
+          path={pages.userInfo.path}
+          element={
+            <div>
+              <UserInfoView />
             </div>
           }
         />
