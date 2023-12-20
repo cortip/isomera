@@ -4,7 +4,10 @@
     "build": {
       "cache": true,
       "dependsOn": ["^build"],
-      "inputs": ["production", "^production"]
+      "inputs": ["production", "^production"],
+      "options": {
+        "generatePackageJson": true
+      }
     },
     "lint": {
       "cache": true,

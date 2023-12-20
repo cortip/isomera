@@ -1,5 +1,4 @@
 Makefile
-docker
 README.md
 docs
 .env
