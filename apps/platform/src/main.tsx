@@ -1,12 +1,12 @@
 import { StrictMode } from 'react'
 import * as ReactDOM from 'react-dom/client'
-import { BrowserRouter } from 'react-router-dom'
 
-import Router from './router/router'
+import Routes from './router/router'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
 import { QueryClient, QueryClientProvider } from 'react-query'
+import AuthProvider from './provider/authProvider'
 
 const queryClient = new QueryClient()
 
@@ -15,9 +15,9 @@ root.render(
   <StrictMode>
     <ToastContainer />
     <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
-        <Router />
-      </BrowserRouter>
+        <AuthProvider>
+          <Routes />
+        </AuthProvider>
     </QueryClientProvider>
   </StrictMode>
 )
