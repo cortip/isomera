@@ -17,7 +17,13 @@ export const config = {
   entities: [__dirname + '/../**/*.entity.{js,ts}'],
   migrations: [join(__dirname, '..', 'migrations', '*.{ts,js}')],
   autoLoadEntities: true,
-  synchronize: false
+  synchronize: false,
+  ssl: process.env.DATABASE_CERT
+    ? {
+        rejectUnauthorized: false,
+        ca: String(process.env.DATABASE_CERT)
+      }
+    : false
 }
 
 export const typeOrmConfig = registerAs('typeorm', () => config)
