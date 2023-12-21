@@ -86,7 +86,6 @@ export class UserService {
     user: UserEntity,
     token: string
   ): Promise<UserEntity> {
-    console.log(user)
     user.refreshToken = token
     return this.userRepository.save(user)
   }
