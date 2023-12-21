@@ -83,11 +83,12 @@ export class AuthService {
         `Wrong password for user with email: ${email}`
       )
     }
-    delete user.password
 
     const { refresh_token, access_token } = this.signToken(user)
 
     await this.storeRefreshToken(user, refresh_token)
+
+    delete user.password
 
     return { ...user, refresh_token, access_token }
   }
@@ -158,7 +159,7 @@ export class AuthService {
           user,
           'Password reset code',
           'password-reset-code',
-          { user, code: passwordResetCode }
+          { name: `${user.firstName} ${user.lastName}`, code: passwordResetCode }
         )
         return true
       }
