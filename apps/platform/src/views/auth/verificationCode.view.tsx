@@ -24,14 +24,10 @@ export const VerificationCodeView = () => {
           value={values.email}
           required
         />
-        {touched.email && errors.email && (
-          <span>{errors.email}</span>
-        )}
+        {touched.email && errors.email && <span>{errors.email}</span>}
       </div>
       <div>
-        <label htmlFor="code">
-          Confirmation code received on email
-        </label>
+        <label htmlFor="code">Confirmation code received on email</label>
         <input
           id="code"
           name="code"
@@ -41,9 +37,7 @@ export const VerificationCodeView = () => {
           value={values.code}
           required
         />
-        {touched.code && errors.code && (
-          <span>{errors.code}</span>
-        )}
+        {touched.code && errors.code && <span>{errors.code}</span>}
       </div>
       <div>
         <button type="submit" disabled={isSubmitting}>
