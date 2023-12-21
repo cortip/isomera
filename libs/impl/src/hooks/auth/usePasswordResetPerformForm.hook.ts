@@ -26,7 +26,9 @@ export const usePasswordResetPerformForm = (
     try {
       const result = await performReset(values)
       if (result.status === StatusType.OK) {
-        onSuccess('Password changed successfully. Please log in with your new password.')
+        onSuccess(
+          'Password changed successfully. Please log in with your new password.'
+        )
       } else {
         onError('Password change failed. Please try again.')
       }

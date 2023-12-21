@@ -2,7 +2,6 @@ import { useConfirmCodePerformForm } from '@isomera/impl'
 import { toast } from 'react-toastify'
 
 export const VerificationCodeView = () => {
-
   const onSuccess = (message: string) => {
     toast.success(message)
   }
@@ -10,7 +9,7 @@ export const VerificationCodeView = () => {
   const onError = (message: string) => {
     toast.error(message)
   }
-  
+
   const {
     values,
     handleChange,

@@ -26,7 +26,9 @@ export const useConfirmCodePerformForm = (
     try {
       const result = await performReset(values)
       if (result.status === StatusType.OK) {
-        onSuccess('Activate user successfully. Please log in with your account.')
+        onSuccess(
+          'Activate user successfully. Please log in with your account.'
+        )
       } else {
         onError('Activate user failed. Please try again.')
       }
