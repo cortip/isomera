@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom'
 import { pages } from '../../constants/pages'
 import { useHandleErrorHook } from '../error/useHandleError.hook'
 import { StatusType } from '@isomera/interfaces'
-import { toast } from 'react-toastify'
 import { userLogoutPerformHook } from './useLogoutPerform.hook'
 import { clearAuthState } from '../../handlers'
 

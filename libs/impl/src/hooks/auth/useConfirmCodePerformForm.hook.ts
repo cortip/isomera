@@ -14,7 +14,10 @@ const initialValues: Pure<ConfirmationCodeDto> = {
   email: ''
 }
 
-export const useConfirmCodePerformForm = () => {
+export const useConfirmCodePerformForm = (
+  onSuccess: (arg0: string) => void,
+  onError: (arg0: string) => void
+) => {
   const { performReset } = userConfirmCodePerformHook()
   const { handleError } = useHandleErrorHook()
   const navigate = useNavigate()
@@ -23,11 +26,9 @@ export const useConfirmCodePerformForm = () => {
     try {
       const result = await performReset(values)
       if (result.status === StatusType.OK) {
-        toast.success(
-          'Activate user successfully. Please log in with your account.'
-        )
+        onSuccess('Activate user successfully. Please log in with your account.')
       } else {
-        toast.error('Activate user failed. Please try again.')
+        onError('Activate user failed. Please try again.')
       }
       navigate(pages.login.path)
     } catch (error) {

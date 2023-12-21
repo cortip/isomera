@@ -1,6 +1,16 @@
 import { useConfirmCodePerformForm } from '@isomera/impl'
+import { toast } from 'react-toastify'
 
 export const VerificationCodeView = () => {
+
+  const onSuccess = (message: string) => {
+    toast.success(message)
+  }
+
+  const onError = (message: string) => {
+    toast.error(message)
+  }
+  
   const {
     values,
     handleChange,
@@ -9,7 +19,7 @@ export const VerificationCodeView = () => {
     touched,
     handleSubmit,
     isSubmitting
-  } = useConfirmCodePerformForm()
+  } = useConfirmCodePerformForm(onSuccess, onError)
 
   return (
     <form onSubmit={handleSubmit}>

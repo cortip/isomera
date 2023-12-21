@@ -14,7 +14,10 @@ const initialValues: Pure<ResetPasswordRequestDto> = {
   passwordResetCode: ''
 }
 
-export const usePasswordResetPerformForm = () => {
+export const usePasswordResetPerformForm = (
+  onSuccess: (arg0: string) => void,
+  onError: (arg0: string) => void
+) => {
   const { performReset } = usePasswordResetPerformHook()
   const { handleError } = useHandleErrorHook()
   const navigate = useNavigate()
@@ -23,11 +26,9 @@ export const usePasswordResetPerformForm = () => {
     try {
       const result = await performReset(values)
       if (result.status === StatusType.OK) {
-        toast.success(
-          'Password changed successfully. Please log in with your new password.'
-        )
+        onSuccess('Password changed successfully. Please log in with your new password.')
       } else {
-        toast.error('Password change failed. Please try again.')
+        onError('Password change failed. Please try again.')
       }
       navigate(pages.login.path)
     } catch (error) {
