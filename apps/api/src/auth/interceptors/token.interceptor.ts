@@ -9,7 +9,6 @@ import { Observable } from 'rxjs'
 import { map } from 'rxjs/operators'
 
 import { AuthService } from '../auth.service'
-import { UserEntity } from '../../entities/user.entity'
 import { LoginResponseInterface } from '@isomera/interfaces'
 
 @Injectable()

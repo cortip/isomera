@@ -236,10 +236,13 @@ export class AuthService {
     }
   }
 
-  async storeRefreshToken(user: UserEntity, token: string): Promise<void> {
+  async storeRefreshToken(
+    user: UserEntity,
+    token: string
+  ): Promise<UserEntity> {
     const salt = await bcrypt.genSalt()
     const hashedToken = await bcrypt.hash(token, salt)
-    await this.userService.storeRefreshToken(user, hashedToken)
+    return await this.userService.storeRefreshToken(user, hashedToken)
   }
 
   async logout(user: UserEntity) {

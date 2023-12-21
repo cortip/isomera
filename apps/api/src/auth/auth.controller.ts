@@ -25,6 +25,7 @@ import { LocalAuthGuard } from './guards/local-auth.guard'
 import { SessionAuthGuard } from './guards/session-auth.guard'
 import { TokenInterceptor } from './interceptors/token.interceptor'
 import {
+  ConfirmCodeResponseInterface,
   LogoutResponseInterface,
   PasswordResetPerformInterface,
   PasswordResetRequestInterface,
@@ -67,10 +68,10 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   async confirmCode(
     @Body() body: Pure<ConfirmationCodeDto>
-  ): Promise<UserEntity> {
+  ): Promise<ConfirmCodeResponseInterface> {
     const user = await this.authService.verifyCode(body)
 
-    return user
+    return { status: user ? StatusType.OK : StatusType.FAIL }
   }
 
   @Get('/me')

@@ -1,5 +1,6 @@
 export * from './auth/useSignIn.hook'
 export * from './auth/useSignInForm.hook'
+export * from './auth/useConfirmCodePerformForm.hook'
 export * from './auth/usePasswordResetRequest.hook'
 export * from './auth/usePasswordResetRequestForm.hook'
 export * from './auth/usePasswordResetPerform.hook'

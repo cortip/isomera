@@ -4,7 +4,6 @@ import { Repository, FindOneOptions } from 'typeorm'
 
 import { UserUpdate } from './dto/user-update.dto'
 import { UserEntity } from '../entities/user.entity'
-import { UpdateResult } from 'typeorm/query-builder/result/UpdateResult'
 import { ConfigService } from '@nestjs/config'
 import moment from 'moment'
 
@@ -87,6 +86,7 @@ export class UserService {
     user: UserEntity,
     token: string
   ): Promise<UserEntity> {
+    console.log(user)
     user.refreshToken = token
     return this.userRepository.save(user)
   }

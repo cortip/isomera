@@ -1,6 +1,5 @@
 import {
   BeforeInsert,
-  BeforeUpdate,
   Column,
   CreateDateColumn,
   Entity,
@@ -55,7 +54,6 @@ export class UserEntity implements UserInterface {
   confirmationCodes: ConfirmCodeEntity[]
 
   @BeforeInsert()
-  @BeforeUpdate()
   async hashPassword(): Promise<void> {
     const salt = await bcrypt.genSalt()
     if (!/^\$2[abxy]?\$\d+\$/.test(this.password)) {

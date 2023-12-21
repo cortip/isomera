@@ -7,6 +7,7 @@ import { PasswordResetView } from '../views/auth/passwordReset.view'
 import { PasswordResetConfirmView } from '../views/auth/passwordResetConfirm.view'
 import { UserInfoView } from '../views/user /info.view'
 import { NoProtectedRoute, ProtectedRoute } from './protectedRoute'
+import { VerificationCodeView } from '../views/auth/verificationCode.view'
 
 const Routes = () => {
   // Define routes accessible only to authenticated users
@@ -34,7 +35,7 @@ const Routes = () => {
       element: <NoProtectedRoute />, // Wrap the component in ProtectedRoute
       children: [
         {
-          path: '/',
+          path: pages.login.path,
           element: (
             <div>
               <SignInView />
@@ -48,7 +49,7 @@ const Routes = () => {
           element: (
             <div>
               <SignUpView />
-              <Link to="/">Sign up</Link>
+              <Link to={pages.login.path}>Sign in</Link>
             </div>
           )
         },
@@ -57,7 +58,7 @@ const Routes = () => {
           element: (
             <div>
               <PasswordResetView />
-              <Link to="/">Sign In</Link>
+              <Link to={pages.login.path}>Sign In</Link>
             </div>
           )
         },
@@ -66,7 +67,16 @@ const Routes = () => {
           element: (
             <div>
               <PasswordResetConfirmView />
-              <Link to="/">Sign In</Link>
+              <Link to={pages.login.path}>Sign In</Link>
+            </div>
+          )
+        },
+        {
+          path: pages.verificationCode.path,
+          element: (
+            <div>
+              <VerificationCodeView />
+              <Link to={pages.login.path}>Sign In</Link>
             </div>
           )
         }
@@ -76,8 +86,8 @@ const Routes = () => {
 
   // Combine and conditionally include routes based on authentication status
   const router = createBrowserRouter([
-    ...routesForNotAuthenticatedOnly,
-    ...routesForAuthenticatedOnly
+    ...routesForAuthenticatedOnly,
+    ...routesForNotAuthenticatedOnly
   ])
 
   // Provide the router configuration using RouterProvider
