@@ -3,11 +3,7 @@ import { useFormik } from 'formik'
 import { useNavigate } from 'react-router-dom'
 
 import { pages } from '../../constants/pages'
-import {
-  ConfirmationCodeDto,
-  formikValidate,
-  ResetPasswordRequestDto
-} from '@isomera/dtos'
+import { ConfirmationCodeDto, formikValidate } from '@isomera/dtos'
 import { useHandleErrorHook } from '../error/useHandleError.hook'
 import { Pure, StatusType } from '@isomera/interfaces'
 import { toast } from 'react-toastify'
