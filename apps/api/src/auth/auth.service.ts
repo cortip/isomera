@@ -159,7 +159,10 @@ export class AuthService {
           user,
           'Password reset code',
           'password-reset-code',
-          { name: `${user.firstName} ${user.lastName}`, code: passwordResetCode }
+          {
+            name: `${user.firstName} ${user.lastName}`,
+            code: passwordResetCode
+          }
         )
         return true
       }
