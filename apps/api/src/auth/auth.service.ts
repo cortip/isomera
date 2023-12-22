@@ -22,6 +22,7 @@ import { generateRandomStringUtil } from '@isomera/utils'
 import { OrganizationService } from '../organization/organization.service'
 import { ConfigService } from '@nestjs/config'
 import * as bcrypt from 'bcrypt'
+import { pages } from '@isomera/impl'
 
 @Injectable()
 export class AuthService {
@@ -161,7 +162,8 @@ export class AuthService {
           'password-reset-code',
           {
             name: `${user.firstName} ${user.lastName}`,
-            code: passwordResetCode
+            code: passwordResetCode,
+            link: `${process.env.PLATFORM_URL}/reset-password/confirm`
           }
         )
         return true

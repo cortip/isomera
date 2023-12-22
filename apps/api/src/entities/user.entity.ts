@@ -57,9 +57,11 @@ export class UserEntity implements UserInterface {
   @BeforeInsert()
   @BeforeUpdate()
   async hashPassword(): Promise<void> {
-    const salt = await bcrypt.genSalt()
-    if (!/^\$2[abxy]?\$\d+\$/.test(this.password)) {
-      this.password = await bcrypt.hash(this.password, salt)
+    if (this.password) {
+      const salt = await bcrypt.genSalt()
+      if (!/^\$2[abxy]?\$\d+\$/.test(this.password)) {
+        this.password = await bcrypt.hash(this.password, salt)
+      }
     }
   }
 
