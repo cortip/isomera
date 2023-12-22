@@ -17,6 +17,8 @@ export const useSignInHook = () => {
           refreshToken: data.refresh_token
         })
       }
+
+      return data
     }
   )
 

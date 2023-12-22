@@ -6,6 +6,7 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
 import { QueryClient, QueryClientProvider } from 'react-query'
+import AuthProvider from './providers/authProvider'
 
 const queryClient = new QueryClient()
 
@@ -14,7 +15,9 @@ root.render(
   <StrictMode>
     <ToastContainer />
     <QueryClientProvider client={queryClient}>
-      <Routes />
+      <AuthProvider>
+        <Routes />
+      </AuthProvider>
     </QueryClientProvider>
   </StrictMode>
 )

@@ -4,7 +4,6 @@ import { pages } from '../../constants/pages'
 import { useHandleErrorHook } from '../error/useHandleError.hook'
 import { StatusType } from '@isomera/interfaces'
 import { userLogoutPerformHook } from './useLogoutPerform.hook'
-import { clearAuthState } from '../../handlers'
 
 export const useLogoutPerformForm = (
   onSuccess: (arg0: string) => void,
@@ -18,7 +17,6 @@ export const useLogoutPerformForm = (
     try {
       const result = await performReset()
       if (result.status === StatusType.OK) {
-        clearAuthState()
         onSuccess('Logout successfully.')
       } else {
         onError('Logout failed. Please try again.')

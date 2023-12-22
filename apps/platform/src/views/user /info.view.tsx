@@ -1,11 +1,13 @@
-import { useLogoutPerformForm, useUserHook } from '@isomera/impl'
+import { clearAuthState, useLogoutPerformForm } from '@isomera/impl'
 import { toast } from 'react-toastify'
+import useSession from '../../hooks/useSession'
 
 export const UserInfoView = () => {
-  const { data, isFetched } = useUserHook()
+  const { user } = useSession()
 
   const onSuccess = (message: string) => {
     toast.success(message)
+    clearAuthState()
   }
 
   const onError = (message: string) => {
@@ -17,8 +19,8 @@ export const UserInfoView = () => {
   return (
     <div>
       Profile here
-      <div>First Name: {data?.firstName}</div>
-      <div>Last Name: {data?.lastName}</div>
+      <div>First Name: {user?.firstName}</div>
+      <div>Last Name: {user?.lastName}</div>
       <div>
         <button type="button" onClick={handleClick}>
           Logout

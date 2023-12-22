@@ -7,7 +7,6 @@ import { formikValidate, ResetPasswordRequestDto } from '@isomera/dtos'
 import { useHandleErrorHook } from '../error/useHandleError.hook'
 import { Pure, StatusType } from '@isomera/interfaces'
 import { usePasswordResetPerformHook } from './usePasswordResetPerform.hook'
-import { toast } from 'react-toastify'
 
 const initialValues: Pure<ResetPasswordRequestDto> = {
   newPassword: '',

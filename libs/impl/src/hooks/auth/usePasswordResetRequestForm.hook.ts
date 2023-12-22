@@ -8,7 +8,6 @@ import { useHandleErrorHook } from '../error/useHandleError.hook'
 import { Pure } from '@isomera/interfaces'
 import { usePasswordResetRequestHook } from './usePasswordResetRequest.hook'
 import { ForgotPasswordResetRequestDto } from '@isomera/dtos'
-import { toast } from 'react-toastify'
 
 const initialValues: Pure<ForgotPasswordResetRequestDto> = {
   email: ''

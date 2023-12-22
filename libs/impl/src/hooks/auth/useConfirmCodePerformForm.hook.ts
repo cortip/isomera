@@ -6,7 +6,6 @@ import { pages } from '../../constants/pages'
 import { ConfirmationCodeDto, formikValidate } from '@isomera/dtos'
 import { useHandleErrorHook } from '../error/useHandleError.hook'
 import { Pure, StatusType } from '@isomera/interfaces'
-import { toast } from 'react-toastify'
 import { userConfirmCodePerformHook } from './useConfirmCodePerform.hook'
 
 const initialValues: Pure<ConfirmationCodeDto> = {

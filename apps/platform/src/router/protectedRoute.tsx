@@ -1,12 +1,16 @@
 import { Navigate, Outlet } from 'react-router-dom'
-import { getAccessToken, pages } from '@isomera/impl'
+import { pages } from '@isomera/impl'
+import useSession from '../hooks/useSession'
 
 export const ProtectedRoute = () => {
-  const token = getAccessToken()
+  const { isAuthenticated, loadingUserData } = useSession()
+
+  if (loadingUserData) {
+    return null
+  }
 
   // Check if the user is authenticated
-  if (!token) {
-    // If not authenticated, redirect to the login page
+  if (!isAuthenticated) {
     return <Navigate to={pages.login.path} />
   }
 
@@ -15,11 +19,9 @@ export const ProtectedRoute = () => {
 }
 
 export const NoProtectedRoute = () => {
-  const token = getAccessToken()
+  const { isAuthenticated } = useSession()
 
-  // Check if the user is authenticated
-  if (token) {
-    // If not authenticated, redirect to the login page
+  if (isAuthenticated) {
     return <Navigate to={pages.userInfo.path} />
   }
 
