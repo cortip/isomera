@@ -3,11 +3,11 @@ import { UserInterface } from '@isomera/interfaces'
 import useSession from '../../hooks/useSession'
 
 export const SignInView = () => {
-  const { setUser} = useSession()
+  const { setUser } = useSession()
 
   // const from = (location.state?.from.pathname as string) || '/profile'
   const onSuccess = (data: UserInterface) => {
-    setUser(data);
+    setUser(data)
   }
 
   const {
