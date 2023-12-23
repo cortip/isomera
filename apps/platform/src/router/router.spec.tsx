@@ -1,7 +1,8 @@
 import { render } from '@testing-library/react'
 
-import Routes from './router'
+import Router from './router'
 import { QueryClient, QueryClientProvider } from 'react-query'
+import { BrowserRouter } from 'react-router-dom'
 
 describe('Router', () => {
   let queryClient: QueryClient
@@ -13,7 +14,9 @@ describe('Router', () => {
   it('should render successfully', () => {
     const { baseElement } = render(
       <QueryClientProvider client={queryClient}>
-        <Routes />
+        <BrowserRouter>
+          <Router />
+        </BrowserRouter>
       </QueryClientProvider>
     )
     expect(baseElement).toBeTruthy()
@@ -22,7 +25,9 @@ describe('Router', () => {
   it('should have a sign in button', () => {
     const { getByText } = render(
       <QueryClientProvider client={queryClient}>
-        <Routes />
+        <BrowserRouter>
+          <Router />
+        </BrowserRouter>
       </QueryClientProvider>
     )
     expect(getByText(/Sign In/gi)).toBeTruthy()
