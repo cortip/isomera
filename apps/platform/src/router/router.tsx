@@ -15,10 +15,14 @@ import PrivateRoute from './privateRoute'
 function Router() {
   return (
     <Routes>
-      <Route path="/" element={
-      <PrivateRoute>
-        <div></div>
-      </PrivateRoute>} />
+      <Route
+        path="/"
+        element={
+          <PrivateRoute>
+            <div></div>
+          </PrivateRoute>
+        }
+      />
 
       <Route
         path={pages.verificationCode.path}
