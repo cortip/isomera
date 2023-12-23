@@ -13,3 +13,4 @@
 /.vscode
 pnpm-lock.yaml
 package.json
+.github
