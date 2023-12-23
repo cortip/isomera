@@ -15,20 +15,14 @@ import PrivateRoute from './privateRoute'
 function Router() {
   return (
     <Routes>
-      <Route
-        path="/"
-        element={
-          <PrivateRoute>
-          </PrivateRoute>
-        }
-      />
+      <Route path="/" element={<PrivateRoute></PrivateRoute>} />
 
       <Route
         path={pages.verificationCode.path}
         element={
           <PublicRoute>
-              <VerificationCodeView />
-              <Link to={pages.login.path}>Sign In</Link>
+            <VerificationCodeView />
+            <Link to={pages.login.path}>Sign In</Link>
           </PublicRoute>
         }
       />
@@ -37,8 +31,8 @@ function Router() {
         path={pages.passwordResetRequestConfirmation.path}
         element={
           <PublicRoute>
-              <PasswordResetConfirmView />
-              <Link to={pages.login.path}>Sign In</Link>
+            <PasswordResetConfirmView />
+            <Link to={pages.login.path}>Sign In</Link>
           </PublicRoute>
         }
       />
@@ -47,8 +41,8 @@ function Router() {
         path={pages.passwordResetRequest.path}
         element={
           <PublicRoute>
-              <PasswordResetView />
-              <Link to={pages.login.path}>Sign In</Link>
+            <PasswordResetView />
+            <Link to={pages.login.path}>Sign In</Link>
           </PublicRoute>
         }
       />
@@ -57,8 +51,8 @@ function Router() {
         path="/sign-up"
         element={
           <PublicRoute>
-              <SignUpView />
-              <Link to={pages.login.path}>Sign in</Link>
+            <SignUpView />
+            <Link to={pages.login.path}>Sign in</Link>
           </PublicRoute>
         }
       />
@@ -67,9 +61,9 @@ function Router() {
         path={pages.login.path}
         element={
           <PublicRoute>
-              <SignInView />
-              <Link to="/sign-up">Sign Up</Link>
-              <Link to={pages.passwordResetRequest.path}>Forgot password</Link>
+            <SignInView />
+            <Link to="/sign-up">Sign Up</Link>
+            <Link to={pages.passwordResetRequest.path}>Forgot password</Link>
           </PublicRoute>
         }
       />
@@ -78,7 +72,7 @@ function Router() {
         path={pages.userInfo.path}
         element={
           <PrivateRoute>
-              <UserInfoView />
+            <UserInfoView />
           </PrivateRoute>
         }
       />

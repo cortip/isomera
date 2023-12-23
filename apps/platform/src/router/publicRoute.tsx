@@ -16,11 +16,7 @@ function PublicRoute(props: Props) {
     return <Navigate to={pages.userInfo.path} />
   }
 
-  return (
-    <div>
-      {children}
-    </div>
-  )
+  return <div>{children}</div>
 }
 
 export default PublicRoute
