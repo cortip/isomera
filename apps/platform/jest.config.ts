@@ -8,5 +8,4 @@ export default {
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
   coverageDirectory: '../../coverage/apps/platform',
-  testEnvironment: 'jsdom',
 }
