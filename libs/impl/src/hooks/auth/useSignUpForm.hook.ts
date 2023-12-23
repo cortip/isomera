@@ -24,7 +24,7 @@ export const useSignUpFormHook = () => {
   const onSubmit = async (values: typeof initialValues) => {
     try {
       await register(values)
-      navigate(pages.login.path)
+      navigate(pages.verificationCode.path)
     } catch (error) {
       handleError(error, { view: 'login' })
     }

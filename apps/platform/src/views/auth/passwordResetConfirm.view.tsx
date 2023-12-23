@@ -1,6 +1,15 @@
 import { usePasswordResetPerformForm } from '@isomera/impl'
+import { toast } from 'react-toastify'
 
 export const PasswordResetConfirmView = () => {
+  const onSuccess = (message: string) => {
+    toast.success(message)
+  }
+
+  const onError = (message: string) => {
+    toast.error(message)
+  }
+
   const {
     values,
     handleChange,
@@ -9,7 +18,7 @@ export const PasswordResetConfirmView = () => {
     touched,
     handleSubmit,
     isSubmitting
-  } = usePasswordResetPerformForm()
+  } = usePasswordResetPerformForm(onSuccess, onError)
 
   return (
     <form onSubmit={handleSubmit}>

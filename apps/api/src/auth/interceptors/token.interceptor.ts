@@ -9,7 +9,7 @@ import { Observable } from 'rxjs'
 import { map } from 'rxjs/operators'
 
 import { AuthService } from '../auth.service'
-import { UserEntity } from '../../entities/user.entity'
+import { LoginResponseInterface } from '@isomera/interfaces'
 
 @Injectable()
 export class TokenInterceptor implements NestInterceptor {
@@ -17,22 +17,21 @@ export class TokenInterceptor implements NestInterceptor {
 
   intercept(
     context: ExecutionContext,
-    next: CallHandler<UserEntity>
-  ): Observable<UserEntity> {
+    next: CallHandler<LoginResponseInterface>
+  ): Observable<LoginResponseInterface> {
     return next.handle().pipe(
-      map(user => {
+      map(data => {
         const response = context.switchToHttp().getResponse<Response>()
-        const token = this.authService.signToken(user)
 
-        response.setHeader('Authorization', `Bearer ${token}`)
-        response.cookie('token', token, {
+        response.setHeader('Authorization', `Bearer ${data.access_token}`)
+        response.cookie('token', data.access_token, {
           httpOnly: true,
           signed: true,
           sameSite: 'strict',
           secure: process.env.NODE_ENV === 'production'
         })
 
-        return user
+        return data
       })
     )
   }

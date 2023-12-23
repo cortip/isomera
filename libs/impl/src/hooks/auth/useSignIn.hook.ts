@@ -2,7 +2,7 @@ import { useMutation } from 'react-query'
 
 import { SignInWithEmailCredentialsDto } from '@isomera/dtos'
 
-import { setConfirmState } from '../../handlers'
+import { setAuthState } from '../../handlers'
 import { signInService } from '../../services'
 import { Pure } from '@isomera/interfaces'
 
@@ -11,11 +11,14 @@ export const useSignInHook = () => {
     async (body: Pure<SignInWithEmailCredentialsDto>) => {
       const data = await signInService(body)
 
-      if (data?.confirmToken) {
-        setConfirmState({
-          confirmToken: data.confirmToken
+      if (data?.access_token) {
+        setAuthState({
+          accessToken: data.access_token,
+          refreshToken: data.refresh_token
         })
       }
+
+      return data
     }
   )
 

@@ -5,7 +5,6 @@ import { clearAuthState, getAccessToken, setAuthState } from '../handlers'
 import { refreshService } from '../services'
 
 const { NX_REACT_APP_API_URL } = process.env
-console.log('process.env', process.env)
 export const axiosInstance = axios.create({
   baseURL: NX_REACT_APP_API_URL,
   headers: {
@@ -37,7 +36,10 @@ const clientRefreshAuthLogic = async (failedRequest: AxiosError) => {
     return Promise.reject(failedRequest)
   }
 
-  setAuthState(data)
+  setAuthState({
+    accessToken: data.access_token,
+    refreshToken: data.refresh_token
+  })
 
   return Promise.resolve()
 }

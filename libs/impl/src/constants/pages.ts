@@ -52,5 +52,8 @@ export const pages = {
   },
   profileSetting: {
     path: '/settings/profile'
+  },
+  userInfo: {
+    path: '/user/info'
   }
 }

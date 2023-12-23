@@ -1,10 +1,9 @@
-import { AxiosResponse } from 'axios'
+import axios, { AxiosResponse } from 'axios'
 
 import { API_REFRESH_ROUTE } from '../../constants/apiRoutes'
 import { getRefreshToken } from '../../handlers/auth/auth.handler'
-import { axiosInstance } from '../../utils/axios'
 import { getRoute } from '../../utils/getRoute'
-import { UserResponseDto } from '@isomera/dtos'
+import { RefreshTokenResponseInterface } from '@isomera/interfaces'
 
 export const refreshService = async () => {
   try {
@@ -17,12 +16,24 @@ export const refreshService = async () => {
       }
     }
 
-    const response: AxiosResponse<UserResponseDto> = await axiosInstance.post(
-      getRoute(API_REFRESH_ROUTE),
-      {
-        refreshToken
+    const { NX_REACT_APP_API_URL } = process.env
+    const axiosInstance = axios.create({
+      baseURL: NX_REACT_APP_API_URL,
+      headers: {
+        Accept: 'application/json'
       }
-    )
+    })
+
+    const response: AxiosResponse<RefreshTokenResponseInterface> =
+      await axiosInstance.post(
+        getRoute(API_REFRESH_ROUTE),
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${refreshToken}`
+          }
+        }
+      )
 
     return {
       data: response?.data,

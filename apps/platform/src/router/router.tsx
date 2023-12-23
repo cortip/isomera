@@ -1,54 +1,90 @@
 import 'reflect-metadata'
-import { Route, Routes, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { SignInView } from '../views/auth/signIn.view'
 import { SignUpView } from '../views/auth/signUp.view'
 import { pages } from '@isomera/impl'
 import { PasswordResetView } from '../views/auth/passwordReset.view'
 import { PasswordResetConfirmView } from '../views/auth/passwordResetConfirm.view'
+import { UserInfoView } from '../views/user /info.view'
+import PublicRoute from './publicRoute'
+import { VerificationCodeView } from '../views/auth/verificationCode.view'
 
-export function Router() {
+import { Routes, Route } from 'react-router-dom'
+import PrivateRoute from './privateRoute'
+
+function Router() {
   return (
-    <div>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <div>
-              <SignInView />
-              <Link to="/sign-up">Sign Up</Link>
-              <Link to={pages.passwordResetRequest.path}>Forgot password</Link>
-            </div>
-          }
-        />
-        <Route
-          path="/sign-up"
-          element={
-            <div>
-              <SignUpView />
-              <Link to="/">Sign In</Link>
-            </div>
-          }
-        />
-        <Route
-          path={pages.passwordResetRequest.path}
-          element={
-            <div>
-              <PasswordResetView />
-              <Link to="/">Sign In</Link>
-            </div>
-          }
-        />
-        <Route
-          path={pages.passwordResetRequestConfirmation.path}
-          element={
-            <div>
-              <PasswordResetConfirmView />
-              <Link to="/">Sign In</Link>
-            </div>
-          }
-        />
-      </Routes>
-    </div>
+    <Routes>
+      <Route
+        path="/"
+        element={
+          <PrivateRoute>
+            <div></div>
+          </PrivateRoute>
+        }
+      />
+
+      <Route
+        path={pages.verificationCode.path}
+        element={
+          <PublicRoute>
+            <VerificationCodeView />
+            <Link to={pages.login.path}>Sign In</Link>
+          </PublicRoute>
+        }
+      />
+
+      <Route
+        path={pages.passwordResetRequestConfirmation.path}
+        element={
+          <PublicRoute>
+            <PasswordResetConfirmView />
+            <Link to={pages.login.path}>Sign In</Link>
+          </PublicRoute>
+        }
+      />
+
+      <Route
+        path={pages.passwordResetRequest.path}
+        element={
+          <PublicRoute>
+            <PasswordResetView />
+            <Link to={pages.login.path}>Sign In</Link>
+          </PublicRoute>
+        }
+      />
+
+      <Route
+        path="/sign-up"
+        element={
+          <PublicRoute>
+            <SignUpView />
+            <Link to={pages.login.path}>Sign in</Link>
+          </PublicRoute>
+        }
+      />
+
+      <Route
+        path={pages.login.path}
+        element={
+          <PublicRoute>
+            <SignInView />
+            <Link to="/sign-up">Sign Up</Link>
+            <Link to={pages.passwordResetRequest.path}>Forgot password</Link>
+          </PublicRoute>
+        }
+      />
+
+      <Route
+        path={pages.userInfo.path}
+        element={
+          <PrivateRoute>
+            <UserInfoView />
+          </PrivateRoute>
+        }
+      />
+      <Route path="*" element={<h1>404</h1>} />
+    </Routes>
   )
 }
 

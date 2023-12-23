@@ -6,22 +6,25 @@ import { pages } from '../../constants/pages'
 import { useSignInHook } from './useSignIn.hook'
 import { formikValidate, SignInWithEmailCredentialsDto } from '@isomera/dtos'
 import { useHandleErrorHook } from '../error/useHandleError.hook'
-import { Pure } from '@isomera/interfaces'
+import { LoginResponseInterface, Pure } from '@isomera/interfaces'
 
 const initialValues: Pure<SignInWithEmailCredentialsDto> = {
   email: '',
   password: ''
 }
 
-export const useSignInFormHook = () => {
+export const useSignInFormHook = (
+  onSuccess: (arg0: LoginResponseInterface) => void
+) => {
   const { login } = useSignInHook()
   const { handleError } = useHandleErrorHook()
   const navigate = useNavigate()
 
   const onSubmit = async (values: typeof initialValues) => {
     try {
-      await login(values)
-      navigate(pages.verificationCode.path)
+      const data = await login(values)
+      onSuccess(data)
+      navigate(pages.userInfo.path)
     } catch (error) {
       handleError(error, { view: 'login' })
     }

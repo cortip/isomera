@@ -24,20 +24,20 @@ import { JWTAuthGuard } from './guards/jwt-auth.guard'
 import { LocalAuthGuard } from './guards/local-auth.guard'
 import { SessionAuthGuard } from './guards/session-auth.guard'
 import { TokenInterceptor } from './interceptors/token.interceptor'
-import { ConfirmCodeService } from '../user/confirm-code.service'
 import {
+  ConfirmCodeResponseInterface,
+  LogoutResponseInterface,
   PasswordResetPerformInterface,
   PasswordResetRequestInterface,
   Pure,
+  RefreshTokenResponseInterface,
   StatusType
 } from '@isomera/interfaces'
+import { JwtRefreshTokenGuard } from './guards/jwt-refresh-token'
 
 @Controller('auth')
 export class AuthController {
-  constructor(
-    private readonly authService: AuthService,
-    private readonly confirmCodeService: ConfirmCodeService
-  ) {}
+  constructor(private readonly authService: AuthService) {}
 
   @Post('register')
   @HttpCode(HttpStatus.CREATED)
@@ -68,12 +68,10 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   async confirmCode(
     @Body() body: Pure<ConfirmationCodeDto>
-  ): Promise<UserEntity> {
-    const user = await this.confirmCodeService.verifyCode(body.code, body.email)
+  ): Promise<ConfirmCodeResponseInterface> {
+    const user = await this.authService.verifyCode(body)
 
-    await this.authService.sendGreetings(user)
-
-    return user
+    return { status: user ? StatusType.OK : StatusType.FAIL }
   }
 
   @Get('/me')
@@ -98,5 +96,33 @@ export class AuthController {
   ): Promise<PasswordResetPerformInterface> {
     const result = await this.authService.setNewPassword(body)
     return { status: result ? StatusType.OK : StatusType.FAIL }
+  }
+
+  @UseGuards(JwtRefreshTokenGuard)
+  @Post('/refresh')
+  @HttpCode(HttpStatus.OK)
+  async refreshToken(
+    @AuthUser() user: Pure<UserEntity>
+  ): Promise<RefreshTokenResponseInterface> {
+    const { refresh_token, access_token } = this.authService.signToken(user)
+
+    await this.authService.storeRefreshToken(user, refresh_token)
+    return {
+      access_token,
+      refresh_token,
+      status: StatusType.OK
+    }
+  }
+
+  @Post('/logout')
+  @UseGuards(SessionAuthGuard, JWTAuthGuard)
+  @HttpCode(HttpStatus.OK)
+  async logout(
+    @AuthUser() user: Pure<UserEntity>
+  ): Promise<LogoutResponseInterface> {
+    await this.authService.logout(user)
+    return {
+      status: StatusType.OK
+    }
   }
 }

@@ -1,10 +1,15 @@
 import { usePasswordResetRequestForm } from '@isomera/impl'
+import { toast } from 'react-toastify'
 
 export const PasswordResetView = () => {
   // const navigate = useNavigate()
   // const location = useLocation()
 
   // const from = (location.state?.from.pathname as string) || '/profile'
+
+  const onSuccess = (message: string) => {
+    toast.success(message)
+  }
 
   const {
     values,
@@ -14,7 +19,7 @@ export const PasswordResetView = () => {
     touched,
     handleSubmit,
     isSubmitting
-  } = usePasswordResetRequestForm()
+  } = usePasswordResetRequestForm(onSuccess)
 
   // useEffect(() => {
   //   if (isSuccess) {
