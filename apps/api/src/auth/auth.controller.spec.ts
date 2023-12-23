@@ -3,7 +3,6 @@ import { createMock } from '@golevelup/ts-jest'
 
 import { AuthController } from './auth.controller'
 import { AuthService } from './auth.service'
-import { ConfirmCodeService } from '../user/confirm-code.service'
 import { UserEntity } from '../entities/user.entity'
 import { SignUpWithEmailCredentialsDto } from '@isomera/dtos'
 import { Pure } from '@isomera/interfaces'
@@ -25,9 +24,6 @@ describe('Auth Controller', () => {
       .useMocker(token => {
         if (Object.is(token, AuthService)) {
           return createMock<AuthService>()
-        }
-        if (Object.is(token, ConfirmCodeService)) {
-          return createMock<ConfirmCodeService>()
         }
       })
       .compile()

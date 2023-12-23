@@ -4,13 +4,15 @@ import { Repository, FindOneOptions } from 'typeorm'
 
 import { UserUpdate } from './dto/user-update.dto'
 import { UserEntity } from '../entities/user.entity'
-import { UpdateResult } from 'typeorm/query-builder/result/UpdateResult'
+import { ConfigService } from '@nestjs/config'
+import moment from 'moment'
 
 @Injectable()
 export class UserService {
   constructor(
     @InjectRepository(UserEntity)
-    private readonly userRepository: Repository<UserEntity>
+    private readonly userRepository: Repository<UserEntity>,
+    private readonly configService: ConfigService
   ) {}
 
   async create(data: Partial<UserEntity>): Promise<UserEntity> {
@@ -46,23 +48,45 @@ export class UserService {
   async setPasswordResetCode(
     id: number,
     passwordResetCode: string
-  ): Promise<UpdateResult> {
+  ): Promise<UserEntity> {
     const user = await this.userRepository.findOneBy({ id })
 
     if (!user) {
       throw new NotFoundException(`There isn't any user with id: ${id}`)
     }
 
-    return await this.userRepository.update({ id }, { passwordResetCode })
+    const resetPasswordPeriod = this.configService.get<number>(
+      'RESET_PASSWORD_PERIOD'
+    )
+    const expiredTime = moment()
+      .clone()
+      .add(resetPasswordPeriod, 'minutes')
+      .format('YYYY-MM-DD HH:mm:ss')
+
+    user.passwordResetCode = passwordResetCode
+    user.passwordResetExpiredTime = expiredTime
+    return this.userRepository.save(user)
   }
 
-  async setNewPassword(id: number, password: string): Promise<UpdateResult> {
+  async setNewPassword(id: number, password: string): Promise<UserEntity> {
     const user = await this.userRepository.findOneBy({ id })
 
     if (!user) {
       throw new NotFoundException(`There isn't any user with id: ${id}`)
     }
 
-    return await this.userRepository.update({ id }, { password })
+    user.password = password
+    user.passwordResetCode = null
+    user.passwordResetExpiredTime = null
+
+    return this.userRepository.save(user)
+  }
+
+  async storeRefreshToken(
+    user: UserEntity,
+    token: string
+  ): Promise<UserEntity> {
+    user.refreshToken = token
+    return this.userRepository.save(user)
   }
 }

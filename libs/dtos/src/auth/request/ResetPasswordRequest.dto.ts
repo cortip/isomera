@@ -24,6 +24,6 @@ export class ResetPasswordRequestDto extends ValidateableDto {
   newPassword!: string
 
   @ApiProperty()
-  @Length(32)
+  @Length(7)
   passwordResetCode!: string
 }

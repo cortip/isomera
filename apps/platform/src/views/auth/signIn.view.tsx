@@ -1,10 +1,14 @@
 import { useSignInFormHook } from '@isomera/impl'
+import { UserInterface } from '@isomera/interfaces'
+import useSession from '../../hooks/useSession'
 
 export const SignInView = () => {
-  // const navigate = useNavigate()
-  // const location = useLocation()
+  const { setUser } = useSession()
 
   // const from = (location.state?.from.pathname as string) || '/profile'
+  const onSuccess = (data: UserInterface) => {
+    setUser(data)
+  }
 
   const {
     values,
@@ -14,7 +18,7 @@ export const SignInView = () => {
     touched,
     handleSubmit,
     isSubmitting
-  } = useSignInFormHook()
+  } = useSignInFormHook(onSuccess)
 
   // useEffect(() => {
   //   if (isSuccess) {

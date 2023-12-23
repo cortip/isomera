@@ -1,9 +1,8 @@
 import { render } from '@testing-library/react'
 
-import { BrowserRouter } from 'react-router-dom'
-
 import Router from './router'
 import { QueryClient, QueryClientProvider } from 'react-query'
+import { BrowserRouter } from 'react-router-dom'
 
 describe('Router', () => {
   let queryClient: QueryClient

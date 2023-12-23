@@ -8,13 +8,14 @@ import { useHandleErrorHook } from '../error/useHandleError.hook'
 import { Pure } from '@isomera/interfaces'
 import { usePasswordResetRequestHook } from './usePasswordResetRequest.hook'
 import { ForgotPasswordResetRequestDto } from '@isomera/dtos'
-import { toast } from 'react-toastify'
 
 const initialValues: Pure<ForgotPasswordResetRequestDto> = {
   email: ''
 }
 
-export const usePasswordResetRequestForm = () => {
+export const usePasswordResetRequestForm = (
+  onSuccess: (arg0: string) => void
+) => {
   const { requestReset } = usePasswordResetRequestHook()
   const { handleError } = useHandleErrorHook()
   const navigate = useNavigate()
@@ -22,7 +23,7 @@ export const usePasswordResetRequestForm = () => {
   const onSubmit = async (values: typeof initialValues) => {
     try {
       await requestReset(values)
-      toast.success(
+      onSuccess(
         `If there was such user registered with email ${values.email}, then you'll receive confirmation code.`
       )
       navigate(pages.passwordResetRequestConfirmation.path)
