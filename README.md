@@ -116,7 +116,7 @@ line of code at a time. 🚀
 - [ ] Plan a strict rules for timestamps (this is frequent problem for projects
       where users has to interact across multiple timezones)
 - [ ] Connect S3 or other object bucket
-- [ ] Production Dockerfiles
+- [x] Production Dockerfiles
 - [ ] SSL in development
 - [x] Transactional emails and templates (prod/dev)
 - [ ] Websockets for notifications and updates
@@ -130,10 +130,10 @@ line of code at a time. 🚀
 
 ## Features plan
 
-- [ ] User can Sign Up & Sign In using email
+- [x] User can Sign Up & Sign In using email
 - [ ] User can Sign Up & Sign In using Google, Facebook, Apple or Microsoft
 - [ ] User can Sign Up & Sign In using phone number (Twillio)
-- [ ] User can reset password
+- [x] User can reset password
 - [ ] User can invite other team members to organization (org created for every
       user, if it's not needed, should be easy to disable or just ignore)
 - [ ] User can enter company details to organization (for future billing)
@@ -154,38 +154,8 @@ line of code at a time. 🚀
 
 #### Environment preparation
 
-You will need to install `docker` and `make` into your machine to be able to
-work on this project. All other dependencies are managed via Docker util images
-and ran via Make commands.
-
-#### Using commands
-
-You can use main commands the way you were used to, just with few small changes.
-Since Make considers flags as it's own flags, not arguments being passed, you'd
-need to add `--` before flags. For example `make npm -- -v`. Otherwise it would
-give you version of make.
-
-##### Adding node packages
-
-```
-make yarn add some-package
-```
-
-##### Using NX
-
-```
-make nx <whatever you need>
-```
-
-##### Using Node
-
-```
-make node index.js
-```
-
-If you need some other console tool, please modify `Makefile` and add
-installation of it to the node utils image at `docker/utils/node.dockerfile`.
-Consistency is important.
+You will need to install `docker` and `docker-compose` (if not in the same package)
+to be able to work on this project.
 
 ### Running Tests
 
@@ -231,7 +201,7 @@ npm run start -- --watch --entryFile repl
 
 To create new migration, use this command:
 
-`make migration-create --name awesome-migration`
+`nx run api:migration-create --name awesome-migration`
 
 _awesome-migration_ is the name of migration ;)
 
@@ -239,7 +209,7 @@ _awesome-migration_ is the name of migration ;)
 
 And run this command to run all your migrations
 
-`make migration-run`
+`nx run api:migration-run`
 
 ## Contributors
 
