@@ -154,8 +154,8 @@ line of code at a time. 🚀
 
 #### Environment preparation
 
-You will need to install `docker` and `docker-compose` (if not in the same package)
-to be able to work on this project.
+You will need to install `docker` and `docker-compose` (if not in the same
+package) to be able to work on this project.
 
 ### Running Tests
 
