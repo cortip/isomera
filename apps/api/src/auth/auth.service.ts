@@ -85,6 +85,8 @@ export class AuthService {
       )
     }
 
+    console.log('xxx', user)
+
     const { refresh_token, access_token } = this.signToken(user)
 
     await this.storeRefreshToken(user, refresh_token)
