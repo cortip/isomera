@@ -1,13 +1,27 @@
-import { useConfirmCodePerformForm } from '@isomera/impl'
+import {
+  pages,
+  useConfirmCodePerformForm,
+  useHandleErrorHook
+} from '@isomera/impl'
 import { toast } from 'react-toastify'
+import { useNavigate } from 'react-router-dom'
 
 export const VerificationCodeView = () => {
-  const onSuccess = (message: string) => {
-    toast.success(message)
+  const navigate = useNavigate()
+  const { handleError } = useHandleErrorHook()
+
+  const onSuccess = () => {
+    toast.success(
+      'Activate user successfully. Please log in with your account.'
+    )
+    navigate(pages.login.path)
   }
 
-  const onError = (message: string) => {
-    toast.error(message)
+  const onError = (error?: unknown) => {
+    toast.error('Activate user failed. Please try again.')
+    if (error) {
+      handleError(error, { view: 'login' })
+    }
   }
 
   const {
@@ -18,7 +32,7 @@ export const VerificationCodeView = () => {
     touched,
     handleSubmit,
     isSubmitting
-  } = useConfirmCodePerformForm(onSuccess, onError)
+  } = useConfirmCodePerformForm({ onSuccess, onError })
 
   return (
     <form onSubmit={handleSubmit}>

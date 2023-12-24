@@ -1,10 +1,5 @@
 import { useFormik } from 'formik'
-
-import { useNavigate } from 'react-router-dom'
-
-import { pages } from '../../constants/pages'
 import { formikValidate, ResetPasswordRequestDto } from '@isomera/dtos'
-import { useHandleErrorHook } from '../error/useHandleError.hook'
 import { Pure, StatusType } from '@isomera/interfaces'
 import { usePasswordResetPerformHook } from './usePasswordResetPerform.hook'
 
@@ -13,27 +8,24 @@ const initialValues: Pure<ResetPasswordRequestDto> = {
   passwordResetCode: ''
 }
 
-export const usePasswordResetPerformForm = (
-  onSuccess: (arg0: string) => void,
-  onError: (arg0: string) => void
-) => {
+interface Options {
+  onSuccess: () => void
+  onError: (error?: unknown) => void
+}
+
+export const usePasswordResetPerformForm = (options: Options) => {
   const { performReset } = usePasswordResetPerformHook()
-  const { handleError } = useHandleErrorHook()
-  const navigate = useNavigate()
 
   const onSubmit = async (values: typeof initialValues) => {
     try {
       const result = await performReset(values)
       if (result.status === StatusType.OK) {
-        onSuccess(
-          'Password changed successfully. Please log in with your new password.'
-        )
+        options.onSuccess && options.onSuccess()
       } else {
-        onError('Password change failed. Please try again.')
+        options.onError && options.onError()
       }
-      navigate(pages.login.path)
     } catch (error) {
-      handleError(error, { view: 'login' })
+      options.onError && options.onError(error)
     }
   }
 

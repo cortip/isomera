@@ -1,13 +1,27 @@
-import { usePasswordResetPerformForm } from '@isomera/impl'
+import {
+  pages,
+  useHandleErrorHook,
+  usePasswordResetPerformForm
+} from '@isomera/impl'
 import { toast } from 'react-toastify'
+import { useNavigate } from 'react-router-dom'
 
 export const PasswordResetConfirmView = () => {
-  const onSuccess = (message: string) => {
-    toast.success(message)
+  const { handleError } = useHandleErrorHook()
+  const navigate = useNavigate()
+
+  const onSuccess = () => {
+    toast.success(
+      'Password changed successfully. Please log in with your new password.'
+    )
+    navigate(pages.login.path)
   }
 
-  const onError = (message: string) => {
-    toast.error(message)
+  const onError = (error?: unknown) => {
+    toast.error('Password change failed. Please try again.')
+    if (error) {
+      handleError(error, { view: 'login' })
+    }
   }
 
   const {
@@ -18,7 +32,7 @@ export const PasswordResetConfirmView = () => {
     touched,
     handleSubmit,
     isSubmitting
-  } = usePasswordResetPerformForm(onSuccess, onError)
+  } = usePasswordResetPerformForm({ onSuccess, onError })
 
   return (
     <form onSubmit={handleSubmit}>

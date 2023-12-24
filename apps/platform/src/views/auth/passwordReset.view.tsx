@@ -1,14 +1,26 @@
-import { usePasswordResetRequestForm } from '@isomera/impl'
+import {
+  pages,
+  useHandleErrorHook,
+  usePasswordResetRequestForm
+} from '@isomera/impl'
 import { toast } from 'react-toastify'
+import { useNavigate } from 'react-router-dom'
 
 export const PasswordResetView = () => {
-  // const navigate = useNavigate()
-  // const location = useLocation()
+  const navigate = useNavigate()
+  const { handleError } = useHandleErrorHook()
 
-  // const from = (location.state?.from.pathname as string) || '/profile'
+  const onSuccess = () => {
+    toast.success(
+      "If there was such user registered with email, then you'll receive confirmation code."
+    )
+    navigate(pages.passwordResetRequestConfirmation.path)
+  }
 
-  const onSuccess = (message: string) => {
-    toast.success(message)
+  const onError = (error?: unknown) => {
+    if (error) {
+      handleError(error, { view: 'login' })
+    }
   }
 
   const {
@@ -19,28 +31,7 @@ export const PasswordResetView = () => {
     touched,
     handleSubmit,
     isSubmitting
-  } = usePasswordResetRequestForm(onSuccess)
-
-  // useEffect(() => {
-  //   if (isSuccess) {
-  //     toast.success('You successfully logged in')
-  //     navigate(from)
-  //   }
-  //   if (isError) {
-  //     if (Array.isArray((error as any).data.error)) {
-  //       ;(error as any).data.error.forEach((el: any) =>
-  //         toast.error(el.message, {
-  //           position: 'top-right'
-  //         })
-  //       )
-  //     } else {
-  //       toast.error((error as any).data.message, {
-  //         position: 'top-right'
-  //       })
-  //     }
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [isLoading])
+  } = usePasswordResetRequestForm({ onSuccess, onError })
 
   return (
     <form onSubmit={handleSubmit}>
