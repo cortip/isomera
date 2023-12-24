@@ -38,7 +38,7 @@
     "dotenv": "^16.3.1",
     "expo": "49.0.16",
     "expo-splash-screen": "~0.20.5",
-    "expo-status-bar": "~1.6.0",
+    "expo-status-bar": "~1.7.1",
     "express-session": "^1.17.3",
     "formik": "^2.4.5",
     "helmet": "^7.1.0",
