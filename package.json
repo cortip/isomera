@@ -55,7 +55,7 @@
     "react-i18next": "^13.5.0",
     "react-native": "0.72.6",
     "react-native-svg": "13.9.0",
-    "react-native-svg-transformer": "1.0.0",
+    "react-native-svg-transformer": "1.2.0",
     "react-native-web": "~0.19.9",
     "react-query": "^3.39.3",
     "react-router-dom": "6.17.0",
