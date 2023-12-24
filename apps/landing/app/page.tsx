@@ -22,6 +22,13 @@ export default async function Index() {
             Modern Developers
           </h1>
         </a>
+        <a
+          href="https://app.isomera.org"
+          target="_blank"
+          className={styles.cta_dashboard}
+        >
+          Go to Dashboard
+        </a>
       </div>
     </div>
   )
