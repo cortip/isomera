@@ -34,7 +34,6 @@
     "class-transformer": "^0.5.1",
     "class-transformer-validator": "^0.9.1",
     "class-validator": "^0.14.0",
-    "connect-pg-simple": "^9.0.1",
     "cookie-parser": "^1.4.6",
     "dotenv": "^16.3.1",
     "expo": "49.0.16",

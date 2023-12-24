@@ -2,7 +2,6 @@ import { ValidationPipe, HttpStatus, INestApplication } from '@nestjs/common'
 import { useContainer } from 'class-validator'
 import cookieParser from 'cookie-parser'
 import session from 'express-session'
-import connectPgSimple from 'connect-pg-simple'
 import { AppModule } from './app/app.module'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 import helmet from 'helmet'
@@ -37,7 +36,7 @@ export function setup(app: INestApplication): INestApplication {
       saveUninitialized: false,
       store:
         process.env.NODE_ENV === 'production'
-          ? new (connectPgSimple(session))()
+          ? new session.MemoryStore() // TODO: implement Redis for session store, something like this or other source https://dev.to/nestjs/setting-up-sessions-with-nestjs-passport-and-redis-210
           : new session.MemoryStore(),
       cookie: {
         httpOnly: true,
