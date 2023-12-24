@@ -13083,6 +13083,11 @@ metro-resolver@0.76.8, metro-resolver@~0.76.8:
   resolved "https://registry.yarnpkg.com/metro-resolver/-/metro-resolver-0.76.8.tgz#0862755b9b84e26853978322464fb37c6fdad76d"
   integrity sha512-KccOqc10vrzS7ZhG2NSnL2dh3uVydarB7nOhjreQ7C4zyWuiW9XpLC4h47KtGQv3Rnv/NDLJYeDqaJ4/+140HQ==
 
+metro-resolver@0.80.2:
+  version "0.80.2"
+  resolved "https://registry.yarnpkg.com/metro-resolver/-/metro-resolver-0.80.2.tgz#16066b763221a5c233d818ab81544b8b95d16c72"
+  integrity sha512-0OmCsmlcBQWkJXx0YoYRTS+ArRT888WcgmgjwoJVQm+xdMRKuu67ihyF8EOpeVgOzbeo0IxVjkNmbJWOfficjA==
+
 metro-runtime@0.76.8:
   version "0.76.8"
   resolved "https://registry.yarnpkg.com/metro-runtime/-/metro-runtime-0.76.8.tgz#74b2d301a2be5f3bbde91b8f1312106f8ffe50c3"
