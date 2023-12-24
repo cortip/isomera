@@ -13,10 +13,10 @@ function PublicRoute(props: Props) {
   const { isAuthenticated } = useSession()
 
   if (isAuthenticated) {
-    return <Navigate to={pages.userInfo.path} />
+    return <Navigate to={pages.dashboard.path} />
   }
 
-  return <div>{children}</div>
+  return <>{children}</>
 }
 
 export default PublicRoute

@@ -1,1 +1,209 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* Reset CSS */
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol,
+ul {
+  list-style: none;
+}
+blockquote,
+q {
+  quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: '';
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+body,
+html,
+#root {
+  height: 100%;
+}
+
+/* Implement example styles */
+nav.nav_top {
+  padding: 16px 32px;
+  border-bottom: thin solid gray;
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  justify-content: space-between;
+  align-items: center;
+
+  .nav_left {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    align-items: center;
+
+    .nav_logo_wrapper {
+      margin-right: 16px;
+
+      svg {
+        width: 115px;
+      }
+    }
+  }
+  .nav_right {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .nav_logout_button {
+  }
+}
+
+main {
+  padding: 32px;
+}
+
+.public_layout {
+  font-family: inherit;
+  line-height: inherit;
+  margin: 0;
+  height: 100%;
+
+  background: radial-gradient(
+    62.43% 70.59% at 50% 1.48%,
+    #00303d 0%,
+    #010d19 100%
+  );
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-size: cover;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 32px;
+
+  a {
+    color: #34aadc;
+    display: block;
+  }
+
+  form {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 32px;
+    border-radius: 32px;
+    margin-bottom: 32px;
+
+    label {
+      display: block;
+    }
+  }
+}

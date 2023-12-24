@@ -11,6 +11,8 @@ import { VerificationCodeView } from '../views/auth/verificationCode.view'
 
 import { Routes, Route } from 'react-router-dom'
 import PrivateRoute from './privateRoute'
+import { PublicLayout } from '../layouts/public.layout'
+import { PrivateLayout } from '../layouts/private.layout'
 
 function Router() {
   return (
@@ -19,7 +21,9 @@ function Router() {
         path="/"
         element={
           <PrivateRoute>
-            <div></div>
+            <PrivateLayout>
+              <div>...</div>
+            </PrivateLayout>
           </PrivateRoute>
         }
       />
@@ -28,8 +32,10 @@ function Router() {
         path={pages.verificationCode.path}
         element={
           <PublicRoute>
-            <VerificationCodeView />
-            <Link to={pages.login.path}>Sign In</Link>
+            <PublicLayout>
+              <VerificationCodeView />
+              <Link to={pages.login.path}>Sign In</Link>
+            </PublicLayout>
           </PublicRoute>
         }
       />
@@ -38,8 +44,10 @@ function Router() {
         path={pages.passwordResetRequestConfirmation.path}
         element={
           <PublicRoute>
-            <PasswordResetConfirmView />
-            <Link to={pages.login.path}>Sign In</Link>
+            <PublicLayout>
+              <PasswordResetConfirmView />
+              <Link to={pages.login.path}>Sign In</Link>
+            </PublicLayout>
           </PublicRoute>
         }
       />
@@ -48,18 +56,22 @@ function Router() {
         path={pages.passwordResetRequest.path}
         element={
           <PublicRoute>
-            <PasswordResetView />
-            <Link to={pages.login.path}>Sign In</Link>
+            <PublicLayout>
+              <PasswordResetView />
+              <Link to={pages.login.path}>Sign In</Link>
+            </PublicLayout>
           </PublicRoute>
         }
       />
 
       <Route
-        path="/sign-up"
+        path={pages.register.path}
         element={
           <PublicRoute>
-            <SignUpView />
-            <Link to={pages.login.path}>Sign in</Link>
+            <PublicLayout>
+              <SignUpView />
+              <Link to={pages.login.path}>Sign in</Link>
+            </PublicLayout>
           </PublicRoute>
         }
       />
@@ -68,9 +80,11 @@ function Router() {
         path={pages.login.path}
         element={
           <PublicRoute>
-            <SignInView />
-            <Link to="/sign-up">Sign Up</Link>
-            <Link to={pages.passwordResetRequest.path}>Forgot password</Link>
+            <PublicLayout>
+              <SignInView />
+              <Link to={pages.register.path}>Sign Up</Link>
+              <Link to={pages.passwordResetRequest.path}>Forgot password</Link>
+            </PublicLayout>
           </PublicRoute>
         }
       />
@@ -79,7 +93,9 @@ function Router() {
         path={pages.userInfo.path}
         element={
           <PrivateRoute>
-            <UserInfoView />
+            <PrivateLayout>
+              <UserInfoView />
+            </PrivateLayout>
           </PrivateRoute>
         }
       />

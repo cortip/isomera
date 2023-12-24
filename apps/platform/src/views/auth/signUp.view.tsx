@@ -1,6 +1,14 @@
-import { useSignUpFormHook } from '@isomera/impl'
+import { pages, useHandleErrorHook, useSignUpFormHook } from '@isomera/impl'
+import { useNavigate } from 'react-router-dom'
 
 export const SignUpView = () => {
+  const { handleError } = useHandleErrorHook()
+  const navigate = useNavigate()
+
+  const onSuccess = () => {
+    navigate(pages.verificationCode.path)
+  }
+
   const {
     values,
     handleChange,
@@ -9,8 +17,11 @@ export const SignUpView = () => {
     touched,
     handleSubmit,
     isSubmitting
-  } = useSignUpFormHook()
-  console.log('val', values)
+  } = useSignUpFormHook({
+    onSuccess,
+    onError: error => handleError(error, { view: 'login' })
+  })
+
   return (
     <form onSubmit={handleSubmit}>
       <div>

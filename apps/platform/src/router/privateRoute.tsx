@@ -20,7 +20,7 @@ function PrivateRoute(props: Props) {
     return <Navigate to={pages.login.path} />
   }
 
-  return <div>{children}</div>
+  return <>{children}</>
 }
 
 export default PrivateRoute

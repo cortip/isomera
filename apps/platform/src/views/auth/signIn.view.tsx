@@ -1,13 +1,16 @@
-import { useSignInFormHook } from '@isomera/impl'
+import { pages, useHandleErrorHook, useSignInFormHook } from '@isomera/impl'
 import { UserInterface } from '@isomera/interfaces'
 import useSession from '../../hooks/useSession'
+import { useNavigate } from 'react-router-dom'
 
 export const SignInView = () => {
   const { setUser } = useSession()
+  const navigate = useNavigate()
+  const { handleError } = useHandleErrorHook()
 
-  // const from = (location.state?.from.pathname as string) || '/profile'
   const onSuccess = (data: UserInterface) => {
     setUser(data)
+    navigate(pages.dashboard.path)
   }
 
   const {
@@ -18,28 +21,10 @@ export const SignInView = () => {
     touched,
     handleSubmit,
     isSubmitting
-  } = useSignInFormHook(onSuccess)
-
-  // useEffect(() => {
-  //   if (isSuccess) {
-  //     toast.success('You successfully logged in')
-  //     navigate(from)
-  //   }
-  //   if (isError) {
-  //     if (Array.isArray((error as any).data.error)) {
-  //       ;(error as any).data.error.forEach((el: any) =>
-  //         toast.error(el.message, {
-  //           position: 'top-right'
-  //         })
-  //       )
-  //     } else {
-  //       toast.error((error as any).data.message, {
-  //         position: 'top-right'
-  //       })
-  //     }
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [isLoading])
+  } = useSignInFormHook({
+    onSuccess,
+    onError: error => handleError(error, { view: 'login' })
+  })
 
   return (
     <form onSubmit={handleSubmit}>

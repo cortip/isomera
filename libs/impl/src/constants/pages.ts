@@ -3,7 +3,7 @@ export const pages = {
     path: '/login'
   },
   register: {
-    path: '/register'
+    path: '/sign-up'
   },
   dashboard: {
     path: '/'

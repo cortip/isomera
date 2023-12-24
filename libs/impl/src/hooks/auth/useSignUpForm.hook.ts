@@ -1,10 +1,5 @@
 import { useFormik } from 'formik'
-
-import { useNavigate } from 'react-router-dom'
-
-import { pages } from '../../constants/pages'
 import { formikValidate, SignUpWithEmailCredentialsDto } from '@isomera/dtos'
-import { useHandleErrorHook } from '../error/useHandleError.hook'
 import { Pure } from '@isomera/interfaces'
 import { useSignUpHook } from './useSignUp.hook'
 
@@ -16,17 +11,20 @@ const initialValues: Pure<SignUpWithEmailCredentialsDto> = {
   isPrivacyPolicyAccepted: undefined
 }
 
-export const useSignUpFormHook = () => {
+interface Options {
+  onSuccess?: () => void
+  onError?: (error?: unknown) => void
+}
+
+export const useSignUpFormHook = (options: Options) => {
   const { register } = useSignUpHook()
-  const { handleError } = useHandleErrorHook()
-  const navigate = useNavigate()
 
   const onSubmit = async (values: typeof initialValues) => {
     try {
       await register(values)
-      navigate(pages.verificationCode.path)
+      options.onSuccess && options.onSuccess()
     } catch (error) {
-      handleError(error, { view: 'login' })
+      options.onError && options.onError(error)
     }
   }
 

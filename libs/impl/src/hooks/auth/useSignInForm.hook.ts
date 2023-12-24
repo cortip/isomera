@@ -1,11 +1,6 @@
 import { useFormik } from 'formik'
-
-import { useNavigate } from 'react-router-dom'
-
-import { pages } from '../../constants/pages'
 import { useSignInHook } from './useSignIn.hook'
 import { formikValidate, SignInWithEmailCredentialsDto } from '@isomera/dtos'
-import { useHandleErrorHook } from '../error/useHandleError.hook'
 import { LoginResponseInterface, Pure } from '@isomera/interfaces'
 
 const initialValues: Pure<SignInWithEmailCredentialsDto> = {
@@ -13,20 +8,20 @@ const initialValues: Pure<SignInWithEmailCredentialsDto> = {
   password: ''
 }
 
-export const useSignInFormHook = (
-  onSuccess: (arg0: LoginResponseInterface) => void
-) => {
+interface Options {
+  onSuccess?: (arg0: LoginResponseInterface) => void
+  onError?: (error?: unknown) => void
+}
+
+export const useSignInFormHook = (options: Options) => {
   const { login } = useSignInHook()
-  const { handleError } = useHandleErrorHook()
-  const navigate = useNavigate()
 
   const onSubmit = async (values: typeof initialValues) => {
     try {
       const data = await login(values)
-      onSuccess(data)
-      navigate(pages.userInfo.path)
+      options.onSuccess && options.onSuccess(data)
     } catch (error) {
-      handleError(error, { view: 'login' })
+      options.onError && options.onError(error)
     }
   }
 
