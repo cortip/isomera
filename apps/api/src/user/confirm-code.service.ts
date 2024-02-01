@@ -2,7 +2,6 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { MoreThan, Repository } from 'typeorm'
 import { generateRandomStringUtil } from '@isomera/utils'
-import { format } from 'date-fns'
 import { ConfirmCodeEntity } from '../entities/confirm-code.entity'
 import { UserEntity } from '../entities/user.entity'
 import { DateTime } from 'luxon'
@@ -38,7 +37,7 @@ export class ConfirmCodeService {
       .createQueryBuilder()
       .where({
         code: code,
-        expiresIn: MoreThan(format(new Date(), 'yyyy-MM-dd HH:MM:ss'))
+        expiresIn: MoreThan(DateTime.now().toFormat('yyyy-MM-dd HH:MM:ss'))
       })
       .andWhere('"userId" = :userId', { userId: user.id })
       .limit(1)
