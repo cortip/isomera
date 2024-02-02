@@ -1,20 +1,86 @@
-import { MailerService as Mailer } from '@nestjs-modules/mailer'
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common'
 import { UserEntity } from '../entities/user.entity'
+import * as nodemailer from 'nodemailer'
+import * as handlebars from 'handlebars'
+import * as fs from 'fs'
+import * as path from 'path'
+import { HandlebarsTemplate } from './types/mailer.types'
+import { ConfigService } from '@nestjs/config'
 
 @Injectable()
 export class MailerService {
-  constructor(private mailerService: Mailer) {}
+  private transporter: nodemailer.Transporter
+  private templateCache: Map<HandlebarsTemplate, handlebars.TemplateDelegate>
 
-  async sendEmail(user: UserEntity, subject: string, template: string, data) {
+  constructor(protected readonly configService: ConfigService) {
+    this.templateCache = new Map()
+
+    const host = this.configService.get<string>('MAIL_HOST', 'localhost')
+    const port = this.configService.get<number>('MAIL_PORT', 1025)
+    const secure = this.configService.get<boolean>('MAILER_SECURE', false)
+    const user = this.configService.get<string>('MAIL_USER')
+    const pass = this.configService.get<string>('MAIL_PASSWORD')
+    const fromName = this.configService.get<string>(
+      'MAIL_FROM_NAME',
+      'No-reply'
+    )
+    const fromAddress = this.configService.get<string>(
+      'MAIL_FROM_ADDRESS',
+      'noreply@example.com'
+    )
+
+    this.transporter = nodemailer.createTransport(
+      {
+        host,
+        port,
+        secure,
+        auth: {
+          user,
+          pass
+        }
+      },
+      {
+        from: {
+          name: fromName,
+          address: fromAddress
+        }
+      }
+    )
+  }
+
+  private loadTemplate(templateName: HandlebarsTemplate, data: object): string {
+    if (this.templateCache.has(templateName)) {
+      const templateRenderFunction = this.templateCache.get(templateName)
+
+      return templateRenderFunction(data)
+    }
+
+    const templatesFolderPath = path.join(__dirname, './templates')
+    const templatePath = path.join(templatesFolderPath, templateName)
+
+    const templateSource = fs.readFileSync(templatePath, 'utf8')
+
+    const templateRenderFunction = handlebars.compile(templateSource)
+    this.templateCache.set(templateName, templateRenderFunction)
+
+    const finalHtml = templateRenderFunction(data)
+
+    return finalHtml
+  }
+
+  async sendEmail(
+    user: UserEntity,
+    subject: string,
+    template: HandlebarsTemplate,
+    data?: object
+  ) {
+    const html = this.loadTemplate(template, data)
+
     try {
-      return await this.mailerService.sendMail({
+      await this.transporter.sendMail({
         to: user.email,
         subject: subject,
-        template: template,
-        context: {
-          ...data
-        }
+        html: html
       })
     } catch (err) {
       console.error(err)

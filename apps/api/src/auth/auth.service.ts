@@ -23,6 +23,7 @@ import { OrganizationService } from '../organization/organization.service'
 import { ConfigService } from '@nestjs/config'
 import * as bcrypt from 'bcrypt'
 import { pages } from '@isomera/impl'
+import { HandlebarsTemplate } from '../mailer/types/mailer.types'
 
 @Injectable()
 export class AuthService {
@@ -48,7 +49,7 @@ export class AuthService {
         await this.mailerService.sendEmail(
           user,
           'Email verification',
-          'email-confirmation',
+          HandlebarsTemplate.EMAIL_CONFIRMATION,
           {
             name: user.firstName,
             code: code.code
@@ -143,7 +144,12 @@ export class AuthService {
   }
 
   async sendGreetings(user: UserEntity) {
-    return this.mailerService.sendEmail(user, 'Welcome!', 'welcome', { user })
+    return this.mailerService.sendEmail(
+      user,
+      'Welcome!',
+      HandlebarsTemplate.WELCOME,
+      { user }
+    )
   }
 
   async requestPasswordReset(email: string): Promise<boolean> {
@@ -161,7 +167,7 @@ export class AuthService {
         void this.mailerService.sendEmail(
           user,
           'Password reset code',
-          'password-reset-code',
+          HandlebarsTemplate.PASSWORD_RESET_CODE,
           {
             name: `${user.firstName} ${user.lastName}`,
             code: passwordResetCode,
