@@ -109,7 +109,7 @@
     "@types/passport": "^1.0.16",
     "@types/passport-jwt": "^3.0.13",
     "@types/passport-local": "^1.0.38",
-    "@types/react": "18.2.35",
+    "@types/react": "18.2.52",
     "@types/react-dom": "18.2.9",
     "@types/supertest": "^2.0.16",
     "@typescript-eslint/eslint-plugin": "^5.60.1",
