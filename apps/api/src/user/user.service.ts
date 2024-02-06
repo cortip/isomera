@@ -105,4 +105,10 @@ export class UserService {
     user.isTwoFAEnabled = enable
     return this.userRepository.save(user)
   }
+
+  async turnOfTwoFactorAuthentication(user: UserEntity): Promise<UserEntity> {
+    user.isTwoFAEnabled = false
+    user.twoFASecret = ''
+    return this.userRepository.save(user)
+  }
 }

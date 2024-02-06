@@ -16,6 +16,7 @@ import { AuthService } from './auth.service'
 import {
   ConfirmationCodeDto,
   ForgotPasswordResetRequestDto,
+  Recovery2FADto,
   ResetPasswordRequestDto,
   SignInWithEmailCredentialsDto,
   SignUpWithEmailCredentialsDto,
@@ -137,6 +138,26 @@ export class AuthController {
     return {
       status: StatusType.OK,
       image: this.authService.generateQrCodeDataURL(otpAuthUrl)
+    }
+  }
+
+  @Post('2fa/request-recovery')
+  @HttpCode(HttpStatus.OK)
+  async requestRecovery2FA(@Body() { code }: Pure<Recovery2FADto>) {
+    await this.authService.requestRecovery2FA(code)
+    return {
+      status: StatusType.OK
+    }
+  }
+
+  @Post('2fa/confirm-recovery')
+  @HttpCode(HttpStatus.OK)
+  async confirmRecovery2FACode(
+    @Body() { code, email }: Pure<ConfirmationCodeDto>
+  ) {
+    await this.authService.confirmRecovery2FACode({ code, email })
+    return {
+      status: StatusType.OK
     }
   }
 

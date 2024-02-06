@@ -8,3 +8,4 @@ export { ForgotPasswordResetRequestDto } from './auth/request/ForgotPasswordRese
 export { ResetPasswordRequestDto } from './auth/request/ResetPasswordRequest.dto'
 export { TurnOn2FADto } from './auth/request/TurnOn2FA.dto'
 export { Authenticate2FADto } from './auth/request/Authenticate2FA.dto'
+export { Recovery2FADto } from './auth/request/Recovery2FA.dto'

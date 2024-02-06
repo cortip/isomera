@@ -344,4 +344,43 @@ export class AuthService {
       refresh_token: refresh_token
     }
   }
+
+  async requestRecovery2FA(secret: string) {
+    const user = await this.userService.findOne({
+      where: { twoFASecret: secret }
+    })
+    if (user) {
+      throw new UnauthorizedException(`There isn't any user with this code`)
+    }
+
+    if (process.env.NODE_ENV !== 'test') {
+      const code = await this.confirmCode.genNewCode(user)
+      if (code.code) {
+        await this.mailerService.sendEmail(
+          user,
+          'Email verification',
+          'email-confirmation',
+          {
+            name: user.firstName,
+            code: code.code
+          }
+        )
+        return user
+      }
+      throw new HttpException(
+        "Couldn't generate the code",
+        HttpStatus.INTERNAL_SERVER_ERROR
+      )
+    } else {
+      return user
+    }
+  }
+
+  async confirmRecovery2FACode({
+    code,
+    email
+  }: Pure<ConfirmationCodeDto>): Promise<UserEntity> {
+    const user = await this.confirmCode.verifyCode(code, email)
+    return this.userService.turnOfTwoFactorAuthentication(user)
+  }
 }
