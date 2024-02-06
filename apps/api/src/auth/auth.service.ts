@@ -359,7 +359,7 @@ export class AuthService {
         await this.mailerService.sendEmail(
           user,
           'Email verification',
-          'email-confirmation',
+          HandlebarsTemplate.EMAIL_CONFIRMATION,
           {
             name: user.firstName,
             code: code.code
