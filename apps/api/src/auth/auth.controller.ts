@@ -18,7 +18,8 @@ import {
   ForgotPasswordResetRequestDto,
   ResetPasswordRequestDto,
   SignInWithEmailCredentialsDto,
-  SignUpWithEmailCredentialsDto
+  SignUpWithEmailCredentialsDto,
+  TurnOn2FADto
 } from '@isomera/dtos'
 import { JWTAuthGuard } from './guards/jwt-auth.guard'
 import { LocalAuthGuard } from './guards/local-auth.guard'
@@ -124,5 +125,45 @@ export class AuthController {
     return {
       status: StatusType.OK
     }
+  }
+
+  @Post('2fa/generate')
+  @UseGuards(SessionAuthGuard, JWTAuthGuard)
+  @HttpCode(HttpStatus.OK)
+  async register2FA(@AuthUser() user: Pure<UserEntity>) {
+    const { otpAuthUrl } =
+      await this.authService.generateTwoFactorAuthenticationSecret(user)
+
+    return {
+      status: StatusType.OK,
+      image: this.authService.generateQrCodeDataURL(otpAuthUrl)
+    }
+  }
+
+  @Post('2fa/turn-on')
+  @UseGuards(SessionAuthGuard, JWTAuthGuard)
+  @HttpCode(HttpStatus.OK)
+  async turnOnTwoFactorAuthentication(
+    @AuthUser() user: Pure<UserEntity>,
+    @Body() { code }: Pure<TurnOn2FADto>
+  ) {
+    await this.authService.turnOn2FA(user, code)
+    return {
+      status: StatusType.OK,
+      secret: user.twoFASecret
+    }
+  }
+
+  @Post('2fa/authenticate')
+  @HttpCode(200)
+  @UseGuards(SessionAuthGuard, JWTAuthGuard)
+  async authenticate(
+    @AuthUser() user: Pure<UserEntity>,
+    @Body() { code }: Pure<TurnOn2FADto>
+  ) {
+    const data = await this.authService.loginWith2fa(user, code)
+    delete data.password
+
+    return data
   }
 }
