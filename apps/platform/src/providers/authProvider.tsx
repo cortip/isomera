@@ -1,5 +1,10 @@
-import { ReactNode, useEffect, useState } from 'react'
-import { clearAuthState, getAccessToken, getUserService } from '@isomera/impl'
+import { ReactNode, useEffect, useState, useCallback } from 'react'
+import {
+  clearAuthState,
+  getAccessToken,
+  getUserService,
+  setAuthState
+} from '@isomera/impl'
 import AuthContext from '../contexts/authContext'
 import { UserInterface } from '@isomera/interfaces'
 
@@ -7,42 +12,49 @@ type Props = {
   children: ReactNode
 }
 
-function AuthProvider(props: Props) {
-  const { children } = props
-
-  const [user, setUser] = useState<UserInterface>()
+function AuthProvider({ children }: Props) {
+  const [user, setUser] = useState<UserInterface | undefined>()
   const [loadingUserData, setLoadingUserData] = useState(true)
 
-  const token = getAccessToken()
-  const isAuthenticated = Boolean(token)
-
-  useEffect(() => {
-    if (!token) {
-      clearAuthState()
+  const fetchUser = useCallback(async () => {
+    const token = getAccessToken()
+    if (token) {
+      setLoadingUserData(true)
+      try {
+        const userData = await getUserService()
+        setUser(userData)
+      } catch (error) {
+        console.error('Failed to fetch user data:', error)
+        clearAuthState()
+      } finally {
+        setLoadingUserData(false)
+      }
+    } else {
       setUser(undefined)
       setLoadingUserData(false)
     }
-  }, [token])
+  }, [])
 
   useEffect(() => {
-    const token = getAccessToken()
+    fetchUser()
+  }, [fetchUser])
 
-    if (token) {
-      setLoadingUserData(true)
-      getUserService().then(data => {
-        setUser(data)
-        setLoadingUserData(false)
-      })
-    }
-  }, [])
+  const loginWith2FA = useCallback(
+    (accessToken: string, refreshToken: string) => {
+      setAuthState({ accessToken, refreshToken })
+      fetchUser()
+    },
+    [fetchUser]
+  )
 
   return (
     <AuthContext.Provider
       value={{
-        isAuthenticated,
+        isAuthenticated: !!user,
         user,
         loadingUserData,
-        setUser
+        setUser,
+        loginWith2FA
       }}
     >
       {children}

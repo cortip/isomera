@@ -9,6 +9,7 @@ import {
   UseGuards,
   UseInterceptors
 } from '@nestjs/common'
+import { instanceToPlain } from 'class-transformer'
 
 import { AuthUser } from '../user/user.decorator'
 import { UserEntity } from '../entities/user.entity'
@@ -22,7 +23,6 @@ import {
   SignUpWithEmailCredentialsDto,
   TurnOn2FADto
 } from '@isomera/dtos'
-import { JWTAuthGuard } from './guards/jwt-auth.guard'
 import { LocalAuthGuard } from './guards/local-auth.guard'
 import { SessionAuthGuard } from './guards/session-auth.guard'
 import { TokenInterceptor } from './interceptors/token.interceptor'
@@ -36,6 +36,8 @@ import {
   StatusType
 } from '@isomera/interfaces'
 import { JwtRefreshTokenGuard } from './guards/jwt-refresh-token'
+import { Jwt2faAuthGuard } from './guards/jwt-2fa-auth.guard'
+import { JWTAuthGuard } from './guards/jwt-auth.guard'
 
 @Controller('auth')
 export class AuthController {
@@ -77,7 +79,7 @@ export class AuthController {
   }
 
   @Get('/me')
-  @UseGuards(SessionAuthGuard, JWTAuthGuard)
+  @UseGuards(SessionAuthGuard, Jwt2faAuthGuard)
   me(@AuthUser() user: Pure<SignInWithEmailCredentialsDto>): UserEntity {
     return user as UserEntity
   }
@@ -104,9 +106,15 @@ export class AuthController {
   @Post('/refresh')
   @HttpCode(HttpStatus.OK)
   async refreshToken(
-    @AuthUser() user: Pure<UserEntity>
+    @AuthUser() user: Pure<UserEntity> & { isTwoFactorAuthenticated: boolean }
   ): Promise<RefreshTokenResponseInterface> {
-    const { refresh_token, access_token } = this.authService.signToken(user)
+    const payload = {
+      email: user.email,
+      isTwoFactorAuthenticationEnabled: !!user.isTwoFAEnabled,
+      isTwoFactorAuthenticated: !!user.isTwoFactorAuthenticated
+    }
+
+    const { refresh_token, access_token } = this.authService.signToken(payload)
 
     await this.authService.storeRefreshToken(user, refresh_token)
     return {
@@ -117,7 +125,7 @@ export class AuthController {
   }
 
   @Post('/logout')
-  @UseGuards(SessionAuthGuard, JWTAuthGuard)
+  @UseGuards(SessionAuthGuard, Jwt2faAuthGuard)
   @HttpCode(HttpStatus.OK)
   async logout(
     @AuthUser() user: Pure<UserEntity>
@@ -129,7 +137,7 @@ export class AuthController {
   }
 
   @Post('2fa/generate')
-  @UseGuards(SessionAuthGuard, JWTAuthGuard)
+  @UseGuards(SessionAuthGuard, Jwt2faAuthGuard)
   @HttpCode(HttpStatus.OK)
   async register2FA(@AuthUser() user: Pure<UserEntity>) {
     const { otpAuthUrl } =
@@ -137,7 +145,7 @@ export class AuthController {
 
     return {
       status: StatusType.OK,
-      image: this.authService.generateQrCodeDataURL(otpAuthUrl)
+      image: await this.authService.generateQrCodeDataURL(otpAuthUrl)
     }
   }
 
@@ -162,16 +170,23 @@ export class AuthController {
   }
 
   @Post('2fa/turn-on')
-  @UseGuards(SessionAuthGuard, JWTAuthGuard)
+  @UseGuards(SessionAuthGuard, Jwt2faAuthGuard)
   @HttpCode(HttpStatus.OK)
   async turnOnTwoFactorAuthentication(
     @AuthUser() user: Pure<UserEntity>,
     @Body() { code }: Pure<TurnOn2FADto>
   ) {
     await this.authService.turnOn2FA(user, code)
+    const data = await this.authService.loginWith2fa(user, code)
+    delete data.password
+
+    const { access_token, refresh_token } = data
+
     return {
       status: StatusType.OK,
-      secret: user.twoFASecret
+      secret: user.twoFASecret,
+      access_token,
+      refresh_token
     }
   }
 

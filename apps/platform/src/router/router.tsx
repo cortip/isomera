@@ -13,6 +13,8 @@ import { Routes, Route } from 'react-router-dom'
 import PrivateRoute from './privateRoute'
 import { PublicLayout } from '../layouts/public.layout'
 import { PrivateLayout } from '../layouts/private.layout'
+import { UserSecurityView } from '../views/user /profile-security.view'
+import { Verify2FAView } from '../views/auth/auth2FA.view'
 
 function Router() {
   return (
@@ -90,11 +92,36 @@ function Router() {
       />
 
       <Route
+        path={pages.twoFA.path}
+        element={
+          <PublicRoute>
+            <PublicLayout>
+              <Verify2FAView />
+              <Link to={pages.recoverTwoFA.path}>
+                I don&apos;t have access to my 2fa and need to reset with
+                recovery code
+              </Link>
+            </PublicLayout>
+          </PublicRoute>
+        }
+      />
+
+      <Route
         path={pages.userInfo.path}
         element={
           <PrivateRoute>
             <PrivateLayout>
               <UserInfoView />
+            </PrivateLayout>
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path={pages.profileSecurity.path}
+        element={
+          <PrivateRoute>
+            <PrivateLayout>
+              <UserSecurityView />
             </PrivateLayout>
           </PrivateRoute>
         }

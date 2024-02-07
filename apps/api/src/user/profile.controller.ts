@@ -15,9 +15,10 @@ import { UserUpdate } from './dto/user-update.dto'
 import { JWTAuthGuard } from '../auth/guards/jwt-auth.guard'
 import { SessionAuthGuard } from '../auth/guards/session-auth.guard'
 import { UserEntity } from '../entities/user.entity'
+import { Jwt2faAuthGuard } from '../auth/guards/jwt-2fa-auth.guard'
 
 @Controller('profile')
-@UseGuards(JWTAuthGuard, SessionAuthGuard)
+@UseGuards(Jwt2faAuthGuard, SessionAuthGuard)
 @UseInterceptors(ClassSerializerInterceptor)
 export class ProfileController {
   constructor(private readonly userService: UserService) {}

@@ -9,7 +9,7 @@ export class Jwt2faStrategy extends PassportStrategy(Strategy, 'jwt-2fa') {
   constructor(private readonly userService: UserService) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      secretOrKey: 'secret'
+      secretOrKey: process.env.APP_SECRET
     })
   }
 
@@ -21,8 +21,12 @@ export class Jwt2faStrategy extends PassportStrategy(Strategy, 'jwt-2fa') {
     if (!user.isTwoFAEnabled) {
       return user
     }
+
     if (payload.isTwoFactorAuthenticated) {
-      return user
+      return {
+        ...user,
+        isTwoFactorAuthenticated: payload.isTwoFactorAuthenticated
+      }
     }
   }
 }

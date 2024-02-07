@@ -2,6 +2,12 @@ export const pages = {
   login: {
     path: '/login'
   },
+  twoFA: {
+    path: '/two-fa'
+  },
+  recoverTwoFA: {
+    path: 'two-fa/recover'
+  },
   register: {
     path: '/sign-up'
   },
@@ -52,6 +58,9 @@ export const pages = {
   },
   profileSetting: {
     path: '/settings/profile'
+  },
+  profileSecurity: {
+    path: '/settings/profile/security'
   },
   userInfo: {
     path: '/user/info'

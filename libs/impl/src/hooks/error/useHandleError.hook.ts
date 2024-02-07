@@ -7,7 +7,7 @@ import { ErrorMessageEnum } from '@isomera/interfaces'
 import { pascalToSnakeCase } from '@isomera/utils'
 
 interface HandleErrorOptions {
-  view: 'login' | 'confirm' | 'register' | 'reset' | 'updatePassword'
+  view: 'login' | 'confirm' | 'register' | 'reset' | 'updatePassword' | '2fa'
 }
 
 export const useHandleErrorHook = () => {

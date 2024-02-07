@@ -10,9 +10,14 @@ type Props = {
 function PublicRoute(props: Props) {
   const { children } = props
 
-  const { isAuthenticated } = useSession()
+  const { isAuthenticated, user } = useSession()
 
-  if (isAuthenticated) {
+  console.log({ user })
+  if (
+    isAuthenticated &&
+    user &&
+    (user.isTwoFactorAuthenticated || !user.isTwoFAEnabled)
+  ) {
     return <Navigate to={pages.dashboard.path} />
   }
 
