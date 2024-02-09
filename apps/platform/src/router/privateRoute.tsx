@@ -17,7 +17,6 @@ function PrivateRoute(props: Readonly<Props>) {
     return null
   }
 
-  console.log({ isAuthenticated })
   if (!isAuthenticated) {
     return <Navigate to={pages.login.path} />
   }

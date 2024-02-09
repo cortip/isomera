@@ -22,6 +22,7 @@ export const API_RESET_ROUTE = '/auth/reset'
 export const API_AUTH_2FA_STEP_1 = 'auth/2fa/generate'
 export const API_AUTH_2FA_STEP_2 = 'auth/2fa/turn-on'
 export const API_AUTH_2FA_STEP_3 = 'auth/2fa/authenticate'
+export const API_AUTH_2FA_RECOVER = 'auth/2fa/request-recovery'
 
 // User
 

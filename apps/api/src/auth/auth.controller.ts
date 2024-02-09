@@ -9,7 +9,6 @@ import {
   UseGuards,
   UseInterceptors
 } from '@nestjs/common'
-import { instanceToPlain } from 'class-transformer'
 
 import { AuthUser } from '../user/user.decorator'
 import { UserEntity } from '../entities/user.entity'

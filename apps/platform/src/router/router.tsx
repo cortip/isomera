@@ -15,6 +15,7 @@ import { PublicLayout } from '../layouts/public.layout'
 import { PrivateLayout } from '../layouts/private.layout'
 import { UserSecurityView } from '../views/user /profile-security.view'
 import { Verify2FAView } from '../views/auth/auth2FA.view'
+import { Recovery2FAView } from '../views/auth/recovery.view'
 
 function Router() {
   return (
@@ -101,6 +102,17 @@ function Router() {
                 I don&apos;t have access to my 2fa and need to reset with
                 recovery code
               </Link>
+            </PublicLayout>
+          </PublicRoute>
+        }
+      />
+
+      <Route
+        path={pages.recoverTwoFA.path}
+        element={
+          <PublicRoute>
+            <PublicLayout>
+              <Recovery2FAView />
             </PublicLayout>
           </PublicRoute>
         }

@@ -6,8 +6,15 @@ import { toast } from 'react-toastify'
 import { ErrorMessageEnum } from '@isomera/interfaces'
 import { pascalToSnakeCase } from '@isomera/utils'
 
-interface HandleErrorOptions {
-  view: 'login' | 'confirm' | 'register' | 'reset' | 'updatePassword' | '2fa'
+export interface HandleErrorOptions {
+  view:
+    | 'login'
+    | 'confirm'
+    | 'register'
+    | 'reset'
+    | 'updatePassword'
+    | '2fa'
+    | 'recovery'
 }
 
 export const useHandleErrorHook = () => {

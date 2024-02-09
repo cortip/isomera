@@ -6,7 +6,7 @@ export const pages = {
     path: '/two-fa'
   },
   recoverTwoFA: {
-    path: 'two-fa/recover'
+    path: '/two-fa/recover'
   },
   register: {
     path: '/sign-up'

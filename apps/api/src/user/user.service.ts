@@ -16,7 +16,7 @@ export class UserService {
   ) {}
 
   async create(data: Partial<UserEntity>): Promise<UserEntity> {
-    const user = this.userRepository.create(data)
+    const user = this.userRepository.create({ ...data, isTwoFAEnabled: false })
 
     return this.userRepository.save(user)
   }

@@ -9,7 +9,6 @@ export type Class = { new (...args: any[]): any }
 export type Data = { [key: string]: string | number | boolean }
 
 export const formikValidate = (model: Class, data: Data) => {
-  console.log({ model, data })
   try {
     transformAndValidateSync(model, data)
 

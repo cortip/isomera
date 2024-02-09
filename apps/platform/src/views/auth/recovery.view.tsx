@@ -1,10 +1,10 @@
 import { useNavigate } from 'react-router-dom'
 import useSession from '../../hooks/useSession'
 import { pages, useHandleErrorHook } from '@isomera/impl'
-import { useVerify2FAHook } from '../../hooks/verify2FAHook'
+import { useRecoveryHook } from '../../hooks/Recover2FAHook'
 
-export const Verify2FAView = () => {
-  const { loginWith2FA } = useSession()
+export const Recovery2FAView = () => {
+  const { loginWith2FA, user } = useSession()
   const navigate = useNavigate()
   const { handleError } = useHandleErrorHook()
 
@@ -21,15 +21,16 @@ export const Verify2FAView = () => {
     touched,
     handleSubmit,
     isSubmitting
-  } = useVerify2FAHook({
+  } = useRecoveryHook({
     onSuccess,
-    onError: (error: any) => handleError(error, { view: '2fa' })
+    onError: (error: any) => handleError(error, { view: 'recovery' }),
+    userEmail: user?.email
   })
 
   return (
     <form onSubmit={handleSubmit}>
       <div>
-        <label htmlFor="twoFactorCode">2FA Code</label>
+        <label htmlFor="recoveryCode">Recovery Code</label>
         <input
           id="code"
           name="code"
@@ -43,7 +44,7 @@ export const Verify2FAView = () => {
       </div>
       <div>
         <button type="submit" disabled={isSubmitting}>
-          Verify
+          Recover Account
         </button>
       </div>
     </form>

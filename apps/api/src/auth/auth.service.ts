@@ -349,7 +349,7 @@ export class AuthService {
     const user = await this.userService.findOne({
       where: { twoFASecret: secret }
     })
-    if (user) {
+    if (!user) {
       throw new UnauthorizedException(`There isn't any user with this code`)
     }
 

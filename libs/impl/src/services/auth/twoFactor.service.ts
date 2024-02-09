@@ -1,5 +1,6 @@
 import { UserInterface } from '@isomera/interfaces'
 import {
+  API_AUTH_2FA_RECOVER,
   API_AUTH_2FA_STEP_1,
   API_AUTH_2FA_STEP_2,
   API_AUTH_2FA_STEP_3
@@ -24,8 +25,16 @@ export interface Auth2FAResponse extends UserInterface {
   refresh_token: string
 }
 
+export interface Recover2FAResponse {
+  status: string
+}
+
 export interface Verify2FAData {
   code: string
+}
+
+export interface Recover2FAData extends Verify2FAData {
+  email: string
 }
 
 export const turnOn2FAServiceStep1 = async (): Promise<GenerateQRResponse> => {
@@ -45,6 +54,14 @@ export const auth2FAService = async (
   data: Verify2FAData
 ): Promise<Auth2FAResponse> => {
   const response = await axiosInstance.post(API_AUTH_2FA_STEP_3, data)
+
+  return response.data
+}
+
+export const auth2FARecoveryService = async (
+  data: Verify2FAData
+): Promise<Auth2FAResponse> => {
+  const response = await axiosInstance.post(API_AUTH_2FA_RECOVER, data)
 
   return response.data
 }

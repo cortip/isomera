@@ -12,7 +12,6 @@ function PublicRoute(props: Props) {
 
   const { isAuthenticated, user } = useSession()
 
-  console.log({ user })
   if (
     isAuthenticated &&
     user &&
