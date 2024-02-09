@@ -1,0 +1,14 @@
+<html>
+  <head>
+    <title>2FA Recovery</title>
+  </head>
+  <body>
+    <h1>Two-Factor Authentication Recovery</h1>
+    <p>Hello, {{name}}</p>
+    <p>To recover your account, please click on the link below:</p>
+    <a
+      href='{{baseUrl}}/2fa/confirm-recovery?email={{email}}&code={{code}}'
+    >Recover Account</a>
+    <p>If you did not request this, please ignore this email.</p>
+  </body>
+</html>

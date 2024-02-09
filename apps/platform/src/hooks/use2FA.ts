@@ -4,7 +4,9 @@ import {
   Verify2FAData,
   turnOn2FAServiceStep1,
   turnOn2FAStep2Service,
-  auth2FAService
+  auth2FAService,
+  authDisableService,
+  Recover2FAData
 } from '@isomera/impl'
 import useSession from './useSession'
 
@@ -32,11 +34,23 @@ const useTwoFactorAuthHook = () => {
       return response
     })
 
+  const { mutateAsync: disable2FA, isLoading: isLoadingDisable } = useMutation(
+    async (data: Pure<Recover2FAData>) => {
+      const response = await authDisableService(data)
+      return response
+    }
+  )
+
   return {
     generate2FA,
     verify2FA,
     authenticate,
-    isLoading: isLoadingGenerate || isLoadingVerify || isLoadingAuthenticate
+    disable2FA,
+    isLoading:
+      isLoadingGenerate ||
+      isLoadingVerify ||
+      isLoadingAuthenticate ||
+      isLoadingDisable
   }
 }
 

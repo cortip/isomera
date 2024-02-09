@@ -3,10 +3,13 @@ export const pages = {
     path: '/login'
   },
   twoFA: {
-    path: '/two-fa'
+    path: '/2fa'
   },
-  recoverTwoFA: {
-    path: '/two-fa/recover'
+  recover2FA: {
+    path: '/2fa/recover'
+  },
+  confirmRecovery2FA: {
+    path: '/2fa/confirm-recovery'
   },
   register: {
     path: '/sign-up'

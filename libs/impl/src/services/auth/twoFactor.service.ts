@@ -1,5 +1,6 @@
 import { UserInterface } from '@isomera/interfaces'
 import {
+  API_AUTH_2FA_CONFIRM_RECOVERY,
   API_AUTH_2FA_RECOVER,
   API_AUTH_2FA_STEP_1,
   API_AUTH_2FA_STEP_2,
@@ -62,6 +63,14 @@ export const auth2FARecoveryService = async (
   data: Verify2FAData
 ): Promise<Auth2FAResponse> => {
   const response = await axiosInstance.post(API_AUTH_2FA_RECOVER, data)
+
+  return response.data
+}
+
+export const authDisableService = async (
+  data: Verify2FAData
+): Promise<Auth2FAResponse> => {
+  const response = await axiosInstance.post(API_AUTH_2FA_CONFIRM_RECOVERY, data)
 
   return response.data
 }

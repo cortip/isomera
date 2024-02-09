@@ -358,11 +358,13 @@ export class AuthService {
       if (code.code) {
         await this.mailerService.sendEmail(
           user,
-          'Email verification',
-          HandlebarsTemplate.EMAIL_CONFIRMATION,
+          'Two Factor Authentication Recovery',
+          HandlebarsTemplate.CONFIRM_RECOVERY,
           {
             name: user.firstName,
-            code: code.code
+            code: code.code,
+            email: user.email,
+            baseUrl: process.env.PLATFORM_URL
           }
         )
         return user

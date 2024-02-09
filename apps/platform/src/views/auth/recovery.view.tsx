@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom'
 import useSession from '../../hooks/useSession'
 import { pages, useHandleErrorHook } from '@isomera/impl'
 import { useRecoveryHook } from '../../hooks/Recover2FAHook'
+import { toast } from 'react-toastify'
 
 export const Recovery2FAView = () => {
   const { loginWith2FA, user } = useSession()
@@ -10,6 +11,7 @@ export const Recovery2FAView = () => {
 
   const onSuccess = (data: { access_token: string; refresh_token: string }) => {
     loginWith2FA(data.access_token, data.refresh_token)
+    toast.success('Check your email for further recovery steps.')
     navigate(pages.dashboard.path)
   }
 
