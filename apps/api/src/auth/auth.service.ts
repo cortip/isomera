@@ -129,7 +129,8 @@ export class AuthService {
   public generateAccessToken(payload: object): string {
     return this.jwtService.sign(payload, {
       expiresIn: `${this.configService.get<string>(
-        'JWT_ACCESS_TOKEN_EXPIRATION_TIME'
+        'JWT_ACCESS_TOKEN_EXPIRATION_TIME',
+        '260'
       )}s`
     })
   }
