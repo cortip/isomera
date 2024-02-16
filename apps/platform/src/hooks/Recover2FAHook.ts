@@ -21,8 +21,7 @@ export const useRecoveryHook = (options: Options) => {
   }
 
   const validationSchema = Yup.object({
-    code: Yup.string().required('2FA code is required'),
-    email: Yup.string().email('Invalid email').required('Email is required')
+    code: Yup.string().required('2FA code is required')
   })
 
   const onSubmit = async (values: Recover2FAData) => {

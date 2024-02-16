@@ -13,7 +13,13 @@ import {
   ResetPasswordRequestDto,
   SignUpWithEmailCredentialsDto
 } from '@isomera/dtos'
-import { JwtPayload, LoginResponseInterface } from '@isomera/interfaces'
+import {
+  JwtPayload,
+  LoginResponseInterface,
+  LoginWith2FAPayload,
+  LoginWithEmailPayload,
+  SignTokenInterface
+} from '@isomera/interfaces'
 import { UserService } from '../user/user.service'
 import { MailerService } from '../mailer/mailer.service'
 import { ConfirmCodeService } from '../user/confirm-code.service'
@@ -89,7 +95,7 @@ export class AuthService {
 
     console.log('xxx', user)
 
-    const payload = {
+    const payload: LoginWithEmailPayload = {
       email: user.email
     }
     const { refresh_token, access_token } = this.signToken(payload)
@@ -116,18 +122,15 @@ export class AuthService {
     return user
   }
 
-  signToken(payload: object): {
-    refresh_token: string
-    access_token: string
-  } {
+  signToken<T>(payload: T): SignTokenInterface {
     return {
       refresh_token: this.generateRefreshToken(payload),
       access_token: this.generateAccessToken(payload)
     }
   }
 
-  public generateAccessToken(payload: object): string {
-    return this.jwtService.sign(payload, {
+  public generateAccessToken<T>(payload: T): string {
+    return this.jwtService.sign(payload as object, {
       expiresIn: `${this.configService.get<string>(
         'JWT_ACCESS_TOKEN_EXPIRATION_TIME',
         '260'
@@ -135,8 +138,8 @@ export class AuthService {
     })
   }
 
-  public generateRefreshToken(payload: object): string {
-    return this.jwtService.sign(payload, {
+  public generateRefreshToken<T>(payload: T): string {
+    return this.jwtService.sign(payload as object, {
       expiresIn: `${this.configService.get<string>(
         'JWT_REFRESH_TOKEN_EXPIRATION_TIME'
       )}s`
@@ -329,7 +332,7 @@ export class AuthService {
       throw new UnauthorizedException('Code is incorrect.')
     }
 
-    const payload = {
+    const payload: LoginWith2FAPayload = {
       email: user.email,
       isTwoFactorAuthenticationEnabled: !!user.isTwoFAEnabled,
       isTwoFactorAuthenticated: true
