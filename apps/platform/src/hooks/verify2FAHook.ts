@@ -11,22 +11,24 @@ const validationSchema = Yup.object({
   code: Yup.string().required('2FA code is required')
 })
 
-interface Options {
+interface UseVerify2FAHookOptions {
   onSuccess?: (response: any) => void
   onError?: (error: any) => void
 }
 
-export const useVerify2FAHook = (options: Options) => {
+export const useVerify2FAHook = (options: UseVerify2FAHookOptions) => {
   const { authenticate, isLoading } = useTwoFactorAuthHook()
+
+  const { onSuccess, onError } = options
 
   const onSubmit = async (values: typeof initialValues) => {
     try {
       const response = await authenticate({
         code: values.code.split(' ').join('')
       })
-      options.onSuccess && options.onSuccess(response)
+      onSuccess && onSuccess(response)
     } catch (error) {
-      options.onError && options.onError(error)
+      onError && onError(error)
     }
   }
 

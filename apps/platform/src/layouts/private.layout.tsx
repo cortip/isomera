@@ -10,13 +10,14 @@ interface Props {
 }
 
 export const PrivateLayout: FC<Props> = ({ children }) => {
-  const { user, setUser } = useSession()
+  const { user, setUser, updateRecoveryCodes } = useSession()
   const navigate = useNavigate()
 
   const onSuccess = (message: string) => {
     toast.success(message)
     setUser(undefined)
     clearAuthState()
+    updateRecoveryCodes()
     navigate(pages.login.path)
   }
 

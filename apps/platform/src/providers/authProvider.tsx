@@ -15,6 +15,20 @@ type Props = {
 function AuthProvider({ children }: Props) {
   const [user, setUser] = useState<UserInterface | undefined>()
   const [loadingUserData, setLoadingUserData] = useState(true)
+  const [recoveryCodes, setRecoveryCodes] = useState<string[] | null>(null)
+  const [recoveryViewed, setRecoveryViewed] = useState<boolean>(false)
+
+  const updateRecoveryCodes = (codes?: string[]) => {
+    if (codes) {
+      setRecoveryCodes(codes)
+    } else {
+      setRecoveryCodes(null)
+    }
+  }
+
+  const updateRecoveryViewed = () => {
+    setRecoveryViewed(true)
+  }
 
   const fetchUser = useCallback(async () => {
     const token = getAccessToken()
@@ -54,7 +68,11 @@ function AuthProvider({ children }: Props) {
         user,
         loadingUserData,
         setUser,
-        loginWith2FA
+        loginWith2FA,
+        updateRecoveryCodes,
+        recoveryCodes,
+        recoveryViewed,
+        updateRecoveryViewed
       }}
     >
       {children}

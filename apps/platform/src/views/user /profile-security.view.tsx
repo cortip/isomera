@@ -9,8 +9,32 @@ export const UserSecurityView: React.FC = () => {
   const [verificationError, setVerificationError] = useState<string | null>(
     null
   )
-  const [recoveryCodes, setRecoveryCodes] = useState<string[] | null>(null)
-  const { user } = useSession()
+  const {
+    user,
+    recoveryCodes,
+    updateRecoveryCodes,
+    recoveryViewed,
+    updateRecoveryViewed
+  } = useSession()
+
+  const [showRecoveryCodes, setShowRecoveryCodes] = useState(false)
+
+  useEffect(() => {
+    let hideTimer: NodeJS.Timeout | null = null
+    if (recoveryCodes && !recoveryViewed && !showRecoveryCodes) {
+      setShowRecoveryCodes(true)
+      hideTimer = setTimeout(() => {
+        setShowRecoveryCodes(false)
+        updateRecoveryViewed()
+      }, 60000)
+    }
+
+    return () => {
+      if (hideTimer) {
+        clearTimeout(hideTimer)
+      }
+    }
+  }, [recoveryCodes, recoveryViewed, showRecoveryCodes, updateRecoveryViewed])
 
   const [isTwoFAEnabled, setIsTwoFAEnabled] = useState<boolean>(
     user?.isTwoFAEnabled ?? false
@@ -34,8 +58,10 @@ export const UserSecurityView: React.FC = () => {
   const handle2FAToggleChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    setIsTwoFAEnabled(event.target.checked)
-    handleToggle2FA()
+    if (!isTwoFAEnabled) {
+      setIsTwoFAEnabled(event.target.checked)
+      handleToggle2FA()
+    }
   }
 
   const handleSubmitCode = async (e: React.FormEvent) => {
@@ -44,7 +70,7 @@ export const UserSecurityView: React.FC = () => {
       const codeNoSpace = code.split(' ').join('')
       const response = await verify2FA({ code: codeNoSpace })
       if (response.status === 'ok' && response.secret) {
-        setRecoveryCodes([response.secret])
+        updateRecoveryCodes([response.secret])
         setQrCodeImage(null)
         setCode('')
       } else {
@@ -71,7 +97,7 @@ export const UserSecurityView: React.FC = () => {
             type="checkbox"
             checked={isTwoFAEnabled}
             onChange={handle2FAToggleChange}
-            disabled={isLoading}
+            disabled={isLoading || isTwoFAEnabled}
           />
           {isTwoFAEnabled ? '2FA Enabled' : 'Enable 2FA'}
         </label>
@@ -103,18 +129,25 @@ export const UserSecurityView: React.FC = () => {
           </form>
         </>
       )}
-      {recoveryCodes && (
+      {!recoveryViewed && recoveryCodes && (
         <div>
           <h2>Recovery Codes</h2>
-          <p>
+          <p className="  text-red-500">
             Keep these codes in a safe place. You can use them to recover access
             to your account if you lose your 2FA device.
+            <br />
+            These will be available for one minute only.
           </p>
           <ul>
             {recoveryCodes.map((code, index) => (
               <li key={index}>{code}</li>
             ))}
           </ul>
+          <div>
+            <button onClick={updateRecoveryViewed}>
+              I have saved my recovery codes
+            </button>
+          </div>
         </div>
       )}
     </div>
