@@ -19,6 +19,12 @@ export const API_REFRESH_ROUTE = '/auth/refresh'
 export const API_VERIFY_DOCS_ROUTE = '/auth/documents'
 export const API_FORGOT_ROUTE = '/auth/forgot'
 export const API_RESET_ROUTE = '/auth/reset'
+export const API_AUTH_2FA_STEP_1 = 'auth/2fa/generate'
+export const API_AUTH_2FA_STEP_2 = 'auth/2fa/turn-on'
+export const API_AUTH_2FA_STEP_3 = 'auth/2fa/authenticate'
+export const API_AUTH_2FA_RECOVER = 'auth/2fa/request-recovery'
+export const API_AUTH_2FA_CONFIRM_RECOVERY = 'auth/2fa/confirm-recovery'
+export const API_AUTH_2FA_TURN_OFF = 'auth/2fa/turn-off'
 
 // User
 

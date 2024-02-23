@@ -54,6 +54,12 @@ export class UserEntity implements UserInterface {
   @OneToMany(() => ConfirmCodeEntity, confirmCode => confirmCode.user)
   confirmationCodes: ConfirmCodeEntity[]
 
+  @Column()
+  twoFASecret: string | null
+
+  @Column({ type: 'boolean', default: false })
+  isTwoFAEnabled: boolean
+
   @BeforeInsert()
   @BeforeUpdate()
   async hashPassword(): Promise<void> {

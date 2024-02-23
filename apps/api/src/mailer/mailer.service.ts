@@ -29,21 +29,19 @@ export class MailerService {
       'noreply@example.com'
     )
 
+    const auth = user && pass ? { auth: { user, pass } } : {}
+
     this.transporter = nodemailer.createTransport(
       {
         host,
         port,
         secure,
-        auth: {
-          user,
-          pass
-        }
+        ...auth,
+        debug: process.env.NODE_ENV === 'development',
+        logger: process.env.NODE_ENV === 'development'
       },
       {
-        from: {
-          name: fromName,
-          address: fromAddress
-        }
+        from: `"${fromName}" <${fromAddress}>`
       }
     )
   }
@@ -56,7 +54,7 @@ export class MailerService {
     }
 
     const templatesFolderPath = path.join(__dirname, './templates')
-    const templatePath = path.join(templatesFolderPath, templateName)
+    const templatePath = path.join(templatesFolderPath, `${templateName}.hbs`)
 
     const templateSource = fs.readFileSync(templatePath, 'utf8')
 
@@ -83,7 +81,6 @@ export class MailerService {
         html: html
       })
     } catch (err) {
-      console.error(err)
       throw new HttpException(
         'Email could not be sent',
         HttpStatus.INTERNAL_SERVER_ERROR

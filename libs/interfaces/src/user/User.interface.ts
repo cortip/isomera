@@ -11,4 +11,6 @@ export interface UserInterface {
   passwordResetCode?: string | null
   active: boolean
   confirmationCodes?: ConfirmationCodeInterface[]
+  isTwoFAEnabled: boolean
+  isTwoFactorAuthenticated?: boolean
 }

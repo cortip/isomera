@@ -10,7 +10,12 @@ export const SignInView = () => {
 
   const onSuccess = (data: UserInterface) => {
     setUser(data)
-    navigate(pages.dashboard.path)
+
+    if (data && data.isTwoFAEnabled && !data.isTwoFactorAuthenticated) {
+      navigate(pages.twoFA.path)
+    } else {
+      navigate(pages.dashboard.path)
+    }
   }
 
   const {

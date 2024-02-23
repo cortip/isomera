@@ -15,7 +15,24 @@ describe('MailerService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [MailerService]
+      providers: [
+        MailerService,
+        {
+          provide: ConfigService,
+          useValue: {
+            get: jest.fn((key: string) => {
+              // this is being super extra, in the case that you need multiple keys with the `get` method
+              if (key === 'MAIL_FROM_NAME') {
+                return 'from name'
+              }
+              if (key === 'MAIL_FROM_ADDRESS') {
+                return 'from address'
+              }
+              return null
+            })
+          }
+        }
+      ]
     })
       .useMocker(token => {
         if (Object.is(token, ConfigService)) {

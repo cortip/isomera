@@ -16,7 +16,7 @@ export class UserService {
   ) {}
 
   async create(data: Partial<UserEntity>): Promise<UserEntity> {
-    const user = this.userRepository.create(data)
+    const user = this.userRepository.create({ ...data, isTwoFAEnabled: false })
 
     return this.userRepository.save(user)
   }
@@ -87,6 +87,28 @@ export class UserService {
     token: string
   ): Promise<UserEntity> {
     user.refreshToken = token
+    return this.userRepository.save(user)
+  }
+
+  async setTwoFactorAuthenticationSecret(
+    user: UserEntity,
+    secret: string
+  ): Promise<UserEntity> {
+    user.twoFASecret = secret
+    return this.userRepository.save(user)
+  }
+
+  async setupTwoFactorAuthentication(
+    user: UserEntity,
+    enable = false
+  ): Promise<UserEntity> {
+    user.isTwoFAEnabled = enable
+    return this.userRepository.save(user)
+  }
+
+  async turnOfTwoFactorAuthentication(user: UserEntity): Promise<UserEntity> {
+    user.isTwoFAEnabled = false
+    user.twoFASecret = ''
     return this.userRepository.save(user)
   }
 }

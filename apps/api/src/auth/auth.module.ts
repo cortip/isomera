@@ -12,6 +12,7 @@ import { MailerModule } from '../mailer/mailer.module'
 import { ConfirmCodeModule } from '../user/confirm-code.module'
 import { OrganizationModule } from '../organization/organization.module'
 import { JwtRefreshTokenStrategy } from './strategies/jwt-refresh-token.strategy'
+import { Jwt2faStrategy } from './strategies/jwt-2fa.strategy'
 
 @Module({
   imports: [
@@ -37,7 +38,8 @@ import { JwtRefreshTokenStrategy } from './strategies/jwt-refresh-token.strategy
     LocalStrategy,
     JwtStrategy,
     SessionSerializer,
-    JwtRefreshTokenStrategy
+    JwtRefreshTokenStrategy,
+    Jwt2faStrategy
   ]
 })
 export class AuthModule {}

@@ -2,6 +2,15 @@ export const pages = {
   login: {
     path: '/login'
   },
+  twoFA: {
+    path: '/2fa'
+  },
+  recover2FA: {
+    path: '/2fa/recover'
+  },
+  confirmRecovery2FA: {
+    path: '/2fa/confirm-recovery'
+  },
   register: {
     path: '/sign-up'
   },
@@ -52,6 +61,9 @@ export const pages = {
   },
   profileSetting: {
     path: '/settings/profile'
+  },
+  profileSecurity: {
+    path: '/settings/profile/security'
   },
   userInfo: {
     path: '/user/info'

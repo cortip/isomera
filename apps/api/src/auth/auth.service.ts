@@ -13,7 +13,13 @@ import {
   ResetPasswordRequestDto,
   SignUpWithEmailCredentialsDto
 } from '@isomera/dtos'
-import { JwtPayload, LoginResponseInterface } from '@isomera/interfaces'
+import {
+  JwtPayload,
+  LoginResponseInterface,
+  LoginWith2FAPayload,
+  LoginWithEmailPayload,
+  SignTokenInterface
+} from '@isomera/interfaces'
 import { UserService } from '../user/user.service'
 import { MailerService } from '../mailer/mailer.service'
 import { ConfirmCodeService } from '../user/confirm-code.service'
@@ -22,8 +28,9 @@ import { generateRandomStringUtil } from '@isomera/utils'
 import { OrganizationService } from '../organization/organization.service'
 import { ConfigService } from '@nestjs/config'
 import * as bcrypt from 'bcrypt'
-import { pages } from '@isomera/impl'
 import { HandlebarsTemplate } from '../mailer/types/mailer.types'
+import { authenticator } from 'otplib'
+import { toDataURL } from 'qrcode'
 
 @Injectable()
 export class AuthService {
@@ -86,11 +93,8 @@ export class AuthService {
       )
     }
 
-    console.log('xxx', user)
-
-    const { refresh_token, access_token } = this.signToken(user)
-
-    await this.storeRefreshToken(user, refresh_token)
+    const { refresh_token, access_token } =
+      await this.generateTokenFromUser(user)
 
     delete user.password
 
@@ -112,31 +116,24 @@ export class AuthService {
     return user
   }
 
-  signToken(user: UserEntity): { refresh_token: string; access_token: string } {
+  signToken<T>(payload: T): SignTokenInterface {
     return {
-      refresh_token: this.generateRefreshToken(user.email),
-      access_token: this.generateAccessToken(user.email)
+      refresh_token: this.generateRefreshToken(payload),
+      access_token: this.generateAccessToken(payload)
     }
   }
 
-  public generateAccessToken(email: string): string {
-    const payload = {
-      sub: email
-    }
-
-    return this.jwtService.sign(payload, {
+  public generateAccessToken<T>(payload: T): string {
+    return this.jwtService.sign(payload as object, {
       expiresIn: `${this.configService.get<string>(
-        'JWT_ACCESS_TOKEN_EXPIRATION_TIME'
+        'JWT_ACCESS_TOKEN_EXPIRATION_TIME',
+        '260'
       )}s`
     })
   }
 
-  public generateRefreshToken(email: string): string {
-    const payload = {
-      sub: email
-    }
-
-    return this.jwtService.sign(payload, {
+  public generateRefreshToken<T>(payload: T): string {
+    return this.jwtService.sign(payload as object, {
       expiresIn: `${this.configService.get<string>(
         'JWT_REFRESH_TOKEN_EXPIRATION_TIME'
       )}s`
@@ -261,5 +258,160 @@ export class AuthService {
 
   async logout(user: UserEntity) {
     return this.userService.storeRefreshToken(user, null)
+  }
+
+  // for 2FA
+  async generateTwoFactorAuthenticationSecret(user: UserEntity) {
+    const secret = authenticator.generateSecret()
+
+    const otpAuthUrl = authenticator.keyuri(
+      user.email,
+      this.configService.get<string>('AUTH_APP_NAME'),
+      secret
+    )
+
+    await this.userService.setTwoFactorAuthenticationSecret(user, secret)
+
+    return {
+      secret,
+      otpAuthUrl
+    }
+  }
+
+  // for 2FA
+  isTwoFactorAuthenticationCodeValid(user: UserEntity, code: string): boolean {
+    return authenticator.verify({
+      token: code,
+      secret: user.twoFASecret
+    })
+  }
+
+  /**
+   * Generate QR code
+   * @param otpAuthUrl
+   * @returns
+   */
+  async generateQrCodeDataURL(otpAuthUrl: string) {
+    return toDataURL(otpAuthUrl)
+  }
+
+  /**
+   * Turn on 2FA
+   * @param user
+   * @param code
+   */
+  async turnOn2FA(user: UserEntity, code: string) {
+    const isCodeValid = this.isTwoFactorAuthenticationCodeValid(user, code)
+
+    if (!isCodeValid) {
+      throw new UnauthorizedException('Code is incorrect.')
+    }
+
+    await this.userService.setupTwoFactorAuthentication(user, true)
+  }
+
+  /**
+   * Turn off 2FA
+   * @param user
+   * @param code
+   */
+  async turnOff2FA(user: UserEntity, code: string) {
+    const isCodeValid = this.isTwoFactorAuthenticationCodeValid(user, code)
+
+    if (!isCodeValid) {
+      throw new UnauthorizedException('Code is incorrect.')
+    }
+
+    await this.userService.turnOfTwoFactorAuthentication(user)
+  }
+
+  /**
+   * Login with 2FA
+   * @param user
+   * @param code
+   * @returns
+   */
+  async loginWith2fa(
+    user: UserEntity,
+    code: string
+  ): Promise<LoginResponseInterface> {
+    const isCodeValid = this.isTwoFactorAuthenticationCodeValid(user, code)
+
+    if (!isCodeValid) {
+      throw new UnauthorizedException('Code is incorrect.')
+    }
+
+    const payload: LoginWith2FAPayload = {
+      email: user.email,
+      isTwoFactorAuthenticationEnabled: !!user.isTwoFAEnabled,
+      isTwoFactorAuthenticated: true
+    }
+
+    const { refresh_token, access_token } = this.signToken(payload)
+
+    await this.storeRefreshToken(user, refresh_token)
+
+    return {
+      ...user,
+      access_token: access_token,
+      refresh_token: refresh_token
+    }
+  }
+
+  async requestRecovery2FA(secret: string) {
+    const user = await this.userService.findOne({
+      where: { twoFASecret: secret }
+    })
+    if (!user) {
+      throw new UnauthorizedException(`There isn't any user with this code`)
+    }
+
+    if (process.env.NODE_ENV !== 'test') {
+      const code = await this.confirmCode.genNewCode(user)
+      if (code.code) {
+        await this.mailerService.sendEmail(
+          user,
+          'Two Factor Authentication Recovery',
+          HandlebarsTemplate.CONFIRM_RECOVERY,
+          {
+            name: user.firstName,
+            code: code.code,
+            email: user.email,
+            baseUrl: process.env.PLATFORM_URL
+          }
+        )
+        return user
+      }
+      throw new HttpException(
+        "Couldn't generate the code",
+        HttpStatus.INTERNAL_SERVER_ERROR
+      )
+    } else {
+      return user
+    }
+  }
+
+  async confirmRecovery2FACode({
+    code,
+    email
+  }: Pure<ConfirmationCodeDto>): Promise<UserEntity> {
+    const user = await this.confirmCode.verifyCode(code, email)
+    return this.userService.turnOfTwoFactorAuthentication(user)
+  }
+
+  /**
+   * Generate token from user
+   * @param user
+   * @returns
+   */
+  async generateTokenFromUser(user: UserEntity): Promise<SignTokenInterface> {
+    const payload: LoginWithEmailPayload = {
+      email: user.email
+    }
+    const { refresh_token, access_token } = this.signToken(payload)
+
+    await this.storeRefreshToken(user, refresh_token)
+
+    return { refresh_token, access_token }
   }
 }

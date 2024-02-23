@@ -13,6 +13,10 @@ import { Routes, Route } from 'react-router-dom'
 import PrivateRoute from './privateRoute'
 import { PublicLayout } from '../layouts/public.layout'
 import { PrivateLayout } from '../layouts/private.layout'
+import { UserSecurityView } from '../views/user /profile-security.view'
+import { Verify2FAView } from '../views/auth/auth2FA.view'
+import { Recovery2FAView } from '../views/auth/recovery.view'
+import { Disable2FAView } from '../views/auth/disable-2fa.view'
 
 function Router() {
   return (
@@ -90,11 +94,58 @@ function Router() {
       />
 
       <Route
+        path={pages.twoFA.path}
+        element={
+          <PublicRoute>
+            <PublicLayout>
+              <Verify2FAView />
+              <Link to={pages.recover2FA.path}>
+                I don&apos;t have access to my 2fa and need to reset with
+                recovery code
+              </Link>
+            </PublicLayout>
+          </PublicRoute>
+        }
+      />
+
+      <Route
+        path={pages.recover2FA.path}
+        element={
+          <PublicRoute>
+            <PublicLayout>
+              <Recovery2FAView />
+            </PublicLayout>
+          </PublicRoute>
+        }
+      />
+
+      <Route
+        path={pages.confirmRecovery2FA.path}
+        element={
+          <PublicRoute>
+            <PublicLayout>
+              <Disable2FAView />
+            </PublicLayout>
+          </PublicRoute>
+        }
+      />
+
+      <Route
         path={pages.userInfo.path}
         element={
           <PrivateRoute>
             <PrivateLayout>
               <UserInfoView />
+            </PrivateLayout>
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path={pages.profileSecurity.path}
+        element={
+          <PrivateRoute>
+            <PrivateLayout>
+              <UserSecurityView />
             </PrivateLayout>
           </PrivateRoute>
         }
