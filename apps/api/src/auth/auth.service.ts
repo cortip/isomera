@@ -93,14 +93,8 @@ export class AuthService {
       )
     }
 
-    console.log('xxx', user)
-
-    const payload: LoginWithEmailPayload = {
-      email: user.email
-    }
-    const { refresh_token, access_token } = this.signToken(payload)
-
-    await this.storeRefreshToken(user, refresh_token)
+    const { refresh_token, access_token } =
+      await this.generateTokenFromUser(user)
 
     delete user.password
 
@@ -317,6 +311,21 @@ export class AuthService {
   }
 
   /**
+   * Turn off 2FA
+   * @param user
+   * @param code
+   */
+  async turnOff2FA(user: UserEntity, code: string) {
+    const isCodeValid = this.isTwoFactorAuthenticationCodeValid(user, code)
+
+    if (!isCodeValid) {
+      throw new UnauthorizedException('Code is incorrect.')
+    }
+
+    await this.userService.turnOfTwoFactorAuthentication(user)
+  }
+
+  /**
    * Login with 2FA
    * @param user
    * @param code
@@ -388,5 +397,21 @@ export class AuthService {
   }: Pure<ConfirmationCodeDto>): Promise<UserEntity> {
     const user = await this.confirmCode.verifyCode(code, email)
     return this.userService.turnOfTwoFactorAuthentication(user)
+  }
+
+  /**
+   * Generate token from user
+   * @param user
+   * @returns
+   */
+  async generateTokenFromUser(user: UserEntity): Promise<SignTokenInterface> {
+    const payload: LoginWithEmailPayload = {
+      email: user.email
+    }
+    const { refresh_token, access_token } = this.signToken(payload)
+
+    await this.storeRefreshToken(user, refresh_token)
+
+    return { refresh_token, access_token }
   }
 }

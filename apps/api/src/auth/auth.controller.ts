@@ -20,6 +20,7 @@ import {
   ResetPasswordRequestDto,
   SignInWithEmailCredentialsDto,
   SignUpWithEmailCredentialsDto,
+  TurnOff2FADto,
   TurnOn2FADto
 } from '@isomera/dtos'
 import { LocalAuthGuard } from './guards/local-auth.guard'
@@ -32,7 +33,8 @@ import {
   PasswordResetRequestInterface,
   Pure,
   RefreshTokenResponseInterface,
-  StatusType
+  StatusType,
+  TurnOff2FAResponseInterface
 } from '@isomera/interfaces'
 import { JwtRefreshTokenGuard } from './guards/jwt-refresh-token'
 import { Jwt2faAuthGuard } from './guards/jwt-2fa-auth.guard'
@@ -200,5 +202,23 @@ export class AuthController {
     delete data.password
 
     return data
+  }
+
+  @Post('2fa/turn-off')
+  @UseGuards(SessionAuthGuard, Jwt2faAuthGuard)
+  @HttpCode(HttpStatus.OK)
+  async turnOffTwoFactorAuthentication(
+    @AuthUser() user: Pure<UserEntity>,
+    @Body() { code }: Pure<TurnOff2FADto>
+  ): Promise<TurnOff2FAResponseInterface> {
+    await this.authService.turnOff2FA(user, code)
+    const { access_token, refresh_token } =
+      await this.authService.generateTokenFromUser(user)
+
+    return {
+      status: StatusType.OK,
+      access_token,
+      refresh_token
+    }
   }
 }
