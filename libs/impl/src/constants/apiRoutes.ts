@@ -24,6 +24,7 @@ export const API_AUTH_2FA_STEP_2 = 'auth/2fa/turn-on'
 export const API_AUTH_2FA_STEP_3 = 'auth/2fa/authenticate'
 export const API_AUTH_2FA_RECOVER = 'auth/2fa/request-recovery'
 export const API_AUTH_2FA_CONFIRM_RECOVERY = 'auth/2fa/confirm-recovery'
+export const API_AUTH_2FA_TURN_OFF = 'auth/2fa/turn-off'
 
 // User
 

@@ -1,10 +1,11 @@
-import { UserInterface } from '@isomera/interfaces'
+import { TurnOff2FAResponseInterface, UserInterface } from '@isomera/interfaces'
 import {
   API_AUTH_2FA_CONFIRM_RECOVERY,
   API_AUTH_2FA_RECOVER,
   API_AUTH_2FA_STEP_1,
   API_AUTH_2FA_STEP_2,
-  API_AUTH_2FA_STEP_3
+  API_AUTH_2FA_STEP_3,
+  API_AUTH_2FA_TURN_OFF
 } from '../../constants'
 import { axiosInstance } from '../../utils'
 
@@ -71,6 +72,14 @@ export const authDisableService = async (
   data: Verify2FAData
 ): Promise<Auth2FAResponse> => {
   const response = await axiosInstance.post(API_AUTH_2FA_CONFIRM_RECOVERY, data)
+
+  return response.data
+}
+
+export const turnOff2FA2Service = async (
+  data: Verify2FAData
+): Promise<TurnOff2FAResponseInterface> => {
+  const response = await axiosInstance.post(API_AUTH_2FA_TURN_OFF, data)
 
   return response.data
 }

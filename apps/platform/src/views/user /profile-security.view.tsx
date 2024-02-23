@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import useSession from '../../hooks/useSession'
 import { useTwoFactorAuthHook } from '../../hooks/use2FA'
+import { setAuthState } from '@isomera/impl'
+import { UserInterface } from '@isomera/interfaces'
 
 export const UserSecurityView: React.FC = () => {
-  const { generate2FA, verify2FA, isLoading } = useTwoFactorAuthHook()
+  const { generate2FA, verify2FA, turnOff2FA, isLoading } = useTwoFactorAuthHook()
   const [qrCodeImage, setQrCodeImage] = useState<string | null>(null)
   const [code, setCode] = useState('')
   const [verificationError, setVerificationError] = useState<string | null>(
@@ -14,7 +16,8 @@ export const UserSecurityView: React.FC = () => {
     recoveryCodes,
     updateRecoveryCodes,
     recoveryViewed,
-    updateRecoveryViewed
+    updateRecoveryViewed,
+    setUser
   } = useSession()
 
   const [showRecoveryCodes, setShowRecoveryCodes] = useState(false)
@@ -58,8 +61,8 @@ export const UserSecurityView: React.FC = () => {
   const handle2FAToggleChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
+    setIsTwoFAEnabled(event.target.checked)
     if (!isTwoFAEnabled) {
-      setIsTwoFAEnabled(event.target.checked)
       handleToggle2FA()
     }
   }
@@ -73,6 +76,28 @@ export const UserSecurityView: React.FC = () => {
         updateRecoveryCodes([response.secret])
         setQrCodeImage(null)
         setCode('')
+      } else {
+        setVerificationError('Failed to verify 2FA code.')
+      }
+    } catch (error) {
+      console.error('Error verifying 2FA code:', error)
+      setVerificationError('An error occurred while verifying the 2FA code.')
+    }
+  }
+
+  const handleTurnoff2FA = async (e: React.FormEvent) => {
+    e.preventDefault()
+    try {
+      const codeNoSpace = code.split(' ').join('')
+      const {status, access_token, refresh_token} = await turnOff2FA({ code: codeNoSpace })
+      if (status === 'ok') {
+        setCode('')
+        setAuthState({accessToken: access_token, refreshToken: refresh_token})
+        const newUser = {...user}
+        newUser.isTwoFAEnabled = false
+        newUser.accessToken = access_token
+        newUser.refreshToken = refresh_token
+        setUser(newUser as UserInterface)
       } else {
         setVerificationError('Failed to verify 2FA code.')
       }
@@ -97,11 +122,33 @@ export const UserSecurityView: React.FC = () => {
             type="checkbox"
             checked={isTwoFAEnabled}
             onChange={handle2FAToggleChange}
-            disabled={isLoading || isTwoFAEnabled}
+            disabled={isLoading}
           />
           {isTwoFAEnabled ? '2FA Enabled' : 'Enable 2FA'}
         </label>
       )}
+      {
+        user?.isTwoFAEnabled && !isTwoFAEnabled && (
+          <form onSubmit={handleTurnoff2FA}>
+            <div>
+              <label>
+                Enter the code from your authenticator app:
+                {''}
+                <input
+                  type="text"
+                  value={code}
+                  onChange={e => setCode(e.target.value)}
+                  required
+                />
+              </label>
+            </div>
+            <button type="submit">Verify Code</button>
+            {verificationError && (
+              <p style={{ color: 'red' }}>{verificationError}</p>
+            )}
+          </form>
+        )
+      }
       {qrCodeImage && (
         <>
           <p>
