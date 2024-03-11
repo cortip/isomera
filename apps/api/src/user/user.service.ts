@@ -5,7 +5,7 @@ import { Repository, FindOneOptions } from 'typeorm'
 import { UserUpdate } from './dto/user-update.dto'
 import { UserEntity } from '../entities/user.entity'
 import { ConfigService } from '@nestjs/config'
-import moment from 'moment'
+import { DateTime } from 'luxon'
 
 @Injectable()
 export class UserService {
@@ -58,10 +58,9 @@ export class UserService {
     const resetPasswordPeriod = this.configService.get<number>(
       'RESET_PASSWORD_PERIOD'
     )
-    const expiredTime = moment()
-      .clone()
-      .add(resetPasswordPeriod, 'minutes')
-      .format('YYYY-MM-DD HH:mm:ss')
+    const expiredTime = DateTime.now()
+      .plus({ minute: resetPasswordPeriod })
+      .toFormat('yyyy-MM-dd HH:mm:ss')
 
     user.passwordResetCode = passwordResetCode
     user.passwordResetExpiredTime = expiredTime

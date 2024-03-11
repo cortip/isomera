@@ -11,7 +11,7 @@ import {
 import { UserInterface } from '@isomera/interfaces'
 import bcrypt from 'bcryptjs'
 import { ConfirmCodeEntity } from './confirm-code.entity'
-import moment from 'moment'
+import { DateTime } from 'luxon'
 
 @Entity({ name: 'users' })
 export class UserEntity implements UserInterface {
@@ -76,6 +76,10 @@ export class UserEntity implements UserInterface {
   }
 
   public isValidResetCodeTime() {
-    return moment().isSameOrBefore(this.passwordResetExpiredTime)
+    const expiresAt = DateTime.fromFormat(
+      this.passwordResetExpiredTime,
+      'yyyy-MM-dd HH:mm:ss'
+    )
+    return DateTime.now() <= expiresAt
   }
 }
