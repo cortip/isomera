@@ -134,7 +134,7 @@
     "jest-circus": "^29.4.1",
     "jest-environment-jsdom": "^29.4.1",
     "jest-environment-node": "^29.4.1",
-    "jest-expo": "~49.0.0",
+    "jest-expo": "~50.0.4",
     "jest-ts-auto-mock": "^2.1.0",
     "metro": "0.76.8",
     "metro-resolver": "0.76.8",
