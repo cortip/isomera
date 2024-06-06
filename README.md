@@ -124,7 +124,7 @@ line of code at a time. 🚀
 - [ ] Easy solution for roles and access management
 - [ ] SQS queue and jobs - support heavy load
 - [ ] Redis & Memcached for caching + tooling in code
-- [ ] Production split for api and workers to allow better control on
+- [x] Production split for api and workers to allow better control on
       auto-scaling
 - [ ] ...
 
@@ -141,9 +141,9 @@ line of code at a time. 🚀
       OrgFinance, OrgAnalytic, OrgSupport, OrgUser, OrgReadonly, OrgClientVIP,
       OrgClient)
 - [ ] User can transfer organization ownership
-- [ ] User can enable 2FA
+- [x] User can enable 2FA
 - [ ] User can enforce 2FA for organization users
-- [ ] User can edit basic profile details (name, photo)
+- [x] User can edit basic profile details (name, photo)
 - [ ] User can delete organization
 - [ ] User can delete account
 - [ ] ...
