@@ -101,19 +101,32 @@ export class AuthService {
     return { ...user, refresh_token, access_token }
   }
 
-  async verifyPayload(payload: JwtPayload): Promise<UserEntity> {
-    let user: UserEntity
+  async verifyPayload(
+    payload: JwtPayload
+  ): Promise<UserEntity & { isTwoFactorAuthenticated?: boolean }> {
+    let user: UserEntity & { isTwoFactorAuthenticated?: boolean }
 
     try {
-      user = await this.userService.findOne({ where: { email: payload.sub } })
+      user = await this.userService.findOne({
+        where: { email: payload.email }
+      })
+
+      if (!user.isTwoFAEnabled) {
+        return user
+      }
+
+      if (payload.isTwoFactorAuthenticated) {
+        user.isTwoFactorAuthenticated = payload.isTwoFactorAuthenticated
+      }
+
+      delete user.password
+
+      return user
     } catch (error) {
       throw new UnauthorizedException(
-        `There isn't any user with email: ${payload.sub}`
+        `There isn't any user with email: ${payload.email}`
       )
     }
-    delete user.password
-
-    return user
   }
 
   signToken<T>(payload: T): SignTokenInterface {

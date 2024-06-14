@@ -159,7 +159,9 @@ describe('AuthService', () => {
 
   it('should verify the JWT payload', async () => {
     const payload: JwtPayload = {
-      sub: 'john@doe.me',
+      sub: 'notregistered@example.com',
+      email: 'notregistered@example.com',
+      isTwoFactorAuthenticationEnabled: false,
       iat: 0,
       exp: 0
     }
@@ -176,6 +178,8 @@ describe('AuthService', () => {
   it("should throw on verify when JWT's subject not exist", async () => {
     const payload: JwtPayload = {
       sub: 'notregistered@example.com',
+      email: 'notregistered@example.com',
+      isTwoFactorAuthenticationEnabled: false,
       iat: 0,
       exp: 0
     }
