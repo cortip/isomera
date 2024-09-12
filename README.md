@@ -6,8 +6,12 @@
 <br />
 <br />
 
+### Introduction video 👇👇👇
+
 <a href="https://www.youtube.com/watch?v=PZcMe6XzdLM" target="_blank">
-  ![image](https://github.com/user-attachments/assets/3f5747f8-e9c8-4c08-8d7f-ec4dbfcef790)
+  
+![image](https://github.com/user-attachments/assets/096ea94f-0db1-4365-9a8b-6ec73a6294cd)
+
 </a>
 
 # ISOMERA: The Ultimate Javascript/Typescript SaaS Boilerplate Monorepo for Modern Developers
